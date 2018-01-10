@@ -7,12 +7,13 @@ export default class CheeseCarousel extends React.Component {
     render() {
         return (
             <Carousel
-                autoPlay='true'
-                interval='7000'
-                transitionTime='500'
-                infiniteLoop='true'
-                stopOnHover='true'
-                showStatus='false'>
+                autoPlay={true}
+                interval={7000}
+                transitionTime={500}
+                infiniteLoop={true}
+                stopOnHover={true}
+                showStatus={false}
+            >
                 <div>
                     <img src="http://www.eatwisconsincheese.com/images/cheese/Cheddar-h.jpg" />
                     <p className="legend">Legend 1</p>
