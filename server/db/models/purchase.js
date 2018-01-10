@@ -17,6 +17,10 @@ const Purchase = db.define('purchase', {
   price: {
     type: Sequelize.FLOAT,
     allowNull: false
+  },
+  status: {
+    type: Sequelize.STRING,
+    defaultValue: 'processing'
   }
 })
 
