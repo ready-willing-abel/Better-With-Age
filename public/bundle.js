@@ -5850,12 +5850,13 @@ var CheeseCarousel = function (_React$Component) {
             return _react2.default.createElement(
                 _reactResponsiveCarousel.Carousel,
                 {
-                    autoPlay: 'true',
-                    interval: '7000',
-                    transitionTime: '500',
-                    infiniteLoop: 'true',
-                    stopOnHover: 'true',
-                    showStatus: 'false' },
+                    autoPlay: true,
+                    interval: 7000,
+                    transitionTime: 500,
+                    infiniteLoop: true,
+                    stopOnHover: true,
+                    showStatus: false
+                },
                 _react2.default.createElement(
                     'div',
                     null,
