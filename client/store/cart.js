@@ -51,6 +51,7 @@ export const UpdateCart = (userId,cheeseId, amount) =>
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
 export const AddToCart = (userId, cheeseId) =>
+//CG be careful with additional /
   dispatch =>
     axios.post(`/cart/`, { userId, cheeseId })
       .then(res => {

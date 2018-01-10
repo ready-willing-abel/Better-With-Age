@@ -52,6 +52,7 @@ router.put('/:id', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
   Purchase.findAll({
+    //include modelUser.
     include: [{ all: true }]
   })
     .then(purchases => res.json(purchases))

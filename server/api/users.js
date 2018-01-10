@@ -3,8 +3,11 @@ const {User, Cart, Purchase} = require('../db/models')
 module.exports = router
 
 router.get('/:id', (req, res, next) => {
+  //only let a user look up his/herself
   User.findOne({
-    where: {id: req.params.id},
+    where: {
+      id: req.params.id
+    },
     include: [{ all: true }]
   })
     .then(user => res.json(user))
@@ -13,7 +16,8 @@ router.get('/:id', (req, res, next) => {
 
 
 router.put('/:id', function (req, res, next) {
-  User.update(req.body, {where: {
+  User.update(req.body, {
+    where: {
       id: req.params.id
     }
   })

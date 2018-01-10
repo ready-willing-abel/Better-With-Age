@@ -21,3 +21,8 @@ const Purchase = db.define('purchase', {
 })
 
 module.exports = Purchase
+
+//CG
+//order table -- purchased and notpurchased. 1 to many relationship between user and order. 
+//join table between that order and the products
+//order_products --> their price should reflect the price at purchase.
