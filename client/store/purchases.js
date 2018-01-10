@@ -21,8 +21,8 @@ const defaultPurchases = []
 
  const getPurchases = (purchases) => ({type: GET_PURCHASES, purchases})
  const deletePurchase = (id) => ({type: DELETE_ORDER, id})
- const updateOrder = () => ({type: UPDATE_ORDER, })
- const addOrder = () => ({type: ADD_ORDER, })
+ const updateOrder = (changes) => ({type: UPDATE_ORDER, changes})
+ const addOrder = (purchase) => ({type: ADD_ORDER, purchase})
 
 /**
  * THUNK CREATORS
@@ -36,17 +36,17 @@ const defaultPurchases = []
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
- export const GetPurchasesOrder = (orderId) =>
+ export const GetUnorderedPurchasesUser = (userId) =>
    dispatch =>
-     axios.get(`/purchases/order/${orderId}`)
+     axios.get(`/purchases/user/cart/${userId}`)
        .then(res => {
          dispatch(getPurchases(res))
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
- export const GetPurchasesUser = (userId) =>
+ export const GetOldPurchasesUser = (userId) =>
    dispatch =>
-     axios.get(`/purchases/user/${userId}`)
+     axios.get(`/purchases/user/history/${userId}`)
        .then(res => {
          dispatch(getPurchases(res))
        })
@@ -60,11 +60,11 @@ export const UpdatePurchase = (id, changes) =>
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
-export const AddPurchase = (cheese) =>
+export const AddPurchase = (purchaseInfo) =>
   dispatch =>
-    axios.post(`/cheeses/`, cheese)
+    axios.post(`/purchases/`, purchaseInfo)
       .then(res => {
-        dispatch(addCheese(res))
+        dispatch(addPurchase(res))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
@@ -84,14 +84,14 @@ export default function (state = defaultPurchases, action) {
   switch (action.type) {
     case GET_PURCHASES:
       return action.purchases
-    case REMOVE_CHEESE:
+    case DELETE_PURCHASE:
       return state.filter(v => v.id !== action.id)
-    case UPDATE_CHEESE:
-      return state.filter(v => {
+    case UPDATE_PURCHASE:
+      return state.map(v => {
         return (v.id === action.id) ? Object.assign({}, v, action.changes) : v
       })
-    case ADD_CHEESE:
-      return state.concat(action.cheese)
+    case ADD_PURCHASE:
+      return state.concat(action.purchase)
     default:
       return state
   }

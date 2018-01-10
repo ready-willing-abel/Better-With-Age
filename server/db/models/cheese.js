@@ -6,15 +6,15 @@ const Cheese = db.define('cheese', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  type: {
-    type: Sequelize.INTEGER,
+  category: {
+    type: Sequelize.STRING,
     allowNull: false
   },
-  tags: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-  },
   price: {
-    type: Sequelize.FLOAT
+    type: Sequelize.INTEGER
+  },
+  quantity:{
+    type: Sequelize.INTEGER,
   }
 })
 

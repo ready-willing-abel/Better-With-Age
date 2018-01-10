@@ -10,13 +10,9 @@ const Purchase = db.define('purchase', {
     type: Sequelize.FLOAT,
     allowNull: false
   },
-  orderId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  status: {
-    type: Sequelize.STRING,
-    defaultValue: 'processing'
+  ordered: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 
