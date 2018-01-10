@@ -28,30 +28,35 @@ const defaultPurchases = []
  * THUNK CREATORS
  */
 
+  export const GetPurchasesAll = () =>
+  dispatch =>
+    axios.get(`/purchases/`)
+      .then(res => {
+        dispatch(getPurchases(res))
+      })
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+
  export const GetPurchasesOrder = (orderId) =>
    dispatch =>
-     axios.get(`/cheeses/order/${orderId}`)
+     axios.get(`/purchases/order/${orderId}`)
        .then(res => {
          dispatch(getPurchases(res))
-         history.push(/*NEED A ROUTE FOR THIS*/)
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
  export const GetPurchasesUser = (userId) =>
    dispatch =>
-     axios.get(`/cheeses/user/${userId}`)
+     axios.get(`/purchases/user/${userId}`)
        .then(res => {
          dispatch(getPurchases(res))
-         history.push(/*NEED A ROUTE FOR THIS*/)
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
 export const UpdatePurchase = (id, changes) =>
   dispatch =>
-    axios.put(`/cheeses/${id}`, changes)
-      .then(res => {
-        dispatch(updateCheese(changes))
-        history.push(/*NEED A ROUTE FOR THIS*/)
+    axios.put(`/purchases/${id}`, changes)
+      .then(updated => {
+        dispatch(updateOrder(updated))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
@@ -60,7 +65,6 @@ export const AddPurchase = (cheese) =>
     axios.post(`/cheeses/`, cheese)
       .then(res => {
         dispatch(addCheese(res))
-        history.push(/*NEED A ROUTE FOR THIS*/)
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
@@ -69,7 +73,6 @@ export const DeletePurchase = (id) =>
     axios.delete(`/purchases/${id}`)
       .then(res => {
         dispatch(deletePurchase(res))
-        history.push(/*NEED A ROUTE FOR THIS*/)
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 

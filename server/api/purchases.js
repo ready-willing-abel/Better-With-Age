@@ -44,8 +44,8 @@ router.put('/:id', (req, res, next) => {
       id: req.params.id
     }
   })
-    .then(r => {
-      res.sendStatus(201)
+    .then(order => {
+      res.json(order)
     })
     .catch(next)
 })

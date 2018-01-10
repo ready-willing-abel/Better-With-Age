@@ -35316,7 +35316,6 @@ var RemoveCheeses = exports.RemoveCheeses = function RemoveCheeses(id) {
 /* 198 */
 /***/ (function(module, exports) {
 
-"use strict";
 throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/abelmcelroy/Documents/Abel's/FullStack/Senior/GraceShopper/Better-With-Age/client/store/users.js'");
 
 /***/ }),
@@ -35329,7 +35328,7 @@ throw new Error("Module build failed: Error: ENOENT: no such file or directory, 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DeletePurchase = exports.AddPurchase = exports.UpdatePurchase = exports.GetPurchasesUser = exports.GetPurchasesOrder = undefined;
+exports.DeletePurchase = exports.AddPurchase = exports.UpdatePurchase = exports.GetPurchasesUser = exports.GetPurchasesOrder = exports.GetPurchasesAll = undefined;
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultPurchases;
@@ -35398,12 +35397,21 @@ var addOrder = function addOrder() {
  * THUNK CREATORS
  */
 
+var GetPurchasesAll = exports.GetPurchasesAll = function GetPurchasesAll() {
+  return function (dispatch) {
+    return _axios2.default.get('/purchases/').then(function (res) {
+      dispatch(getPurchases(res));
+    }).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
+    });
+  };
+};
+
 var GetPurchasesOrder = exports.GetPurchasesOrder = function GetPurchasesOrder(orderId) {
   return function (dispatch) {
-    return _axios2.default.get('/cheeses/order/' + orderId).then(function (res) {
+    return _axios2.default.get('/purchases/order/' + orderId).then(function (res) {
       dispatch(getPurchases(res));
-      _history2.default.push();
-    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+    }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
     });
   };
@@ -35411,10 +35419,9 @@ var GetPurchasesOrder = exports.GetPurchasesOrder = function GetPurchasesOrder(o
 
 var GetPurchasesUser = exports.GetPurchasesUser = function GetPurchasesUser(userId) {
   return function (dispatch) {
-    return _axios2.default.get('/cheeses/user/' + userId).then(function (res) {
+    return _axios2.default.get('/purchases/user/' + userId).then(function (res) {
       dispatch(getPurchases(res));
-      _history2.default.push();
-    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+    }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
     });
   };
@@ -35422,10 +35429,9 @@ var GetPurchasesUser = exports.GetPurchasesUser = function GetPurchasesUser(user
 
 var UpdatePurchase = exports.UpdatePurchase = function UpdatePurchase(id, changes) {
   return function (dispatch) {
-    return _axios2.default.put('/cheeses/' + id, changes).then(function (res) {
-      dispatch(updateCheese(changes));
-      _history2.default.push();
-    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+    return _axios2.default.put('/purchases/' + id, changes).then(function (updated) {
+      dispatch(updateOrder(updated));
+    }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
     });
   };
@@ -35435,8 +35441,7 @@ var AddPurchase = exports.AddPurchase = function AddPurchase(cheese) {
   return function (dispatch) {
     return _axios2.default.post('/cheeses/', cheese).then(function (res) {
       dispatch(addCheese(res));
-      _history2.default.push();
-    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+    }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
     });
   };
@@ -35446,8 +35451,7 @@ var DeletePurchase = exports.DeletePurchase = function DeletePurchase(id) {
   return function (dispatch) {
     return _axios2.default.delete('/purchases/' + id).then(function (res) {
       dispatch(deletePurchase(res));
-      _history2.default.push();
-    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+    }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
     });
   };
