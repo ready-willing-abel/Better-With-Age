@@ -6,7 +6,7 @@ import cheeses from './cheeses'
 import purchases from './purchases'
 import user from './user'
 
-const reducer = combineReducers({user, purchases,  cheeses, cart})
+const reducer = combineReducers({user, purchases,  cheeses})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
