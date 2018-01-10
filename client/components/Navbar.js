@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import store from '../store';
 
+
 export default class Navbar extends Component {
 
   render() {
@@ -31,7 +32,7 @@ export default class Navbar extends Component {
                   <RaisedButton label='checkout' />
                 </NavLink>
 
-                <NavLink to='/User'>
+                <NavLink to='/user'>
                   <RaisedButton label='user' />
                 </NavLink>
 
