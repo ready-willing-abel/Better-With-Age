@@ -2352,7 +2352,7 @@ var _user2 = _interopRequireDefault(_user);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var reducer = (0, _redux.combineReducers)({ user: _user2.default, purchases: _purchases2.default, cheeses: _cheeses2.default, cart: cart });
+var reducer = (0, _redux.combineReducers)({ user: _user2.default, purchases: _purchases2.default, cheeses: _cheeses2.default });
 var middleware = (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger2.default)({ collapsed: true })));
 var store = (0, _redux.createStore)(reducer, middleware);
 
@@ -5632,12 +5632,13 @@ var CheeseCarousel = function (_React$Component) {
             return _react2.default.createElement(
                 _reactResponsiveCarousel.Carousel,
                 {
-                    autoPlay: 'true',
-                    interval: '7000',
-                    transitionTime: '500',
-                    infiniteLoop: 'true',
-                    stopOnHover: 'true',
-                    showStatus: 'false' },
+                    autoPlay: true,
+                    interval: 7000,
+                    transitionTime: 500,
+                    infiniteLoop: true,
+                    stopOnHover: true,
+                    showStatus: false
+                },
                 _react2.default.createElement(
                     'div',
                     null,
@@ -13136,9 +13137,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 
 var GET_PURCHASES = 'GET_PURCHASES';
-var DELETE_ORDER = 'DELETE_ORDER';
-var UPDATE_ORDER = 'UPDATE_ORDER';
-var ADD_ORDER = 'ADD_ORDER';
+var DELETE_PURCHASE = 'DELETE_PURCHASE';
+var UPDATE_PURCHASE = 'UPDATE_PURCHASE';
+var ADD_PURCHASE = 'ADD_PURCHASE';
 
 /**
  * INITIAL STATE
@@ -13153,13 +13154,13 @@ var getPurchases = function getPurchases(purchases) {
   return { type: GET_PURCHASES, purchases: purchases };
 };
 var deletePurchase = function deletePurchase(id) {
-  return { type: DELETE_ORDER, id: id };
+  return { type: DELETE_PURCHASE, id: id };
 };
 var updateOrder = function updateOrder(changes) {
-  return { type: UPDATE_ORDER, changes: changes };
+  return { type: UPDATE_PURCHASE, changes: changes };
 };
 var addOrder = function addOrder(purchase) {
-  return { type: ADD_ORDER, purchase: purchase };
+  return { type: ADD_PURCHASE, purchase: purchase };
 };
 
 /**
