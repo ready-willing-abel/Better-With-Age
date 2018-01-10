@@ -2402,13 +2402,16 @@ var _purchases2 = _interopRequireDefault(_purchases);
 
 var _user2 = _interopRequireDefault(_user);
 
+<<<<<<< HEAD
 var _cart = __webpack_require__(203);
 
 var _cart2 = _interopRequireDefault(_cart);
 
+=======
+>>>>>>> 459fd4a9be5b538d02bbd3903d852e9ba1db34e3
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var reducer = (0, _redux.combineReducers)({ user: _user2.default, purchases: _purchases2.default, cheeses: _cheeses2.default, cart: _cart2.default });
+var reducer = (0, _redux.combineReducers)({ user: _user2.default, purchases: _purchases2.default, cheeses: _cheeses2.default, cart: cart });
 var middleware = (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger2.default)({ collapsed: true })));
 var store = (0, _redux.createStore)(reducer, middleware);
 
@@ -13554,6 +13557,7 @@ _reactDom2.default.render(_react2.default.createElement(
 // establishes socket connection
 
 /***/ }),
+<<<<<<< HEAD
 /* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13688,6 +13692,10 @@ var ClearCart = exports.ClearCart = function ClearCart(userId) {
 
 /***/ }),
 /* 204 */
+=======
+/* 194 */,
+/* 195 */
+>>>>>>> 459fd4a9be5b538d02bbd3903d852e9ba1db34e3
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13696,7 +13704,7 @@ var ClearCart = exports.ClearCart = function ClearCart(userId) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.RemoveCheeses = exports.GetCheeses = exports.AddCheese = exports.UpdateCheese = undefined;
+exports.GetCheeses = exports.AddCheese = exports.UpdateCheese = undefined;
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultCheeses;
@@ -13705,12 +13713,8 @@ exports.default = function () {
   switch (action.type) {
     case GET_CHEESES:
       return action.cheeses;
-    case REMOVE_CHEESE:
-      return state.filter(function (v) {
-        return v.id !== action.id;
-      });
     case UPDATE_CHEESE:
-      return state.filter(function (v) {
+      return state.map(function (v) {
         return v.id === action.id ? Object.assign({}, v, action.changes) : v;
       });
     case ADD_CHEESE:
@@ -13733,8 +13737,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * ACTION TYPES
  */
+
 var GET_CHEESES = 'GET_CHEESES';
-var REMOVE_CHEESE = 'REMOVE_CHEESE';
 var UPDATE_CHEESE = 'UPDATE_CHEESE';
 var ADD_CHEESE = 'ADD_CHEESE';
 
@@ -13750,10 +13754,7 @@ var defaultCheeses = [];
 var getCheeses = function getCheeses(cheeses) {
   return { type: GET_CHEESES, cheeses: cheeses };
 };
-var removeCheese = function removeCheese(id) {
-  return { type: REMOVE_CHEESE, id: id };
-};
-var updateCheese = function updateCheese(changes) {
+var updateCheese = function updateCheese(id, changes) {
   return { type: REMOVE_CHEESE, id: id, changes: changes };
 };
 var addCheese = function addCheese(cheese) {
@@ -13794,16 +13795,6 @@ var GetCheeses = exports.GetCheeses = function GetCheeses() {
   };
 };
 
-var RemoveCheeses = exports.RemoveCheeses = function RemoveCheeses(id) {
-  return function (dispatch) {
-    return _axios2.default.delete('/cheeses/' + id).then(function (res) {
-      dispatch(removeCheeses(res));
-    }).catch(function (dispatchOrHistoryErr) {
-      return console.error(dispatchOrHistoryErr);
-    });
-  };
-};
-
 /**
  * REDUCER
  */
@@ -13818,7 +13809,7 @@ var RemoveCheeses = exports.RemoveCheeses = function RemoveCheeses(id) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DeletePurchase = exports.AddPurchase = exports.UpdatePurchase = exports.GetPurchasesUser = exports.GetPurchasesOrder = exports.GetPurchasesAll = undefined;
+exports.DeletePurchase = exports.AddPurchase = exports.UpdatePurchase = exports.GetOldPurchasesUser = exports.GetUnorderedPurchasesUser = exports.GetPurchasesAll = undefined;
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultPurchases;
@@ -13827,16 +13818,16 @@ exports.default = function () {
   switch (action.type) {
     case GET_PURCHASES:
       return action.purchases;
-    case REMOVE_CHEESE:
+    case DELETE_PURCHASE:
       return state.filter(function (v) {
         return v.id !== action.id;
       });
-    case UPDATE_CHEESE:
-      return state.filter(function (v) {
+    case UPDATE_PURCHASE:
+      return state.map(function (v) {
         return v.id === action.id ? Object.assign({}, v, action.changes) : v;
       });
-    case ADD_CHEESE:
-      return state.concat(action.cheese);
+    case ADD_PURCHASE:
+      return state.concat(action.purchase);
     default:
       return state;
   }
@@ -13876,11 +13867,11 @@ var getPurchases = function getPurchases(purchases) {
 var deletePurchase = function deletePurchase(id) {
   return { type: DELETE_ORDER, id: id };
 };
-var updateOrder = function updateOrder() {
-  return { type: UPDATE_ORDER };
+var updateOrder = function updateOrder(changes) {
+  return { type: UPDATE_ORDER, changes: changes };
 };
-var addOrder = function addOrder() {
-  return { type: ADD_ORDER };
+var addOrder = function addOrder(purchase) {
+  return { type: ADD_ORDER, purchase: purchase };
 };
 
 /**
@@ -13897,9 +13888,9 @@ var GetPurchasesAll = exports.GetPurchasesAll = function GetPurchasesAll() {
   };
 };
 
-var GetPurchasesOrder = exports.GetPurchasesOrder = function GetPurchasesOrder(orderId) {
+var GetUnorderedPurchasesUser = exports.GetUnorderedPurchasesUser = function GetUnorderedPurchasesUser(userId) {
   return function (dispatch) {
-    return _axios2.default.get('/purchases/order/' + orderId).then(function (res) {
+    return _axios2.default.get('/purchases/user/cart/' + userId).then(function (res) {
       dispatch(getPurchases(res));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
@@ -13907,9 +13898,9 @@ var GetPurchasesOrder = exports.GetPurchasesOrder = function GetPurchasesOrder(o
   };
 };
 
-var GetPurchasesUser = exports.GetPurchasesUser = function GetPurchasesUser(userId) {
+var GetOldPurchasesUser = exports.GetOldPurchasesUser = function GetOldPurchasesUser(userId) {
   return function (dispatch) {
-    return _axios2.default.get('/purchases/user/' + userId).then(function (res) {
+    return _axios2.default.get('/purchases/user/history/' + userId).then(function (res) {
       dispatch(getPurchases(res));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
@@ -13927,10 +13918,10 @@ var UpdatePurchase = exports.UpdatePurchase = function UpdatePurchase(id, change
   };
 };
 
-var AddPurchase = exports.AddPurchase = function AddPurchase(cheese) {
+var AddPurchase = exports.AddPurchase = function AddPurchase(purchaseInfo) {
   return function (dispatch) {
-    return _axios2.default.post('/cheeses/', cheese).then(function (res) {
-      dispatch(addCheese(res));
+    return _axios2.default.post('/purchases/', purchaseInfo).then(function (res) {
+      dispatch(addPurchase(res));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
     });

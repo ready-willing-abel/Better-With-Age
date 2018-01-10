@@ -2,30 +2,32 @@ const router = require('express').Router()
 const { Purchase } = require('../db/models')
 module.exports = router
 
-router.get('/user/:id', (req, res, next) => {
+router.get('/user/history/:id', (req, res, next) => {
   Purchase.findAll({
     where:{
-      userId: req.params.id
+      userId: req.params.id,
+      ordered: true
     },
-    include: [{ all: true }]
+    include: [
+      { model: User },
+      { model: Cheese }
+    ]
   })
     .then(purchases => res.json(purchases))
     .catch(next)
 })
 
-router.get('/order/:id', (req, res, next) => {
+router.get('/user/cart/:id', (req, res, next) => {
   Purchase.findAll({
     where: {
-      orderId: req.params.id
+      userId: req.params.id,
+      ordered: false
     },
-    include: [{ all: true }]
+    include: [
+      { model: User },
+      { model: Cheese }
+    ]
   })
-    .then(purchases => res.json(purchases))
-    .catch(next)
-})
-
-router.get('/', (req, res, next) => {
-  Purchase.findAll()
     .then(purchases => res.json(purchases))
     .catch(next)
 })
@@ -52,8 +54,15 @@ router.put('/:id', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
   Purchase.findAll({
+<<<<<<< HEAD
     //include modelUser.
     include: [{ all: true }]
+=======
+    include: [
+      { model: User },
+      { model: Cheese }
+    ]
+>>>>>>> 459fd4a9be5b538d02bbd3903d852e9ba1db34e3
   })
     .then(purchases => res.json(purchases))
     .catch(next)
