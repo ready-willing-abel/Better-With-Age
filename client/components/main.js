@@ -5,7 +5,6 @@ import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
 import Navbar from './Navbar'
 import CheeseCarousel from './Carousel'
-import { UserPage } from './UserPage'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /**

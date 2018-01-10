@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import Paper from 'material-ui/Paper';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import { OrdersTable } from './ordersTable'
 
 const parentStyle = {
   padding: 20,
@@ -30,6 +31,7 @@ export const UserPage = () => {
       />
         <CardText expandable={true} >
           <h3>Placeholder</h3>
+          <OrdersTable />
         </CardText>
       </Card>
     </Paper>
