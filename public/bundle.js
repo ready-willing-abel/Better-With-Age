@@ -8076,6 +8076,12 @@ var _components = __webpack_require__(106);
 
 var _store = __webpack_require__(15);
 
+var _userPage = __webpack_require__(204);
+
+var _FrontPage = __webpack_require__(201);
+
+var _FrontPage2 = _interopRequireDefault(_FrontPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8118,12 +8124,13 @@ var Routes = function (_Component) {
             null,
             _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _components.Login }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _components.Signup }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/user', component: _userPage.UserPage }),
             isLoggedIn && _react2.default.createElement(
               _reactRouterDom.Switch,
               null,
-              _react2.default.createElement(_reactRouterDom.Route, { path: '/home', component: _components.UserHome })
+              _react2.default.createElement(_reactRouterDom.Route, { path: '/user', component: _userPage.UserPage })
             ),
-            _react2.default.createElement(_reactRouterDom.Route, { component: _components.Login })
+            _react2.default.createElement(_reactRouterDom.Route, { component: _FrontPage2.default })
           )
         )
       );
@@ -9361,6 +9368,20 @@ var _reactRouterDom = __webpack_require__(67);
 
 var _store = __webpack_require__(15);
 
+var _Navbar = __webpack_require__(202);
+
+var _Navbar2 = _interopRequireDefault(_Navbar);
+
+var _Carousel = __webpack_require__(200);
+
+var _Carousel2 = _interopRequireDefault(_Carousel);
+
+var _UserPage = __webpack_require__(203);
+
+var _MuiThemeProvider = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"material-ui/styles/MuiThemeProvider\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -9376,46 +9397,15 @@ var Main = function Main(props) {
 
 
   return _react2.default.createElement(
-    'div',
+    _MuiThemeProvider2.default,
     null,
     _react2.default.createElement(
-      'h1',
+      'div',
       null,
-      'BOILERMAKER'
-    ),
-    _react2.default.createElement(
-      'nav',
-      null,
-      isLoggedIn ? _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/home' },
-          'Home'
-        ),
-        _react2.default.createElement(
-          'a',
-          { href: '#', onClick: handleClick },
-          'Logout'
-        )
-      ) : _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/login' },
-          'Login'
-        ),
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/signup' },
-          'Sign Up'
-        )
-      )
-    ),
-    _react2.default.createElement('hr', null),
-    children
+      _react2.default.createElement(_Navbar2.default, null),
+      _react2.default.createElement('hr', null),
+      children
+    )
   );
 };
 
@@ -35460,6 +35450,355 @@ var DeletePurchase = exports.DeletePurchase = function DeletePurchase(id) {
 /**
  * REDUCER
  */
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(84);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactResponsiveCarousel = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"react-responsive-carousel\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _carouselMin = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"react-responsive-carousel/lib/styles/carousel.min.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _carouselMin2 = _interopRequireDefault(_carouselMin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CheeseCarousel = function (_React$Component) {
+    _inherits(CheeseCarousel, _React$Component);
+
+    function CheeseCarousel() {
+        _classCallCheck(this, CheeseCarousel);
+
+        return _possibleConstructorReturn(this, (CheeseCarousel.__proto__ || Object.getPrototypeOf(CheeseCarousel)).apply(this, arguments));
+    }
+
+    _createClass(CheeseCarousel, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _reactResponsiveCarousel.Carousel,
+                {
+                    autoPlay: 'true',
+                    interval: '7000',
+                    transitionTime: '500',
+                    infiniteLoop: 'true',
+                    stopOnHover: 'true',
+                    showStatus: 'false' },
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement('img', { src: 'http://www.eatwisconsincheese.com/images/cheese/Cheddar-h.jpg' }),
+                    _react2.default.createElement(
+                        'p',
+                        { className: 'legend' },
+                        'Legend 1'
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement('img', { src: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Pecorino_romano_on_board_cropped.PNG' }),
+                    _react2.default.createElement(
+                        'p',
+                        { className: 'legend' },
+                        'Legend 2'
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement('img', { src: 'http://origin-www.fritolay.com/images/default-source/blue-bag-image/cheetos-fantastix-chili-cheese.png' }),
+                    _react2.default.createElement(
+                        'p',
+                        { className: 'legend' },
+                        'Legend 3'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return CheeseCarousel;
+}(_react2.default.Component);
+
+exports.default = CheeseCarousel;
+;
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(84);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Carousel = __webpack_require__(200);
+
+var _Carousel2 = _interopRequireDefault(_Carousel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FrontPage = function (_Component) {
+    _inherits(FrontPage, _Component);
+
+    function FrontPage() {
+        _classCallCheck(this, FrontPage);
+
+        return _possibleConstructorReturn(this, (FrontPage.__proto__ || Object.getPrototypeOf(FrontPage)).apply(this, arguments));
+    }
+
+    _createClass(FrontPage, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    'Welcome to Front Page'
+                ),
+                _react2.default.createElement(_Carousel2.default, null)
+            );
+        }
+    }]);
+
+    return FrontPage;
+}(_react.Component);
+
+exports.default = FrontPage;
+
+/***/ }),
+/* 202 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(67);
+
+var _MuiThemeProvider = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"material-ui/styles/MuiThemeProvider\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+var _AppBar = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"material-ui/AppBar\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _AppBar2 = _interopRequireDefault(_AppBar);
+
+var _RaisedButton = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"material-ui/RaisedButton\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _store = __webpack_require__(15);
+
+var _store2 = _interopRequireDefault(_store);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Navbar = function (_Component) {
+  _inherits(Navbar, _Component);
+
+  function Navbar() {
+    _classCallCheck(this, Navbar);
+
+    return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).apply(this, arguments));
+  }
+
+  _createClass(Navbar, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _MuiThemeProvider2.default,
+        null,
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'div',
+            { className: 'nav-container' },
+            _react2.default.createElement(_AppBar2.default, {
+              title: 'Better With Age',
+              showMenuIconButton: false,
+              iconElementRight: _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                  _reactRouterDom.NavLink,
+                  { to: '/login' },
+                  _react2.default.createElement(_RaisedButton2.default, { label: 'login' })
+                ),
+                _react2.default.createElement(
+                  _reactRouterDom.NavLink,
+                  { to: '/signup' },
+                  _react2.default.createElement(_RaisedButton2.default, { label: 'signup' })
+                ),
+                _react2.default.createElement(
+                  _reactRouterDom.NavLink,
+                  { to: '/checkout' },
+                  _react2.default.createElement(_RaisedButton2.default, { label: 'checkout' })
+                ),
+                _react2.default.createElement(
+                  _reactRouterDom.NavLink,
+                  { to: '/user' },
+                  _react2.default.createElement(_RaisedButton2.default, { label: 'user' })
+                ),
+                _react2.default.createElement(
+                  _reactRouterDom.NavLink,
+                  { to: '/cart' },
+                  _react2.default.createElement(_RaisedButton2.default, { label: 'cart' })
+                )
+              ),
+              style: { background: '#206c99' },
+              titleStyle: { margin: 'auto', fontSize: '2em' }
+            })
+          )
+        )
+      );
+    }
+  }]);
+
+  return Navbar;
+}(_react.Component);
+
+exports.default = Navbar;
+
+/***/ }),
+/* 203 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UserPage = undefined;
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(11);
+
+var _Paper = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"material-ui/Paper\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var style = {
+  padding: 20
+};
+
+var UserPage = exports.UserPage = function UserPage() {
+  return _react2.default.createElement(
+    _Paper2.default,
+    { zDepth: 3, style: style },
+    _react2.default.createElement(
+      'h1',
+      null,
+      ' User Page '
+    )
+  );
+};
+
+/***/ }),
+/* 204 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UserPage = undefined;
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(11);
+
+var _Paper = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"material-ui/Paper\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var style = {
+  padding: 20
+};
+
+var UserPage = exports.UserPage = function UserPage() {
+  return _react2.default.createElement(
+    _Paper2.default,
+    { zDepth: 3, style: style },
+    _react2.default.createElement(
+      'h1',
+      null,
+      ' User Page '
+    )
+  );
+};
 
 /***/ })
 /******/ ]);
