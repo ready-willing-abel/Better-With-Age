@@ -2,11 +2,23 @@ const router = require('express').Router()
 const { Purchase } = require('../db/models')
 module.exports = router
 
-router.get('/:id', (req, res, next) => {
+router.get('/user/:id', (req, res, next) => {
   Purchase.findAll({
     where:{
       userId: req.params.id
-    }
+    },
+    include: [{ all: true }]
+  })
+    .then(purchases => res.json(purchases))
+    .catch(next)
+})
+
+router.get('/order/:id', (req, res, next) => {
+  Purchase.findAll({
+    where: {
+      orderId: req.params.id
+    },
+    include: [{ all: true }]
   })
     .then(purchases => res.json(purchases))
     .catch(next)
@@ -39,7 +51,9 @@ router.put('/:id', (req, res, next) => {
 })
 
 router.get('/', (req, res, next) => {
-  Purchase.findAll()
+  Purchase.findAll({
+    include: [{ all: true }]
+  })
     .then(purchases => res.json(purchases))
     .catch(next)
 })

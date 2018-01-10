@@ -2047,9 +2047,25 @@ var _reduxDevtoolsExtension = __webpack_require__(179);
 
 var _user2 = _interopRequireDefault(_user);
 
+var _cheese = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./cheese\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _cheese2 = _interopRequireDefault(_cheese);
+
+var _purchases = __webpack_require__(199);
+
+var _purchases2 = _interopRequireDefault(_purchases);
+
+var _users = __webpack_require__(198);
+
+var _users2 = _interopRequireDefault(_users);
+
+var _cheeses = __webpack_require__(197);
+
+var _cheeses2 = _interopRequireDefault(_cheeses);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var reducer = (0, _redux.combineReducers)({ user: _user2.default });
+var reducer = (0, _redux.combineReducers)({ user: _user2.default, cheese: _cheese2.default, purchases: _purchases2.default, users: _users2.default, cheeses: _cheeses2.default });
 var middleware = (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger2.default)({ collapsed: true })));
 var store = (0, _redux.createStore)(reducer, middleware);
 
@@ -9543,7 +9559,7 @@ _reactDom2.default.render(_react2.default.createElement(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logout = exports.auth = exports.me = undefined;
+exports.Update = exports.logout = exports.auth = exports.me = undefined;
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultUser;
@@ -9552,8 +9568,12 @@ exports.default = function () {
   switch (action.type) {
     case GET_USER:
       return action.user;
-    case REMOVE_USER:
+    case ADD_USER:
       return defaultUser;
+    case UPDATE_USER:
+      return Object.assign({}, defaultUser, action.changes);
+    case REMOVE_USER:
+      return {};
     default:
       return state;
   }
@@ -9572,22 +9592,33 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * ACTION TYPES
  */
+
+var ADD_USER = 'ADD_USER';
 var GET_USER = 'GET_USER';
 var REMOVE_USER = 'REMOVE_USER';
+var UPDATE_USER = 'UPDATE_USER';
 
 /**
  * INITIAL STATE
  */
+
 var defaultUser = {};
 
 /**
  * ACTION CREATORS
  */
+
+var addUser = function addUser(user) {
+  return { type: ADD_USER, user: user };
+};
 var getUser = function getUser(user) {
   return { type: GET_USER, user: user };
 };
 var removeUser = function removeUser() {
   return { type: REMOVE_USER };
+};
+var updateUser = function updateUser(changes) {
+  return { type: UPDATE_USER, changes: changes };
 };
 
 /**
@@ -9624,6 +9655,17 @@ var logout = exports.logout = function logout() {
       _history2.default.push('/login');
     }).catch(function (err) {
       return console.log(err);
+    });
+  };
+};
+
+var Update = exports.Update = function Update(id, changes) {
+  return function (dispatch) {
+    return _axios2.default.put('/users/' + id, changes).then(function (res) {
+      dispatch(updateUser(changes));
+      _history2.default.push();
+    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
     });
   };
 };
@@ -35147,6 +35189,273 @@ function toArray(list, index) {
 /***/ (function(module, exports) {
 
 /* (ignored) */
+
+/***/ }),
+/* 197 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RemoveCheeses = exports.GetCheeses = exports.AddCheese = exports.UpdateCheese = undefined;
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultCheeses;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case GET_CHEESES:
+      return action.cheeses;
+    case REMOVE_CHEESE:
+      return state.filter(function (v) {
+        return v.id !== action.id;
+      });
+    case UPDATE_CHEESE:
+      return state.filter(function (v) {
+        return v.id === action.id ? Object.assign({}, v, action.changes) : v;
+      });
+    case ADD_CHEESE:
+      return state.concat(action.cheese);
+    default:
+      return state;
+  }
+};
+
+var _axios = __webpack_require__(87);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _history = __webpack_require__(41);
+
+var _history2 = _interopRequireDefault(_history);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * ACTION TYPES
+ */
+var GET_CHEESES = 'GET_CHEESES';
+var REMOVE_CHEESE = 'REMOVE_CHEESE';
+var UPDATE_CHEESE = 'UPDATE_CHEESE';
+var ADD_CHEESE = 'ADD_CHEESE';
+
+/**
+ * INITIAL STATE
+ */
+var defaultCheeses = [];
+
+/**
+ * ACTION CREATORS
+ */
+
+var getCheeses = function getCheeses(cheeses) {
+  return { type: GET_CHEESES, cheeses: cheeses };
+};
+var removeCheese = function removeCheese(id) {
+  return { type: REMOVE_CHEESE, id: id };
+};
+var updateCheese = function updateCheese(changes) {
+  return { type: REMOVE_CHEESE, id: id, changes: changes };
+};
+var addCheese = function addCheese(cheese) {
+  return { type: ADD_CHEESE, cheese: cheese };
+};
+
+/**
+ * THUNK CREATORS
+ */
+
+var UpdateCheese = exports.UpdateCheese = function UpdateCheese(id, changes) {
+  return function (dispatch) {
+    return _axios2.default.put('/cheeses/' + id, changes).then(function (res) {
+      dispatch(updateCheese(changes));
+    }).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
+    });
+  };
+};
+
+var AddCheese = exports.AddCheese = function AddCheese(cheese) {
+  return function (dispatch) {
+    return _axios2.default.post('/cheeses/', cheese).then(function (res) {
+      dispatch(addCheese(res));
+    }).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
+    });
+  };
+};
+
+var GetCheeses = exports.GetCheeses = function GetCheeses() {
+  return function (dispatch) {
+    return _axios2.default.get('/cheeses/').then(function (res) {
+      dispatch(getCheeses(res));
+    }).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
+    });
+  };
+};
+
+var RemoveCheeses = exports.RemoveCheeses = function RemoveCheeses(id) {
+  return function (dispatch) {
+    return _axios2.default.delete('/cheeses/' + id).then(function (res) {
+      dispatch(removeCheeses(res));
+    }).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
+    });
+  };
+};
+
+/**
+ * REDUCER
+ */
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports) {
+
+"use strict";
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/abelmcelroy/Documents/Abel's/FullStack/Senior/GraceShopper/Better-With-Age/client/store/users.js'");
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DeletePurchase = exports.AddPurchase = exports.UpdatePurchase = exports.GetPurchasesUser = exports.GetPurchasesOrder = undefined;
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultPurchases;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case GET_PURCHASES:
+      return action.purchases;
+    case REMOVE_CHEESE:
+      return state.filter(function (v) {
+        return v.id !== action.id;
+      });
+    case UPDATE_CHEESE:
+      return state.filter(function (v) {
+        return v.id === action.id ? Object.assign({}, v, action.changes) : v;
+      });
+    case ADD_CHEESE:
+      return state.concat(action.cheese);
+    default:
+      return state;
+  }
+};
+
+var _axios = __webpack_require__(87);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _history = __webpack_require__(41);
+
+var _history2 = _interopRequireDefault(_history);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * ACTION TYPES
+ */
+
+var GET_PURCHASES = 'GET_PURCHASES';
+var DELETE_ORDER = 'DELETE_ORDER';
+var UPDATE_ORDER = 'UPDATE_ORDER';
+var ADD_ORDER = 'ADD_ORDER';
+
+/**
+ * INITIAL STATE
+ */
+var defaultPurchases = [];
+
+/**
+ * ACTION CREATORS
+ */
+
+var getPurchases = function getPurchases(purchases) {
+  return { type: GET_PURCHASES, purchases: purchases };
+};
+var deletePurchase = function deletePurchase(id) {
+  return { type: DELETE_ORDER, id: id };
+};
+var updateOrder = function updateOrder() {
+  return { type: UPDATE_ORDER };
+};
+var addOrder = function addOrder() {
+  return { type: ADD_ORDER };
+};
+
+/**
+ * THUNK CREATORS
+ */
+
+var GetPurchasesOrder = exports.GetPurchasesOrder = function GetPurchasesOrder(orderId) {
+  return function (dispatch) {
+    return _axios2.default.get('/cheeses/order/' + orderId).then(function (res) {
+      dispatch(getPurchases(res));
+      _history2.default.push();
+    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
+    });
+  };
+};
+
+var GetPurchasesUser = exports.GetPurchasesUser = function GetPurchasesUser(userId) {
+  return function (dispatch) {
+    return _axios2.default.get('/cheeses/user/' + userId).then(function (res) {
+      dispatch(getPurchases(res));
+      _history2.default.push();
+    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
+    });
+  };
+};
+
+var UpdatePurchase = exports.UpdatePurchase = function UpdatePurchase(id, changes) {
+  return function (dispatch) {
+    return _axios2.default.put('/cheeses/' + id, changes).then(function (res) {
+      dispatch(updateCheese(changes));
+      _history2.default.push();
+    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
+    });
+  };
+};
+
+var AddPurchase = exports.AddPurchase = function AddPurchase(cheese) {
+  return function (dispatch) {
+    return _axios2.default.post('/cheeses/', cheese).then(function (res) {
+      dispatch(addCheese(res));
+      _history2.default.push();
+    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
+    });
+  };
+};
+
+var DeletePurchase = exports.DeletePurchase = function DeletePurchase(id) {
+  return function (dispatch) {
+    return _axios2.default.delete('/purchases/' + id).then(function (res) {
+      dispatch(deletePurchase(res));
+      _history2.default.push();
+    } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {
+      return console.error(dispatchOrHistoryErr);
+    });
+  };
+};
+
+/**
+ * REDUCER
+ */
 
 /***/ })
 /******/ ]);

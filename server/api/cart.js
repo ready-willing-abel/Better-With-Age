@@ -6,12 +6,7 @@ router.get('/:id', (req, res, next) => {
   Cart.findAll({
     where:{
       userId: req.params.id
-    },
-    include: [
-      {
-        all: true
-      }
-    ]
+    }
   })
     .then(cart => res.json(cart))
     .catch(next)
@@ -27,31 +22,37 @@ router.delete('/:id', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/:id', (req, res, next) => {
-  Cart.create(Object.assign({},req.body,{userId:req.params.id}))
-    .then(cart => res.json(cart))
+router.post('/', (req, res, next) => {
+  Cart.create(Object.assign({},req.body))
+    .then(row => res.json(row))
     .catch(next)
 })
 
 router.put('/:id', (req, res, next) => {
-  Cart.update(req.body, {
-    where: {
-      id: req.params.id
-    }
-  })
+  let Cid = req.params.id.split(0,req.params.id.indexOf('|'))
+  let Uid = req.params.id.split(req.params.id.indexOf('|')+1)
+  if (req.body.quantity>0){
+    Cart.update(req.body, {
+      where: {
+        userId: Uid,
+        cheeseId: Cid
+      }
+    })
+      .then(r => {
+        res.sendStatus(201)
+      })
+      .catch(next)
+  }
+  else{
+    Cart.delete({
+      where: {
+        userId: Uid,
+        cheeseId: Cid
+      }
+    })
     .then(r => {
       res.sendStatus(201)
     })
     .catch(next)
-})
-
-router.get('/', (req, res, next) => {
-  User.findAll({
-    include: [
-      {
-        all: true
-      }
-    ]})
-    .then(users => res.json(users))
-    .catch(next)
+  }
 })

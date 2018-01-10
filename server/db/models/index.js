@@ -10,10 +10,11 @@ const Purchase = require('./purchase')
  *    BlogPost.belongsTo(User)
  */
 
- Cart.hasMany(Cheese)
+ Purchase.belongsTo(User)
+ Purchase.belongsTo(Cheese)
+ Cart.belongsTo(Cheese)
  Cart.belongsTo(User)
- User.hasMany(Purchase)
- Cheese.hasMany(Purchase)
+
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

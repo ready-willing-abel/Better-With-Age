@@ -6,16 +6,12 @@ const Purchase = db.define('purchase', {
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  price: {
+  priceAtTimeOfSale: {
     type: Sequelize.FLOAT,
     allowNull: false
   },
   orderId: {
     type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  price: {
-    type: Sequelize.FLOAT,
     allowNull: false
   },
   status: {
