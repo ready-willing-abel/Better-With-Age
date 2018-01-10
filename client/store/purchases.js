@@ -6,9 +6,9 @@ import history from '../history'
  */
 
 const GET_PURCHASES = 'GET_PURCHASES'
-const DELETE_ORDER = 'DELETE_ORDER'
-const UPDATE_ORDER = 'UPDATE_ORDER'
-const ADD_ORDER = 'ADD_ORDER'
+const DELETE_PURCHASE = 'DELETE_PURCHASE'
+const UPDATE_PURCHASE = 'UPDATE_PURCHASE'
+const ADD_PURCHASE = 'ADD_PURCHASE'
 
 /**
  * INITIAL STATE
@@ -20,9 +20,9 @@ const defaultPurchases = []
  */
 
  const getPurchases = (purchases) => ({type: GET_PURCHASES, purchases})
- const deletePurchase = (id) => ({type: DELETE_ORDER, id})
- const updateOrder = (changes) => ({type: UPDATE_ORDER, changes})
- const addOrder = (purchase) => ({type: ADD_ORDER, purchase})
+ const deletePurchase = (id) => ({type: DELETE_PURCHASE, id})
+ const updateOrder = (changes) => ({type: UPDATE_PURCHASE, changes})
+ const addOrder = (purchase) => ({type: ADD_PURCHASE, purchase})
 
 /**
  * THUNK CREATORS
