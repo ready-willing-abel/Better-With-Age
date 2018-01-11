@@ -10,6 +10,7 @@ export default class FrontPage extends Component {
             <div>
                 <div>Welcome to Front Page</div>
                 <CheeseCarousel />
+                <Thumbnails />
             </div>
         )
     }
