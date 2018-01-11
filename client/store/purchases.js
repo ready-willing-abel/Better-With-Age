@@ -28,53 +28,57 @@ const defaultPurchases = []
  * THUNK CREATORS
  */
 
-  export const GetPurchasesAll = () =>
-  dispatch =>
+  export const GetPurchasesAll = () =>{
+  return dispatch =>
     axios.get(`/purchases/`)
       .then(res => {
         dispatch(getPurchases(res))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
- export const GetUnorderedPurchasesUser = (userId) =>
-   dispatch =>
-     axios.get(`/purchases/user/cart/${userId}`)
+
+ export const GetUnorderedPurchasesUser = (userId) => {
+  console.log('entering thunk: ',userId)
+   return dispatch =>
+     axios.get(`/api/purchases/user/cart/${userId}`)
        .then(res => {
-         dispatch(getPurchases(res))
+         console.log('exiting thunk: ',res)
+         dispatch(getPurchases(res.data))
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+  }
 
- export const GetOldPurchasesUser = (userId) =>
-   dispatch =>
+ export const GetOldPurchasesUser = (userId) =>{
+   return dispatch =>
      axios.get(`/purchases/user/history/${userId}`)
        .then(res => {
          dispatch(getPurchases(res))
        })
-       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const UpdatePurchase = (id, changes) =>
-  dispatch =>
+export const UpdatePurchase = (id, changes) =>{
+  return dispatch =>
     axios.put(`/purchases/${id}`, changes)
       .then(updated => {
         dispatch(updateOrder(updated))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const AddPurchase = (purchaseInfo) =>
-  dispatch =>
+export const AddPurchase = (purchaseInfo) =>{
+  return dispatch =>
     axios.post(`/purchases/`, purchaseInfo)
       .then(res => {
         dispatch(addPurchase(res))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const DeletePurchase = (id) =>
-  dispatch =>
+export const DeletePurchase = (id) =>{
+  return dispatch =>
     axios.delete(`/purchases/${id}`)
       .then(res => {
         dispatch(deletePurchase(res))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
 
 /**

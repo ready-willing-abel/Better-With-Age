@@ -26,29 +26,29 @@ const addCheese = cheese => ({type: ADD_CHEESE, cheese})
  * THUNK CREATORS
  */
 
-export const UpdateCheese = (id, changes) =>
-  dispatch =>
+export const UpdateCheese = (id, changes) =>{
+  return dispatch =>
     axios.put(`/cheeses/${id}`, changes)
       .then(res => {
         dispatch(updateCheese(changes))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const AddCheese = (cheese) =>
-  dispatch =>
+export const AddCheese = (cheese) =>{
+  return dispatch =>
     axios.post(`/cheeses/`, cheese)
       .then(res => {
         dispatch(addCheese(res))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const GetCheeses = () =>
-  dispatch =>
+export const GetCheeses = () =>{
+  return dispatch =>
     axios.get(`/cheeses/`)
       .then(res => {
         dispatch(getCheeses(res))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
 
 /**
