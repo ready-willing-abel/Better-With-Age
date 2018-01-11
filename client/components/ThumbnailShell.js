@@ -11,14 +11,14 @@ export default class Thumbnails extends Component {
        
         <Row align="center" style={{ height: '5px' }} debug>
             <Col debug><SingleCheese/></Col>
-            <Col debug>2 of 6</Col>
-            <Col debug>3 of 6</Col>
+            <Col debug><SingleCheese/></Col>
+            <Col debug><SingleCheese/></Col>
         </Row>
         <br />
         <Row align="center" style={{ height: '75px' }} debug>
-            <Col debug>4 of 6</Col>
-            <Col debug>5 of 6</Col>
-            <Col debug>6 of 6</Col>
+            <Col debug><SingleCheese/></Col>
+            <Col debug><SingleCheese/></Col>
+            <Col debug><SingleCheese/></Col>
         </Row>
         </Container>
     )}
