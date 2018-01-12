@@ -14,14 +14,6 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
-router.delete('/:id', (req, res, next) => {
-  Cheese.destroy({
-    where: { id: req.params.id }
-  })
-    .then(r => res.sendStatus(201))
-    .catch(next)
-})
-
 router.put('/:id', function (req, res, next) {
   Cheese.update(req.body, {
     where: {

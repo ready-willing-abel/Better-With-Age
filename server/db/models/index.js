@@ -1,5 +1,5 @@
 const User = require('./user')
-const Cart = require('./cart')
+const Category = require('./categories')
 const Cheese = require('./cheese')
 const Purchase = require('./purchase')
 
@@ -12,9 +12,7 @@ const Purchase = require('./purchase')
 
  Purchase.belongsTo(User)
  Purchase.belongsTo(Cheese)
- Cart.belongsTo(Cheese)
- Cart.belongsTo(User)
-
+ Cheese.belongsTo(Category)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -24,7 +22,7 @@ const Purchase = require('./purchase')
  */
 module.exports = {
   User,
-  Cart,
-  Purchase,
-  Cheese
+  Category,
+  Cheese,
+  Purchase
 }

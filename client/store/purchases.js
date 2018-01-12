@@ -6,9 +6,9 @@ import history from '../history'
  */
 
 const GET_PURCHASES = 'GET_PURCHASES'
-const DELETE_ORDER = 'DELETE_ORDER'
-const UPDATE_ORDER = 'UPDATE_ORDER'
-const ADD_ORDER = 'ADD_ORDER'
+const DELETE_PURCHASE = 'DELETE_PURCHASE'
+const UPDATE_PURCHASE = 'UPDATE_PURCHASE'
+const ADD_PURCHASE = 'ADD_PURCHASE'
 
 /**
  * INITIAL STATE
@@ -20,58 +20,63 @@ const defaultPurchases = []
  */
 
  const getPurchases = (purchases) => ({type: GET_PURCHASES, purchases})
- const deletePurchase = (id) => ({type: DELETE_ORDER, id})
- const updateOrder = () => ({type: UPDATE_ORDER, })
- const addOrder = () => ({type: ADD_ORDER, })
+ const deletePurchase = (id) => ({type: DELETE_PURCHASE, id})
+ const updateOrder = (changes) => ({type: UPDATE_PURCHASE, changes})
+ const addOrder = (purchase) => ({type: ADD_PURCHASE, purchase})
 
 /**
  * THUNK CREATORS
  */
 
- export const GetPurchasesOrder = (orderId) =>
-   dispatch =>
-     axios.get(`/cheeses/order/${orderId}`)
+  export const GetPurchasesAll = () =>{
+  return dispatch =>
+    axios.get(`/api/purchases/`)
+      .then(res => {
+        dispatch(getPurchases(res))
+      })
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
+
+
+ export const GetUnorderedPurchasesUser = (userId) => {
+   return dispatch =>
+     axios.get(`/api/purchases/user/cart/${userId}`)
        .then(res => {
-         dispatch(getPurchases(res))
-         history.push(/*NEED A ROUTE FOR THIS*/)
+         dispatch(getPurchases(res.data))
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+  }
 
- export const GetPurchasesUser = (userId) =>
-   dispatch =>
-     axios.get(`/cheeses/user/${userId}`)
+ export const GetOldPurchasesUser = (userId) =>{
+   return dispatch =>
+     axios.get(`/api/purchases/user/history/${userId}`)
        .then(res => {
-         dispatch(getPurchases(res))
-         history.push(/*NEED A ROUTE FOR THIS*/)
+         dispatch(getPurchases(res.data))
        })
-       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const UpdatePurchase = (id, changes) =>
-  dispatch =>
-    axios.put(`/cheeses/${id}`, changes)
-      .then(res => {
-        dispatch(updateCheese(changes))
-        history.push(/*NEED A ROUTE FOR THIS*/)
+export const UpdatePurchase = (id, changes) =>{
+  return dispatch =>
+    axios.put(`/api/purchases/${id}`, changes)
+      .then(updated => {
+        dispatch(updateOrder(updated.data))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const AddPurchase = (cheese) =>
-  dispatch =>
-    axios.post(`/cheeses/`, cheese)
+export const AddPurchase = (purchaseInfo) =>{
+  return dispatch =>
+    axios.post(`/api/purchases/`, purchaseInfo)
       .then(res => {
-        dispatch(addCheese(res))
-        history.push(/*NEED A ROUTE FOR THIS*/)
+        dispatch(addPurchase(res.data))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const DeletePurchase = (id) =>
-  dispatch =>
-    axios.delete(`/purchases/${id}`)
+export const DeletePurchase = (id) =>{
+  return dispatch =>
+    axios.delete(`/api/purchases/${id}`)
       .then(res => {
-        dispatch(deletePurchase(res))
-        history.push(/*NEED A ROUTE FOR THIS*/)
+        dispatch(deletePurchase(res.data))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
 
 /**
@@ -80,15 +85,15 @@ export const DeletePurchase = (id) =>
 export default function (state = defaultPurchases, action) {
   switch (action.type) {
     case GET_PURCHASES:
-      return action.purchases
-    case REMOVE_CHEESE:
+      return action.purchases.slice()
+    case DELETE_PURCHASE:
       return state.filter(v => v.id !== action.id)
-    case UPDATE_CHEESE:
-      return state.filter(v => {
+    case UPDATE_PURCHASE:
+      return state.map(v => {
         return (v.id === action.id) ? Object.assign({}, v, action.changes) : v
       })
-    case ADD_CHEESE:
-      return state.concat(action.cheese)
+    case ADD_PURCHASE:
+      return state.concat(action.purchase)
     default:
       return state
   }

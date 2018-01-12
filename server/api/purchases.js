@@ -1,32 +1,39 @@
 const router = require('express').Router()
 const { Purchase } = require('../db/models')
+const { User } = require('../db/models')
+const { Cheese } = require('../db/models')
 module.exports = router
 
-router.get('/user/:id', (req, res, next) => {
+router.get('/user/history/:id', (req, res, next) => {
   Purchase.findAll({
     where:{
-      userId: req.params.id
+      userId: req.params.id,
+      ordered: true
     },
-    include: [{ all: true }]
+    include: [
+      { model: User },
+      { model: Cheese }
+    ]
   })
     .then(purchases => res.json(purchases))
     .catch(next)
 })
 
-router.get('/order/:id', (req, res, next) => {
+router.get('/user/cart/:id', (req, res, next) => {
+  console.log('entering route: ',req.params.id)
   Purchase.findAll({
     where: {
-      orderId: req.params.id
+      userId: req.params.id,
+      ordered: false
     },
-    include: [{ all: true }]
+    include: [
+      { model: User },
+      { model: Cheese }
+    ]
   })
-    .then(purchases => res.json(purchases))
-    .catch(next)
-})
-
-router.get('/', (req, res, next) => {
-  Purchase.findAll()
-    .then(purchases => res.json(purchases))
+    .then(purchases =>{
+      console.log(purchases)
+      res.json(purchases)})
     .catch(next)
 })
 
@@ -38,21 +45,27 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
+// req.body in the following route must be very specifically formatted:
+// {ordered: true, priceAtTimeOfSale: '$$', cheeseId, userId...}
+
 router.put('/:id', (req, res, next) => {
   Purchase.update(req.body, {
     where: {
       id: req.params.id
     }
   })
-    .then(r => {
-      res.sendStatus(201)
+    .then(order => {
+      res.json(order)
     })
     .catch(next)
 })
 
 router.get('/', (req, res, next) => {
   Purchase.findAll({
-    include: [{ all: true }]
+    include: [
+      { model: User },
+      { model: Cheese }
+    ]
   })
     .then(purchases => res.json(purchases))
     .catch(next)

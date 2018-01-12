@@ -1,11 +1,10 @@
 const router = require('express').Router()
-const {User, Cart, Purchase} = require('../db/models')
+const {User} = require('../db/models')
 module.exports = router
 
 router.get('/:id', (req, res, next) => {
   User.findOne({
     where: {id: req.params.id},
-    include: [{ all: true }]
   })
     .then(user => res.json(user))
     .catch(next)
@@ -38,9 +37,7 @@ router.delete('/:id', (req, res, next) => {
 
 
 router.get('/', (req, res, next) => {
-  User.findAll({
-    include: [{ all: true }]
-  })
+  User.findAll()
     .then(users => res.json(users))
     .catch(next)
 })
