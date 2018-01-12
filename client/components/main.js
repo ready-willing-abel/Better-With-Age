@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {withRouter, Link} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { withRouter, Link } from 'react-router-dom'
+import { logout } from '../store'
 import Navbar from './Navbar'
 import CheeseCarousel from './Carousel'
-import { UserPage } from './UserPage'
+import { UserPage } from './userPage'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /**
@@ -15,7 +15,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const {children, handleClick, isLoggedIn} = props
+  const { children, handleClick, isLoggedIn } = props
 
   return (
     <MuiThemeProvider>
@@ -54,7 +54,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    handleClick() {
       dispatch(logout())
     }
   }

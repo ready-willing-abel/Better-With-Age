@@ -28,7 +28,7 @@ const addCheese = cheese => ({type: ADD_CHEESE, cheese})
 
 export const UpdateCheese = (id, changes) =>{
   return dispatch =>
-    axios.put(`/cheeses/${id}`, changes)
+    axios.put(`/api/cheeses/${id}`, changes)
       .then(res => {
         dispatch(updateCheese(changes))
       })
@@ -36,17 +36,17 @@ export const UpdateCheese = (id, changes) =>{
 
 export const AddCheese = (cheese) =>{
   return dispatch =>
-    axios.post(`/cheeses/`, cheese)
+    axios.post(`/api/cheeses/`, cheese)
       .then(res => {
-        dispatch(addCheese(res))
+        dispatch(addCheese(res.data))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const GetCheeses = () =>{
+export const GetCheeses = () => {
   return dispatch =>
-    axios.get(`/cheeses/`)
+    axios.get(`/api/cheeses/`)
       .then(res => {
-        dispatch(getCheeses(res))
+        dispatch(getCheeses(res.data))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 

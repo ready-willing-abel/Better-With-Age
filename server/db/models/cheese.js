@@ -16,6 +16,11 @@ const Cheese = db.define('cheese', {
   quantity:{
     type: Sequelize.INTEGER,
   }
+  //need quantity of cheeses. 
+  
+  //can cheese cost $-5 
+  //maybe some more validations
+  //perhaps integer.
 })
 
 module.exports = Cheese
