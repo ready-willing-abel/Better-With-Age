@@ -87,7 +87,7 @@ export const DeletePurchase = (id) =>{
 export default function (state = defaultPurchases, action) {
   switch (action.type) {
     case GET_PURCHASES:
-      return action.purchases
+      return action.purchases.slice()
     case DELETE_PURCHASE:
       return state.filter(v => v.id !== action.id)
     case UPDATE_PURCHASE:

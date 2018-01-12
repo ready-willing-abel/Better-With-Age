@@ -6163,7 +6163,7 @@ exports.default = function () {
 
   switch (action.type) {
     case GET_PURCHASES:
-      return action.purchases;
+      return action.purchases.slice();
     case DELETE_PURCHASE:
       return state.filter(function (v) {
         return v.id !== action.id;
@@ -11745,7 +11745,7 @@ var mapState = function mapState(state) {
 var mapDispatch = function mapDispatch(dispatch) {
   return {
     loadInitialData: function loadInitialData() {
-      dispatch((0, _store.me)());
+      // dispatch(me())
     }
   };
 };
@@ -12749,15 +12749,17 @@ var Cart = function (_Component) {
         'div',
         null,
         _react2.default.createElement(
+          'div',
+          null,
+          'I have props'
+        ),
+        _react2.default.createElement(
           _List.List,
           null,
           this.props.unpurchasedOrders.map(function (cartItem) {
-            _react2.default.createElement(_List.ListItem, {
-              primaryText: cartItem.name
+            return _react2.default.createElement(_List.ListItem, {
+              primaryText: cartItem.cheese.name
             });
-          }),
-          _react2.default.createElement(_List.ListItem, {
-            primaryText: "THIS IS IT"
           })
         )
       );else return _react2.default.createElement(
@@ -12773,7 +12775,7 @@ var Cart = function (_Component) {
 
 function mapStateToProps(storeState) {
   return {
-    unpurchasedOrders: storeState.defaultPurchases
+    unpurchasedOrders: storeState.purchases
     // user: storeState.defaultUser // or session ID
   };
 }

@@ -19,19 +19,18 @@ class Cart extends Component {
     console.log(this.props)
     if(this.props.unpurchasedOrders) return (
       <div>
+        <div>I have props</div>
+
         <List>
           {
             this.props.unpurchasedOrders.map(cartItem=>{
-              (
+              return (
                 <ListItem
-                  primaryText={cartItem.name}
+                  primaryText={cartItem.cheese.name}
                 />
               )
             })
           }
-          <ListItem
-            primaryText={"THIS IS IT"}
-          />
         </List>
       </div>
     )
@@ -43,7 +42,7 @@ class Cart extends Component {
 
 function mapStateToProps(storeState) {
   return {
-    unpurchasedOrders: storeState.defaultPurchases,
+    unpurchasedOrders: storeState.purchases,
     // user: storeState.defaultUser // or session ID
   }
 }
