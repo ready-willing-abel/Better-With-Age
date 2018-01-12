@@ -13,7 +13,7 @@ import Cart from './components/Cart'
  */
 class Routes extends Component {
   componentDidMount () {
-    this.props.loadInitialData()
+    // this.props.loadInitialData()
   }
 
   render () {
