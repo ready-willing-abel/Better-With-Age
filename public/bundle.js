@@ -11693,7 +11693,7 @@ var Routes = function (_Component) {
   _createClass(Routes, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.loadInitialData();
+      // this.props.loadInitialData()
     }
   }, {
     key: 'render',
