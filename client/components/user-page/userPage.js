@@ -56,7 +56,7 @@ class UserPage extends Component {
         />
           <CardText expandable={true} >
             <h3>Placeholder</h3>
-            <OrdersTable orders={'placeholder'} /> {/* groupPurchases(this.props.purchasesHistory) */}
+            <OrdersTable orders={1} /> {/* groupPurchases(this.props.purchasesHistory) */}
           </CardText>
         </Card>
       </Paper>

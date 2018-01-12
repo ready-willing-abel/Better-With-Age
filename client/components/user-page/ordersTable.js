@@ -18,6 +18,11 @@ export const OrdersTable = () => {
           <TableHeaderColumn>Status</TableHeaderColumn>
         </TableRow>
       </TableHeader>
+      <TableBody>
+        {
+
+        }
+      </TableBody>
     </Table>
   )
 }
