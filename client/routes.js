@@ -7,6 +7,7 @@ import {Main, Login, Signup, UserHome} from './components'
 import {me} from './store'
 import UserPage from './components/user-page/userPage'
 import FrontPage from './components/FrontPage'
+import Cart from './components/Cart'
 
 /**
  * COMPONENT
@@ -27,6 +28,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/user" component={UserPage} />
+            <Route path="/cart" component={Cart} />
             {
               isLoggedIn &&
                 <Switch>
@@ -56,7 +58,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
-      //dispatch(me())
+      // dispatch(me())
+>>>>>>> modelsA
     }
   }
 }

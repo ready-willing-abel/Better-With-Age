@@ -28,54 +28,56 @@ const defaultPurchases = []
  * THUNK CREATORS
  */
 
-  export const GetPurchasesAll = () =>
-  dispatch =>
-    axios.get(`/purchases/`)
+  export const GetPurchasesAll = () =>{
+  return dispatch =>
+    axios.get(`/api/purchases/`)
       .then(res => {
         dispatch(getPurchases(res))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
- export const GetUnorderedPurchasesUser = (userId) =>
-   dispatch =>
-     axios.get(`/purchases/user/cart/${userId}`)
-       .then(res => {
-         dispatch(getPurchases(res))
-       })
-       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
- export const GetOldPurchasesUser = (userId) =>
-   dispatch =>
-     axios.get(`api/purchases/user/history/${userId}`)
+ export const GetUnorderedPurchasesUser = (userId) => {
+   return dispatch =>
+     axios.get(`/api/purchases/user/cart/${userId}`)
        .then(res => {
-         console.log('!!!!!!HEY!!!!!!!!', res.data)
          dispatch(getPurchases(res.data))
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+  }
 
-export const UpdatePurchase = (id, changes) =>
-  dispatch =>
-    axios.put(`/purchases/${id}`, changes)
+
+ export const GetOldPurchasesUser = (userId) =>{
+   return dispatch =>
+     axios.get(`/api/purchases/user/history/${userId}`)
+       .then(res => {
+         dispatch(getPurchases(res.data))
+       })
+       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
+
+export const UpdatePurchase = (id, changes) =>{
+  return dispatch =>
+    axios.put(`/api/purchases/${id}`, changes)
       .then(updated => {
-        dispatch(updateOrder(updated))
+        dispatch(updateOrder(updated.data))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const AddPurchase = (purchaseInfo) =>
-  dispatch =>
-    axios.post(`/purchases/`, purchaseInfo)
+export const AddPurchase = (purchaseInfo) =>{
+  return dispatch =>
+    axios.post(`/api/purchases/`, purchaseInfo)
       .then(res => {
-        dispatch(addPurchase(res))
+        dispatch(addPurchase(res.data))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const DeletePurchase = (id) =>
-  dispatch =>
-    axios.delete(`/purchases/${id}`)
+export const DeletePurchase = (id) =>{
+  return dispatch =>
+    axios.delete(`/api/purchases/${id}`)
       .then(res => {
-        dispatch(deletePurchase(res))
+        dispatch(deletePurchase(res.data))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
 
 /**
@@ -84,7 +86,7 @@ export const DeletePurchase = (id) =>
 export default function (state = defaultPurchases, action) {
   switch (action.type) {
     case GET_PURCHASES:
-      return action.purchases
+      return action.purchases.slice()
     case DELETE_PURCHASE:
       return state.filter(v => v.id !== action.id)
     case UPDATE_PURCHASE:

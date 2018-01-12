@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const { Purchase } = require('../db/models')
+const { User } = require('../db/models')
+const { Cheese } = require('../db/models')
 module.exports = router
 
 router.get('/user/history/:id', (req, res, next) => {
@@ -18,6 +20,7 @@ router.get('/user/history/:id', (req, res, next) => {
 })
 
 router.get('/user/cart/:id', (req, res, next) => {
+  console.log('entering route: ',req.params.id)
   Purchase.findAll({
     where: {
       userId: req.params.id,
@@ -28,7 +31,9 @@ router.get('/user/cart/:id', (req, res, next) => {
       { model: Cheese }
     ]
   })
-    .then(purchases => res.json(purchases))
+    .then(purchases =>{
+      console.log(purchases)
+      res.json(purchases)})
     .catch(next)
 })
 
@@ -39,6 +44,9 @@ router.post('/', (req, res, next) => {
     .then(purchases => res.json(purchases))
     .catch(next)
 })
+
+// req.body in the following route must be very specifically formatted:
+// {ordered: true, priceAtTimeOfSale: '$$', cheeseId, userId...}
 
 router.put('/:id', (req, res, next) => {
   Purchase.update(req.body, {
