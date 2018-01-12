@@ -1,15 +1,22 @@
 import React, {Component} from 'react'
-
 import { connect } from 'react-redux'
-
 import {Container, Row, Col} from 'react-grid-system'
-
 import SingleCheese from './SingleCheeseThumbnail'
+import store, { GetCheeses } from '../store/cheeses.js'
 
 
-function AllCheese (props) {
+class AllCheese extends Component {
 
-  
+    constructor(props) {
+        super(props)
+      }
+
+    componentDidMount () {
+        this.props.loadCheeses()
+      }
+
+render () {
+    console.log(this.props)
         return (
         <div className = "container">
             <div className = "row">
@@ -39,19 +46,23 @@ function AllCheese (props) {
         </div>
         )
 
-   
+    }   
 
 }
 
-const mapStateToProps = function (state) {
+function mapStateToProps(storeState){
     return {
-        cheeses: state.cheeses
+        cheeses: storeState.cheeses
     }
 }
-
-
-const mapDispatchToProps = (dispatch) => {
   
-}
+  function mapDispatchToProps(dispatch) {
+    return {
+      loadCheeses: ()=>{
+        console.log('mounting')
+        dispatch(GetCheeses())
+      }
+    }
+  }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllCheese)

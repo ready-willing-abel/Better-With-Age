@@ -6,7 +6,6 @@ import history from './history'
 import {Main, FrontPage, Login, Signup, UserHome, AllCheese} from './components'
 import {me} from './store'
 import { UserPage } from './components/userPage'
-import FrontPage from './components/FrontPage'
 import Cart from './components/Cart'
 
 /**
