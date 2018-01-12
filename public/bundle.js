@@ -6226,7 +6226,7 @@ var addOrder = function addOrder(purchase) {
 
 var GetPurchasesAll = exports.GetPurchasesAll = function GetPurchasesAll() {
   return function (dispatch) {
-    return _axios2.default.get('/purchases/').then(function (res) {
+    return _axios2.default.get('/api/purchases/').then(function (res) {
       dispatch(getPurchases(res));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
@@ -6235,10 +6235,8 @@ var GetPurchasesAll = exports.GetPurchasesAll = function GetPurchasesAll() {
 };
 
 var GetUnorderedPurchasesUser = exports.GetUnorderedPurchasesUser = function GetUnorderedPurchasesUser(userId) {
-  console.log('entering thunk: ', userId);
   return function (dispatch) {
     return _axios2.default.get('/api/purchases/user/cart/' + userId).then(function (res) {
-      console.log('exiting thunk: ', res);
       dispatch(getPurchases(res.data));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
@@ -6248,8 +6246,8 @@ var GetUnorderedPurchasesUser = exports.GetUnorderedPurchasesUser = function Get
 
 var GetOldPurchasesUser = exports.GetOldPurchasesUser = function GetOldPurchasesUser(userId) {
   return function (dispatch) {
-    return _axios2.default.get('/purchases/user/history/' + userId).then(function (res) {
-      dispatch(getPurchases(res));
+    return _axios2.default.get('/api/purchases/user/history/' + userId).then(function (res) {
+      dispatch(getPurchases(res.data));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
     });
@@ -6258,8 +6256,8 @@ var GetOldPurchasesUser = exports.GetOldPurchasesUser = function GetOldPurchases
 
 var UpdatePurchase = exports.UpdatePurchase = function UpdatePurchase(id, changes) {
   return function (dispatch) {
-    return _axios2.default.put('/purchases/' + id, changes).then(function (updated) {
-      dispatch(updateOrder(updated));
+    return _axios2.default.put('/api/purchases/' + id, changes).then(function (updated) {
+      dispatch(updateOrder(updated.data));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
     });
@@ -6268,8 +6266,8 @@ var UpdatePurchase = exports.UpdatePurchase = function UpdatePurchase(id, change
 
 var AddPurchase = exports.AddPurchase = function AddPurchase(purchaseInfo) {
   return function (dispatch) {
-    return _axios2.default.post('/purchases/', purchaseInfo).then(function (res) {
-      dispatch(addPurchase(res));
+    return _axios2.default.post('/api/purchases/', purchaseInfo).then(function (res) {
+      dispatch(addPurchase(res.data));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
     });
@@ -6278,8 +6276,8 @@ var AddPurchase = exports.AddPurchase = function AddPurchase(purchaseInfo) {
 
 var DeletePurchase = exports.DeletePurchase = function DeletePurchase(id) {
   return function (dispatch) {
-    return _axios2.default.delete('/purchases/' + id).then(function (res) {
-      dispatch(deletePurchase(res));
+    return _axios2.default.delete('/api/purchases/' + id).then(function (res) {
+      dispatch(deletePurchase(res.data));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
     });
@@ -13505,7 +13503,7 @@ var addCheese = function addCheese(cheese) {
 
 var UpdateCheese = exports.UpdateCheese = function UpdateCheese(id, changes) {
   return function (dispatch) {
-    return _axios2.default.put('/cheeses/' + id, changes).then(function (res) {
+    return _axios2.default.put('/api/cheeses/' + id, changes).then(function (res) {
       dispatch(updateCheese(changes));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
@@ -13515,7 +13513,7 @@ var UpdateCheese = exports.UpdateCheese = function UpdateCheese(id, changes) {
 
 var AddCheese = exports.AddCheese = function AddCheese(cheese) {
   return function (dispatch) {
-    return _axios2.default.post('/cheeses/', cheese).then(function (res) {
+    return _axios2.default.post('/api/cheeses/', cheese).then(function (res) {
       dispatch(addCheese(res));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
@@ -13525,7 +13523,7 @@ var AddCheese = exports.AddCheese = function AddCheese(cheese) {
 
 var GetCheeses = exports.GetCheeses = function GetCheeses() {
   return function (dispatch) {
-    return _axios2.default.get('/cheeses/').then(function (res) {
+    return _axios2.default.get('/api/cheeses/').then(function (res) {
       dispatch(getCheeses(res));
     }).catch(function (dispatchOrHistoryErr) {
       return console.error(dispatchOrHistoryErr);
@@ -13649,7 +13647,7 @@ var logout = exports.logout = function logout() {
 
 var Update = exports.Update = function Update(id, changes) {
   (function (dispatch) {
-    return _axios2.default.put('/users/' + id, changes).then(function (res) {
+    return _axios2.default.put('/api/users/' + id, changes).then(function (res) {
       dispatch(updateUser(changes));
       _history2.default.push();
     } /*NEED A ROUTE FOR THIS*/).catch(function (dispatchOrHistoryErr) {

@@ -57,7 +57,7 @@ export const logout = () =>{
 
 export const Update = (id, changes) =>{
   dispatch =>
-    axios.put(`/users/${id}`, changes)
+    axios.put(`/api/users/${id}`, changes)
       .then(res => {
         dispatch(updateUser(changes))
         history.push(/*NEED A ROUTE FOR THIS*/)
