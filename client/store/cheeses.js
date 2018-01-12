@@ -38,7 +38,7 @@ export const AddCheese = (cheese) =>{
   return dispatch =>
     axios.post(`/api/cheeses/`, cheese)
       .then(res => {
-        dispatch(addCheese(res))
+        dispatch(addCheese(res.data))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
@@ -46,7 +46,7 @@ export const GetCheeses = () => {
   return dispatch =>
     axios.get(`/api/cheeses/`)
       .then(res => {
-        dispatch(getCheeses(res))
+        dispatch(getCheeses(res.data))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 

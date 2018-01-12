@@ -44,6 +44,15 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
+router.delete('/:id', (req, res, next) => {
+  Purchase.destroy({
+    where: { id: req.params.id }
+  })
+    .then(r => res.sendStatus(201))
+    .catch(next)
+})
+
+
 // req.body in the following route must be very specifically formatted:
 // {ordered: true, priceAtTimeOfSale: '$$', cheeseId, userId...}
 

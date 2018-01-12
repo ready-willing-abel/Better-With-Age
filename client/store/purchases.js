@@ -76,7 +76,7 @@ export const DeletePurchase = (id) =>{
   return dispatch =>
     axios.delete(`/api/purchases/${id}`)
       .then(res => {
-        dispatch(deletePurchase(res.data))
+        dispatch(deletePurchase(id))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
