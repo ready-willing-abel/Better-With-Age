@@ -15,8 +15,9 @@ export default class Navbar extends Component {
     return (
       <MuiThemeProvider>
       <div>
-        <div className="nav-container">
+        <div className='cursive nav-container'>
           <AppBar
+          
           title='Better With Age'
           showMenuIconButton={false}
           iconElementRight=
