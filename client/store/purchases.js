@@ -21,60 +21,64 @@ const defaultPurchases = []
 
  const getPurchases = (purchases) => ({type: GET_PURCHASES, purchases})
  const deletePurchase = (id) => ({type: DELETE_PURCHASE, id})
- const updateOrder = (changes) => ({type: UPDATE_PURCHASE, changes})
+ const updateOrder = (id, changes) => ({type: UPDATE_PURCHASE, id,changes})
  const addOrder = (purchase) => ({type: ADD_PURCHASE, purchase})
 
 /**
  * THUNK CREATORS
  */
 
-  export const GetPurchasesAll = () =>
-  dispatch =>
-    axios.get(`/purchases/`)
+  export const GetPurchasesAll = () =>{
+  return dispatch =>
+    axios.get(`/api/purchases/`)
       .then(res => {
         dispatch(getPurchases(res))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
- export const GetUnorderedPurchasesUser = (userId) =>
-   dispatch =>
-     axios.get(`/purchases/user/cart/${userId}`)
+
+ export const GetUnorderedPurchasesUser = (userId) => {
+   return dispatch =>
+     axios.get(`/api/purchases/user/cart/${userId}`)
        .then(res => {
-         dispatch(getPurchases(res))
+         console.log('exiting thunk',res)
+         dispatch(getPurchases(res.data))
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+  }
 
- export const GetOldPurchasesUser = (userId) =>
-   dispatch =>
-     axios.get(`/purchases/user/history/${userId}`)
+ export const GetOldPurchasesUser = (userId) =>{
+   return dispatch =>
+     axios.get(`/api/purchases/user/history/${userId}`)
        .then(res => {
-         dispatch(getPurchases(res))
+         dispatch(getPurchases(res.data))
        })
-       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const UpdatePurchase = (id, changes) =>
-  dispatch =>
-    axios.put(`/purchases/${id}`, changes)
+export const UpdatePurchase = (id, changes) =>{
+  return dispatch =>
+    axios.put(`/api/purchases/${id}`, changes)
       .then(updated => {
-        dispatch(updateOrder(updated))
+        console.log('about to dispatch changes to state',updated)
+        dispatch(updateOrder(id,changes))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const AddPurchase = (purchaseInfo) =>
-  dispatch =>
-    axios.post(`/purchases/`, purchaseInfo)
+export const AddPurchase = (purchaseInfo) =>{
+  return dispatch =>
+    axios.post(`/api/purchases/`, purchaseInfo)
       .then(res => {
-        dispatch(addPurchase(res))
+        dispatch(addPurchase(res.data))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const DeletePurchase = (id) =>
-  dispatch =>
-    axios.delete(`/purchases/${id}`)
+export const DeletePurchase = (id) =>{
+  return dispatch =>
+    axios.delete(`/api/purchases/${id}`)
       .then(res => {
-        dispatch(deletePurchase(res))
+        dispatch(deletePurchase(res.data))
       })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
 
 /**
@@ -83,12 +87,13 @@ export const DeletePurchase = (id) =>
 export default function (state = defaultPurchases, action) {
   switch (action.type) {
     case GET_PURCHASES:
-      return action.purchases
+      return action.purchases.slice()
     case DELETE_PURCHASE:
       return state.filter(v => v.id !== action.id)
     case UPDATE_PURCHASE:
       return state.map(v => {
-        return (v.id === action.id) ? Object.assign({}, v, action.changes) : v
+        console.log('updating',v,action.id,action.changes)
+        return (v.id === action.id) ? Object.assign({},v, action.changes) : v
       })
     case ADD_PURCHASE:
       return state.concat(action.purchase)

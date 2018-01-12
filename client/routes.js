@@ -6,7 +6,8 @@ import history from './history'
 import {Main, FrontPage, Login, Signup, UserHome, AllCheese} from './components'
 import {me} from './store'
 import { UserPage } from './components/userPage'
-// import FrontPage from './components/FrontPage'
+import FrontPage from './components/FrontPage'
+import Cart from './components/Cart'
 
 /**
  * COMPONENT
@@ -28,6 +29,7 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/user" component={UserPage} />
             <Route path="/cheeses" component={AllCheese} />
+            <Route path="/cart" component={Cart} />
             {
               isLoggedIn &&
                 <Switch>
