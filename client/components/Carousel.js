@@ -4,6 +4,7 @@ import { Carousel } from 'react-responsive-carousel';
 import styles from 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 export default class CheeseCarousel extends React.Component {
+
     render() {
         return (
             <Carousel
@@ -13,6 +14,7 @@ export default class CheeseCarousel extends React.Component {
                 infiniteLoop={true}
                 stopOnHover={true}
                 showStatus={false}
+                width='500px'
             >
                 <div>
                     <img src="http://www.eatwisconsincheese.com/images/cheese/Cheddar-h.jpg" />
