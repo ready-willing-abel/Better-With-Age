@@ -17,22 +17,23 @@ const personalStyle = {
   padding: 20
 }
 
-const mapState = (state) => {
-  return {
-    purchasesHistory: state.purchases.defaultPurchases
-  }
-}
-
 const groupPurchases = (purchases) => {
   let orders = {}
-  purchases.forEach(purchase => {
-    let timestamp = purchase.createdAt.slice(0, 19);
-    if (orders[timestamp].length) {orders[timestamp].push(purchase)}
-    else {orders[timestamp] = [purchase]}
-  })
+  if (purchases) {
+    purchases.forEach(purchase => {
+      let timestamp = purchase.createdAt.slice(0, 19);
+      if (orders[timestamp]) {orders[timestamp].push(purchase)}
+      else {orders[timestamp] = [purchase]}
+    })
+  }
   return orders
 }
 
+const mapState = (state) => {
+  return {
+    purchasesHistory: state.purchases
+  }
+}
 
 class UserPage extends Component {
   componentDidMount () {
@@ -41,6 +42,8 @@ class UserPage extends Component {
   }
 
   render () {
+    const orders = groupPurchases(this.props.purchasesHistory)
+    console.log("ORDERS", orders)
     return (
       <Paper zDepth={3} style={parentStyle}>
         <h1> User Page </h1>
@@ -56,7 +59,7 @@ class UserPage extends Component {
         />
           <CardText expandable={true} >
             <h3>Placeholder</h3>
-            <OrdersTable orders={1} /> {/* groupPurchases(this.props.purchasesHistory) */}
+            <OrdersTable orders={orders} /> {/* groupPurchases(this.props.purchasesHistory) */}
           </CardText>
         </Card>
       </Paper>
