@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { GetPurchasesAll, GetUnorderedPurchasesUser, GetOldPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
 import { List, ListItem } from 'material-ui/List';
 import store from '../store'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 let dispatch = store.dispatch
 
@@ -25,9 +27,16 @@ class Cart extends Component {
           {
             this.props.unpurchasedOrders.map(cartItem=>{
               return (
+                <div>
                 <ListItem
                   primaryText={cartItem.cheese.name}
+
+                  rightIcon={
+                    <FloatingActionButton mini={true} onClick={()=>this.props.deltQuantity(cartItem.id,cartItem.quantity + 1)}>
+                      <ContentAdd />
+                    </FloatingActionButton>}
                 />
+                </div>
               )
             })
           }
@@ -52,6 +61,9 @@ function mapDispatchToProps(dispatch) {
     loadCart: (userId)=>{
       console.log('mounting')
       dispatch(GetUnorderedPurchasesUser(userId))
+    },
+    deltQuantity: (id,value)=>{
+      dispatch(UpdatePurchase(id,{quantity: value}))
     }
   }
 }

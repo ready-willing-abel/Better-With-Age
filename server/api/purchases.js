@@ -20,7 +20,6 @@ router.get('/user/history/:id', (req, res, next) => {
 })
 
 router.get('/user/cart/:id', (req, res, next) => {
-  console.log('entering route: ',req.params.id)
   Purchase.findAll({
     where: {
       userId: req.params.id,
@@ -32,7 +31,6 @@ router.get('/user/cart/:id', (req, res, next) => {
     ]
   })
     .then(purchases =>{
-      console.log(purchases)
       res.json(purchases)})
     .catch(next)
 })
@@ -49,6 +47,7 @@ router.post('/', (req, res, next) => {
 // {ordered: true, priceAtTimeOfSale: '$$', cheeseId, userId...}
 
 router.put('/:id', (req, res, next) => {
+  console.log('enetering route: ',req.body)
   Purchase.update(req.body, {
     where: {
       id: req.params.id
