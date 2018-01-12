@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import CheeseCarousel from './Carousel'
-import Thumbnails from './ThumbnailShell'
-import SingleCheeseThumbnail from './SingleCheeseThumbnail'
+import AllCheese from './AllCheese'
 
 export default class FrontPage extends Component {
 
@@ -10,9 +9,11 @@ export default class FrontPage extends Component {
         const style = { height: '50px' }
         return (
             <div>
-                <div>Welcome to Front Page</div>
-                <div style={style} ><CheeseCarousel /></div>
-                <div ><Thumbnails /></div>
+                <h1 className= 'cursive'>Welcome to the Front Page</h1>
+                <button type="button" className="btn btn-danger"> All Cheeses </button>
+                <CheeseCarousel />
+                <AllCheese />
+             
             </div>
         )
     }

@@ -12,5 +12,8 @@ export default class CheeseThumbnail extends Component {
                 <div><RaisedButton label='Buy some of this' /></div>
             </div>
         )
+
+
+
     }
 }
