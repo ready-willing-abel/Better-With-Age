@@ -20,6 +20,15 @@ render () {
         return (
         <div className = "container">
             <div className = "row">
+            {this.props.cheeses.map(cheese => {
+                return cheese.name
+                })
+            }
+
+
+
+
+
                 <div className="col-sm-4">
                     <SingleCheese /><br/>
                 </div>
