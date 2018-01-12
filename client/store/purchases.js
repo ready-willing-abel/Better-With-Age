@@ -41,6 +41,7 @@ const defaultPurchases = []
    return dispatch =>
      axios.get(`/api/purchases/user/cart/${userId}`)
        .then(res => {
+         console.log('exiting thunk',res)
          dispatch(getPurchases(res.data))
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))

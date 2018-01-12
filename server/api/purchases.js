@@ -20,6 +20,7 @@ router.get('/user/history/:id', (req, res, next) => {
 })
 
 router.get('/user/cart/:id', (req, res, next) => {
+  console.log('entering route: ')
   Purchase.findAll({
     where: {
       userId: req.params.id,

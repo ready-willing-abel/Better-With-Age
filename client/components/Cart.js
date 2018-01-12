@@ -14,7 +14,7 @@ class Cart extends Component {
   }
 
   componentDidMount(){
-    this.props.loadCart(0)
+    this.props.loadCart(2)
   }
 
   render(){
@@ -29,8 +29,7 @@ class Cart extends Component {
               return (
                 <div>
                 <ListItem
-                  primaryText={cartItem.cheese.name}
-
+                  primaryText={cartItem.cheese.name + '\t' + cartItem.quantity}
                   rightIcon={
                     <FloatingActionButton mini={true} onClick={()=>this.props.deltQuantity(cartItem.id,cartItem.quantity + 1)}>
                       <ContentAdd />
