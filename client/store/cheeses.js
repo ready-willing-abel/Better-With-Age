@@ -46,6 +46,7 @@ export const GetCheeses = () => {
   return dispatch =>
     axios.get(`/api/cheeses/`)
       .then(res => {
+        console.log("THESE ARE CHEESES",res.data)
         dispatch(getCheeses(res.data))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
