@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Route, Switch, Router} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Route, Switch, Router, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, FrontPage, Login, Signup, UserHome, AllCheese} from './components'
-import {me} from './store'
+import { Main, FrontPage, Login, Signup, UserHome, AllCheese, SingleCheese } from './components'
+import { me } from './store'
 import { UserPage } from './components/userPage'
 import Cart from './components/Cart'
 
@@ -12,12 +12,12 @@ import Cart from './components/Cart'
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
+  componentDidMount() {
     // this.props.loadInitialData()
   }
 
-  render () {
-    const {isLoggedIn} = this.props
+  render() {
+    const { isLoggedIn } = this.props
 
     return (
       <Router history={history}>
@@ -27,14 +27,15 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/user" component={UserPage} />
-            <Route path="/cheeses" component={AllCheese} />
+            <Route exact path="/cheeses" component={AllCheese} />
             <Route path="/cart" component={Cart} />
+            <Route path="/cheeses/:id" component={SingleCheese} />
             {
               isLoggedIn &&
-                <Switch>
-                  {/* Routes placed here are only available after logging in */}
-                  <Route path="/user" component={UserPage} />
-                </Switch>
+              <Switch>
+                {/* Routes placed here are only available after logging in */}
+                <Route path="/user" component={UserPage} />
+              </Switch>
             }
             <Route component={FrontPage} />
           </Switch>
@@ -57,7 +58,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData() {
       // dispatch(me())
     }
   }

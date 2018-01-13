@@ -3,7 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux'
 import store, { GetCheeses } from '../store/cheeses.js'
 import { GetPurchasesAll, GetUnorderedPurchasesUser, GetOldPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
-
+import { NavLink } from 'react-router-dom'
 
 class CheeseThumbnail extends Component {
 
@@ -14,7 +14,7 @@ class CheeseThumbnail extends Component {
     render() {
         return (
             <div >
-                <h4>{this.props.indCheese && this.props.indCheese.cheese.name}</h4>
+                <h4><NavLink to={`/cheeses/${this.props.indCheese.cheese.id}`}>{this.props.indCheese && this.props.indCheese.cheese.name}</NavLink></h4>
                 <h4>${this.props.indCheese && this.props.indCheese.cheese.price}</h4>
                 <img style={{ width: 200, height: 150 }} src={this.props.indCheese && this.props.indCheese.cheese.imageUrl} />
                 <div><RaisedButton
