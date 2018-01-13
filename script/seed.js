@@ -51,21 +51,21 @@ async function seed () {
   console.log(`seeded ${cheeses.length} cheeses`)
 
   const purchases = await Promise.all([
-    Purchase.create({quantity:3, ordered: false, userId: 3, cheeseId:5}),
-    Purchase.create({quantity:7, ordered: false, userId: 2, cheeseId:1}),
-    Purchase.create({quantity:2, ordered:false, userId: 7, cheeseId:3}),
-    Purchase.create({quantity:6, ordered: false, userId: 5, cheeseId:2}),
-    Purchase.create({quantity:4, ordered: false, userId: 1, cheeseId:4}),
-    Purchase.create({quantity:3, ordered: false, userId: 1, cheeseId:5}),
-    Purchase.create({quantity:7, ordered: false, userId: 2, cheeseId:1}),
-    Purchase.create({quantity:2, ordered: false, userId: 3, cheeseId:3}),
-    Purchase.create({quantity:6, ordered: false, userId: 8, cheeseId:7}),
-    Purchase.create({quantity:4, ordered: false, userId: 9, cheeseId:9}),
-    Purchase.create({quantity:3, ordered: false, userId: 10, cheeseId:10}),
-    Purchase.create({quantity:7, ordered: false, userId: 6, cheeseId:15}),
-    Purchase.create({quantity:2, ordered: false, userId: 10, cheeseId:12}),
-    Purchase.create({quantity:6, ordered: false, userId: 13, cheeseId:4}),
-    Purchase.create({quantity:4, ordered: false, userId: 12, cheeseId:8})
+    Purchase.create({quantity:3, priceAtTimeOfSale:1.99, ordered: false, userId: 3, cheeseId:5}),
+    Purchase.create({quantity:7, priceAtTimeOfSale:1.99, ordered: false, userId: 2, cheeseId:1}),
+    Purchase.create({quantity:2, priceAtTimeOfSale:1.99, ordered:false, userId: 7, cheeseId:3}),
+    Purchase.create({quantity:6, priceAtTimeOfSale:1.99, ordered: false, userId: 5, cheeseId:2}),
+    Purchase.create({quantity:4, priceAtTimeOfSale:1.99, ordered: false, userId: 1, cheeseId:4}),
+    Purchase.create({quantity:3, priceAtTimeOfSale:1.99, ordered: false, userId: 1, cheeseId:5}),
+    Purchase.create({quantity:7, priceAtTimeOfSale:1.99, ordered: false, userId: 2, cheeseId:1}),
+    Purchase.create({quantity:2, priceAtTimeOfSale:1.99, ordered: false, userId: 3, cheeseId:3}),
+    Purchase.create({quantity:6, priceAtTimeOfSale:1.99, ordered: false, userId: 8, cheeseId:7}),
+    Purchase.create({quantity:4, priceAtTimeOfSale:1.99, ordered: false, userId: 9, cheeseId:9}),
+    Purchase.create({quantity:3, priceAtTimeOfSale:1.99, ordered: false, userId: 10, cheeseId:10}),
+    Purchase.create({quantity:7, priceAtTimeOfSale:1.99, ordered: false, userId: 6, cheeseId:15}),
+    Purchase.create({quantity:2, priceAtTimeOfSale:1.99, ordered: false, userId: 10, cheeseId:12}),
+    Purchase.create({quantity:6, priceAtTimeOfSale:1.99, ordered: false, userId: 13, cheeseId:4}),
+    Purchase.create({quantity:4, priceAtTimeOfSale:1.99, ordered: false, userId: 12, cheeseId:8})
   ])
 
   console.log(`seeded ${purchases.length} purchases`)
