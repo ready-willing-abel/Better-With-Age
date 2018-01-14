@@ -4,6 +4,8 @@ import SingleCheese from './SingleCheeseThumbnail'
 
 export default class Thumbnails extends Component {
     render() {
+        
+
         return (
             <Container fluid style={{ lineHeight: '200px' }}>
 
