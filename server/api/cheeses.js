@@ -11,7 +11,9 @@ router.get('/', (req, res, next) => {
   Cheese.findAll({
     where: whereObj
   })
-    .then(cheeses => res.json(cheeses))
+    .then(cheeses => {
+      res.json(cheeses)
+    })
     .catch(next)
 })
 
