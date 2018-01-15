@@ -4,14 +4,16 @@ module.exports = router
 
 router.get('/', (req, res, next) => {
   //ideaz from coreyz
-  const whereObj = {}; 
+  const whereObj = {};
   if(req.query.category){
     whereObj.category = req.query.category;
   }
   Cheese.findAll({
     where: whereObj
   })
-    .then(cheeses => res.json(cheeses))
+    .then(cheeses => {
+      res.json(cheeses)
+    })
     .catch(next)
 })
 

@@ -3,10 +3,9 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome} from './components'
+import {Main, FrontPage, Login, Signup, UserHome, AllCheese} from './components'
 import {me} from './store'
 import UserPage from './components/user-page/userPage'
-import FrontPage from './components/FrontPage'
 import Cart from './components/Cart'
 
 /**
@@ -14,7 +13,7 @@ import Cart from './components/Cart'
  */
 class Routes extends Component {
   componentDidMount () {
-    this.props.loadInitialData()
+    // this.props.loadInitialData()
   }
 
   render () {
@@ -28,6 +27,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/user" component={UserPage} />
+            <Route path="/cheeses" component={AllCheese} />
             <Route path="/cart" component={Cart} />
             {
               isLoggedIn &&

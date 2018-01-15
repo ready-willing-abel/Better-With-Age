@@ -10,6 +10,8 @@ label {
   display: block;
 }
 
+
+
 nav a {
   display: inline-block;
   margin: 1em;
@@ -18,4 +20,14 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.cursive {
+  font-family: 'Dancing Script', cursive;
+}
+
+.thumbnail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

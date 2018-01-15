@@ -91,7 +91,6 @@ const startListening = () => {
   require('./socket')(io)
 }
 
-
 const syncDb = () => db.sync().then(()=>console.log('db synced'))
 
 // This evaluates as true when this file is run directly from the command line,

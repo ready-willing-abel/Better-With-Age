@@ -1,16 +1,19 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import CheeseCarousel from './Carousel'
-import Thumbnails from './ThumbnailShell'
+import AllCheese from './AllCheese'
 
 export default class FrontPage extends Component {
 
     render() {
+        const style = { height: '50px' }
         return (
             <div>
-                <div>Welcome to Front Page</div>
+                <h1 className= 'cursive'>Welcome to the Front Page</h1>
+                <button type="button" className="btn btn-danger"> All Cheeses </button>
                 <CheeseCarousel />
-                <Thumbnails />
+                <AllCheese />
+             
             </div>
         )
     }
