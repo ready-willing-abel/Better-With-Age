@@ -73,7 +73,7 @@ router.delete('/:id', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
   console.log('enetering route: ',req.body)
-  Purchase.update(req.body, {
+  Purchase.update(req.body, { // generally, using req.body wherever is bad
     where: {
       id: req.params.id
     }
