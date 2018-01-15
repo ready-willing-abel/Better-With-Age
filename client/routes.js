@@ -13,7 +13,7 @@ import Cart from './components/Cart'
  */
 class Routes extends Component {
   componentDidMount () {
-    // this.props.loadInitialData()
+    //this.props.loadInitialData()
   }
 
   render () {
@@ -24,16 +24,20 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/user" component={UserPage} />
             <Route path="/cheeses" component={AllCheese} />
             <Route path="/cart" component={Cart} />
             {
-              isLoggedIn &&
+              isLoggedIn ?
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/user" component={UserPage} />
+                </Switch>
+                :
+                <Switch>
+                  {/* Routes placed here are only if not logged in */}
+                  <Route path="/login" component={Login} />
+                  <Route path="/signup" component={Signup} />
+                  <Route component={FrontPage} />
                 </Switch>
             }
             <Route component={FrontPage} />
@@ -58,7 +62,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
-      // dispatch(me())
+      dispatch(me())
     }
   }
 }
