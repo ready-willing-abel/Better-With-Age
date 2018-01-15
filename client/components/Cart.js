@@ -37,10 +37,10 @@ class Cart extends Component {
 
   componentDidMount(){
     this.props.loadCart(2)
+    //need a session id
   }
 
   render(){
-    console.log(this.props)
     const cartTotal = this.props.unpurchasedOrders.reduce((a,b)=>{
       return a + (b.cheese.price * b.quantity)
     },0)

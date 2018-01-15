@@ -12,14 +12,25 @@ class SingleCheese extends Component {
     }
 
     render() {
-        let theCheese = parseInt(this.props.match.params.id) + 1
+
+        let theCheese = parseInt(this.props.match.params.id)
+        let currentCheese = this.props.cheeses.find(cheese => cheese.id === theCheese)
 
         return (
-            <div>
-                <div>THIS IS SINGLE CHEESE </div>
-                <img style={{ width: 200, height: 150 }} src={this.props.cheeses && this.props.cheeses[theCheese].imageUrl} />
-                <h4>{this.props.cheeses && this.props.cheeses[theCheese].name}</h4>
-                <h4>${this.props.cheeses && this.props.cheeses[theCheese].price}</h4>
+            <div className="container col-6 cursive">
+        
+                
+                <img style={{ width: 400, height: 275 }} src={this.props.cheeses && currentCheese.imageUrl} />
+                
+                <div>
+                <h2>{this.props.cheeses && currentCheese.name}</h2>
+                <h3>${this.props.cheeses && currentCheese.price}</h3>
+                <RaisedButton
+                    label="Buy some"
+                />
+                </div>
+                
+                
             </div>
         )
     }
