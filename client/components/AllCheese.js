@@ -18,6 +18,7 @@ class AllCheese extends Component {
 
     render() {
         return (
+            // more descriptive classNames
             <div className="container">
                 <h1 className="cursive">Cheeses</h1>
                 <div className="row">
@@ -26,6 +27,7 @@ class AllCheese extends Component {
                             <div className=" col-sm-4 cursive" key={cheese.id}>
                                 <SingleCheese
                                     indCheese={ cheese } />
+                                    {/* pass prop down */}
                             </div>
                         )
                     })

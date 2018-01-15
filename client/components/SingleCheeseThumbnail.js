@@ -39,10 +39,10 @@ function mapStateToProps(storeState) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadCart: (userId) => {
+        loadCart: (userId) => { // put logic on backend
             dispatch(GetUnorderedPurchasesUser(userId))
         },
-        buySome: (cart,cheese) => {
+        buySome: (cart,cheese) => { // put on parent component and pass down as a prop
             let cheeseInCart = cart.filter(v => v.cheese.name === cheese.name)[0] || null
             console.log('inside thunk dispatcher', cart, cheese, cheeseInCart)
             if (cheeseInCart){

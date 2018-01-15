@@ -7,6 +7,8 @@ import { GetPurchasesAll, GetUnorderedPurchasesUser, GetOldPurchasesUser, Update
 
 class SingleCheese extends Component {
 
+    // consistent spacing: 2 vs 4, CG: Webstorm
+
     constructor(props) {
         super(props)
     }
@@ -19,12 +21,13 @@ class SingleCheese extends Component {
         return (
             <div className="container col-6 cursive">
         
-                
+                {/* no inline styles! better for others; also only pick height or width, not both */}
                 <img style={{ width: 400, height: 275 }} src={this.props.cheeses && currentCheese.imageUrl} />
                 
                 <div>
                 <h2>{this.props.cheeses && currentCheese.name}</h2>
                 <h3>${this.props.cheeses && currentCheese.price}</h3>
+                {/* use classNames for styling, vs tags */}
                 <RaisedButton
                     label="Buy some"
                 />

@@ -23,7 +23,7 @@ class Cart extends Component {
   }
 
   state = {
-  open: false,
+  open: false, // naming, modal
   };
 
   handleOpen = () => {
@@ -92,7 +92,9 @@ class Cart extends Component {
         onClick={()=>{
           this.props.purchaseCart(this.props.unpurchasedOrders)
           this.setState({open:true})
-        }}
+        }} 
+        // issue with rendering twice
+        // never have a setState in a render!
         label={(this.props.unpurchasedOrders.length<1)?`Your Cart is Empty`:`Purchase Cart $${cartTotal}`}
         fullWidth={true}
         disabled={this.props.unpurchasedOrders.length<1}/>

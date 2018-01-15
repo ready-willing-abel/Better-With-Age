@@ -4,6 +4,8 @@ const { User } = require('../db/models')
 const { Cheese } = require('../db/models')
 module.exports = router
 
+// move 2 routes into User's routes
+
 router.get('/user/history/:id', (req, res, next) => {
   Purchase.findAll({
     where:{

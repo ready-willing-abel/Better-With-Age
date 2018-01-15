@@ -39,7 +39,7 @@ const defaultPurchases = []
 
  export const GetUnorderedPurchasesUser = (userId) => {
    return dispatch =>
-     axios.get(`/api/purchases/user/cart/${userId}`)
+     axios.get(`/api/purchases/user/cart/${userId}`) // not RESTful
        .then(res => {
          console.log('exiting thunk',res)
          dispatch(getPurchases(res.data))
@@ -50,7 +50,7 @@ const defaultPurchases = []
 
  export const GetOldPurchasesUser = (userId) =>{
    return dispatch =>
-     axios.get(`/api/purchases/user/history/${userId}`)
+     axios.get(`/api/purchases/user/history/${userId}`) // api/users/:userID/purchases
        .then(res => {
          dispatch(getPurchases(res.data))
        })
