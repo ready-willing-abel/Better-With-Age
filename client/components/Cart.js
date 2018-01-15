@@ -32,7 +32,7 @@ class Cart extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
-    this.props.history.push('/home')
+    this.props.history.push('/cheeses')
   };
 
   componentDidMount(){
