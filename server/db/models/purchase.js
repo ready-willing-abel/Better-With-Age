@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+// have an orders table, purchases is the join b/n orders and user
+
 const Purchase = db.define('purchase', {
   quantity: {
     type: Sequelize.INTEGER,
