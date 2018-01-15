@@ -19,14 +19,14 @@ class AllCheese extends Component {
     render() {
         return (
             <div className="container">
-                <h1 className="cursiveFont">Cheeses</h1>
-                <div className="container row">
+                <div className="title">Cheeses</div>
+
+                <div className="row">
                     {this.props.cheeses.map(cheese => {
                         return (
-                            <div className=" col-sm-4 cursive" key={cheese.id}>
-                                <SingleCheese
-                                    indCheese={ cheese } />
-                            </div>
+                          <div className="col-sm-4" key= { cheese.id }>
+                            <SingleCheese indCheese={ cheese } />
+                          </div>
                         )
                     })
                     }

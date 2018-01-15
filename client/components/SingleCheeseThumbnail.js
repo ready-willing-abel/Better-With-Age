@@ -11,20 +11,29 @@ class CheeseThumbnail extends Component {
         super(props)
     }
 
-    componentDidMount(){
-        this.props.loadCart(2)
-    }
+    // componentDidMount(){
+    //     this.props.loadCart(2)
+    // }
 
     render() {
         return (
-            <div >
-                <h4><NavLink to={`/cheeses/${this.props.indCheese.id}`}>{this.props.indCheese && this.props.indCheese.name}</NavLink></h4>
-                <h4>${this.props.indCheese && this.props.indCheese.price}</h4>
-                <img style={{ width: 200, height: 150 }} src={this.props.indCheese && this.props.indCheese.imageUrl} />
-                <div><RaisedButton
-                    label="Buy some"
-                    onClick={() => this.props.buySome(this.props.unpurchasedOrders, this.props.indCheese)}
-                />
+            <div className="thumbnail">
+
+                <div className="title">
+                    <NavLink to={`/cheeses/${this.props.indCheese.id}`}>{this.props.indCheese && this.props.indCheese.name}</NavLink>
+                </div>
+                
+               
+                <img src={this.props.indCheese && this.props.indCheese.imageUrl} />
+                <div> 
+                    <NavLink to="/cart"><RaisedButton
+                        label="Buy some"
+                        onClick={() => {
+                            this.props.buySome(this.props.unpurchasedOrders, this.props.indCheese)
+                            }
+                        }
+                    />
+                    </NavLink>
                 </div>
             </div>
         )
@@ -44,13 +53,14 @@ function mapDispatchToProps(dispatch) {
         },
         buySome: (cart,cheese) => {
             let cheeseInCart = cart.filter(v => v.cheese.name === cheese.name)[0] || null
-            console.log('inside thunk dispatcher', cart, cheese, cheeseInCart)
+
             if (cheeseInCart){
                 dispatch(UpdatePurchase(cheeseInCart.id, { quantity: parseInt(cheeseInCart.quantity) + 1 }))
             }
             else{
                 dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: 2, price: cheese.price }))
             }
+
         }
     }
 }

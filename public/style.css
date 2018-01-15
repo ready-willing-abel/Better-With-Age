@@ -26,13 +26,22 @@ form div {
   font-family: 'Dancing Script', cursive;
 }
 
-.thumbnail {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 .thumbnail img {
   height: 150px;
   width: auto;
+}
+
+.singleCheese img {
+  height: 350px;
+  width: auto;
+}
+
+.title {
+  font-size: 300%;
+  font-family: 'Dancing Script', cursive;
+}
+
+.thumbnail .title {
+  font-size: 200%;
+  font-family: 'Dancing Script', cursive;
 }
