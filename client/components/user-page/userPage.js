@@ -43,7 +43,6 @@ class UserPage extends Component {
 
   render () {
     const orders = groupPurchases(this.props.purchasesHistory)
-    console.log("ORDERS", orders)
     return (
       <Paper zDepth={3} style={parentStyle}>
         <h1> User Page </h1>
