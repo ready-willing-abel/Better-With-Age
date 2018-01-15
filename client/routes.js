@@ -13,7 +13,7 @@ import Cart from './components/Cart'
  */
 class Routes extends Component {
   componentDidMount () {
-    //this.props.loadInitialData()
+    this.props.loadInitialData()
   }
 
   render () {
@@ -31,6 +31,7 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/user" component={UserPage} />
+                  <Route component={FrontPage} />
                 </Switch>
                 :
                 <Switch>

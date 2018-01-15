@@ -6,37 +6,47 @@ import AppBar from 'material-ui/AppBar';
 
 import RaisedButton from 'material-ui/RaisedButton';
 
-import store from '../store';
+import store, {logout} from '../store';
+
+import {connect} from 'react-redux'
 
 
-export default class Navbar extends Component {
+class Navbar extends Component {
 
   render() {
+    const {isLoggedIn} = this.props
+
     return (
       <MuiThemeProvider>
       <div>
         <div className='cursive nav-container'>
           <AppBar
-          
+
           title='Better With Age'
           showMenuIconButton={false}
           iconElementRight=
             {
               <div>
-                <NavLink to='/login'>
-                  <RaisedButton label='login' />
-                </NavLink>
-                <NavLink to='/signup'>
-                  <RaisedButton label='signup' />
-                </NavLink>
+                {isLoggedIn ?
+                  <div className="authButtons">
+                    <NavLink to='/user'>
+                      <RaisedButton label='user' />
+                    </NavLink>
+                      <RaisedButton label='log out' onClick={this.props.handleLogout} />
+                  </div>
+                  :
+                  <div className="unauthButtons">
+                    <NavLink to='/login'>
+                      <RaisedButton label='login' />
+                    </NavLink>
+                    <NavLink to='/signup'>
+                      <RaisedButton label='signup' />
+                    </NavLink>
+                  </div>
+                }
                 <NavLink to='/checkout'>
                   <RaisedButton label='checkout' />
                 </NavLink>
-
-                <NavLink to='/user'>
-                  <RaisedButton label='user' />
-                </NavLink>
-
                 <NavLink to='/cart'>
                   <RaisedButton label='cart' />
                 </NavLink>
@@ -50,3 +60,19 @@ export default class Navbar extends Component {
     </MuiThemeProvider>)
   }
 }
+
+const mapState = (state) => {
+  return {
+    isLoggedIn: !!state.user.id
+  }
+}
+
+const mapDispatch = (dispatch) => {
+  return {
+    handleLogout (evt) {
+      dispatch(logout())
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Navbar)
