@@ -40,7 +40,20 @@ router.get('/user/cart/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   Purchase.create(req.body)
-    .then(purchases => res.json(purchases))
+    .then(purchase =>{
+      Purchase.findAll({
+        where:{
+          id:purchase.id
+        },
+        include: [
+          { model: User },
+          { model: Cheese }
+        ]
+      })
+      .then(rows=>{
+        res.json(rows[0])
+      })
+    })
     .catch(next)
 })
 

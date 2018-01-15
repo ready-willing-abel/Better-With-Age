@@ -65,11 +65,11 @@ export const UpdatePurchase = (id, changes) =>{
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const AddPurchase = (purchaseInfo) =>{
+export const AddPurchase = (purchaseInfo,price) =>{
   return dispatch =>
     axios.post(`/api/purchases/`, purchaseInfo)
       .then(res => {
-        dispatch(addPurchase(res.data))
+        dispatch(addOrder(res.data))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
