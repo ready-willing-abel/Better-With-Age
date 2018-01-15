@@ -11,23 +11,24 @@ class SingleCheese extends Component {
         super(props)
     }
 
+    componentWillMount(){
+        this.props.loadCheeses();
+    }
+
     render() {
 
-        let theCheese = parseInt(this.props.match.params.id)
-        let currentCheese = this.props.cheeses.find(cheese => cheese.id === theCheese)
+        let currentCheese = this.props.cheeses.find(cheese => cheese.id == this.props.match.params.id)
 
         return (
-            <div className="container col-6 cursive">
+            <div className="container col-sm-4 cursiveFont">
         
                 
-                <img style={{ width: 400, height: 275 }} src={this.props.cheeses && currentCheese.imageUrl} />
+                <img className="thumbnail" src={this.props.cheeses && currentCheese.imageUrl} />
                 
                 <div>
                 <h2>{this.props.cheeses && currentCheese.name}</h2>
                 <h3>${this.props.cheeses && currentCheese.price}</h3>
-                <RaisedButton
-                    label="Buy some"
-                />
+                <RaisedButton label="Buy some"/>
                 </div>
                 
                 
@@ -44,8 +45,8 @@ function mapStateToProps(storeState) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadCart: (userId) => {
-            dispatch(GetUnorderedPurchasesUser(userId))
+        loadCheeses: () => {
+            dispatch(GetCheeses())
         },
         deltQuantity: (id, value) => {
             console.log({ quantity: value })
@@ -55,15 +56,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleCheese)
-
-
-{/* <div >
-<img style={{ width: 200, height: 150 }} src={this.props.indCheese && this.props.indCheese.cheese.imageUrl} />
-<h4>{this.props.indCheese && this.props.indCheese.cheese.name}</h4>
-<h4>${this.props.indCheese && this.props.indCheese.cheese.price}</h4>
-<div><RaisedButton
-    label="Buy some"
-    onClick={() => this.props.deltQuantity(this.props.indCheese.cheese.id, 666)}
-/>
-</div>
-</div> */}

@@ -22,7 +22,7 @@ form div {
   display: inline-block;
 }
 
-.cursive {
+.cursiveFont {
   font-family: 'Dancing Script', cursive;
 }
 
@@ -30,4 +30,9 @@ form div {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.thumbnail img {
+  height: 150px;
+  width: auto;
 }

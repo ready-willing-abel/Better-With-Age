@@ -19,8 +19,8 @@ class AllCheese extends Component {
     render() {
         return (
             <div className="container">
-                <h1 className="cursive">Cheeses</h1>
-                <div className="row">
+                <h1 className="cursiveFont">Cheeses</h1>
+                <div className="container row">
                     {this.props.cheeses.map(cheese => {
                         return (
                             <div className=" col-sm-4 cursive" key={cheese.id}>
