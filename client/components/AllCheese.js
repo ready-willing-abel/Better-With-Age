@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Container, Row, Col } from 'react-grid-system'
 import SingleCheese from './SingleCheeseThumbnail'
 import store, { GetCheeses } from '../store/cheeses.js'
-import { GetPurchasesAll, GetUnorderedPurchasesUser, GetOldPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
+import { GetPurchasesAll, GetUnorderedPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
 
 
 class AllCheese extends Component {
@@ -25,7 +25,11 @@ class AllCheese extends Component {
                         return (
                             <div className=" col-sm-4 cursive" key={cheese.id}>
                                 <SingleCheese
+<<<<<<< HEAD
                                     indCheese={ cheese } />
+=======
+                                   indCheese={{ cheese }} />
+>>>>>>> origin
                             </div>
                         )
                     })

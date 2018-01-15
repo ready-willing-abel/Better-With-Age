@@ -29,10 +29,7 @@ export default class Navbar extends Component {
                 <NavLink to='/signup'>
                   <RaisedButton label='signup' />
                 </NavLink>
-                <NavLink to='/checkout'>
-                  <RaisedButton label='checkout' />
-                </NavLink>
-
+                
                 <NavLink to='/user'>
                   <RaisedButton label='user' />
                 </NavLink>

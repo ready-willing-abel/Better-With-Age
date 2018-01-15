@@ -47,6 +47,7 @@ const defaultPurchases = []
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
   }
 
+
  export const GetOldPurchasesUser = (userId) =>{
    return dispatch =>
      axios.get(`/api/purchases/user/history/${userId}`)
