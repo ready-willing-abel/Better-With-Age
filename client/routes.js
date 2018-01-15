@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, FrontPage, Login, Signup, UserHome, AllCheese} from './components'
 import {me} from './store'
-import { UserPage } from './components/userPage'
+import UserPage from './components/user-page/userPage'
 import Cart from './components/Cart'
 
 /**
