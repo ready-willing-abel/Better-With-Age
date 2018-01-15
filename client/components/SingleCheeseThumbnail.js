@@ -11,6 +11,10 @@ class CheeseThumbnail extends Component {
         super(props)
     }
 
+    componentDidMount(){
+        this.props.loadCart(2)
+    }
+
     render() {
         return (
             <div >
@@ -19,7 +23,7 @@ class CheeseThumbnail extends Component {
                 <img style={{ width: 200, height: 150 }} src={this.props.indCheese && this.props.indCheese.cheese.imageUrl} />
                 <div><RaisedButton
                     label="Buy some"
-                    onClick={() => this.props.deltQuantity(this.props.indCheese.cheese.id, 666)}
+                    onClick={() => this.props.deltQuantity(this.props.indCheese.cheese.id, 1)}
                 />
                 </div>
             </div>
