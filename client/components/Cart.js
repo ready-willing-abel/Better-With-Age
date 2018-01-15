@@ -22,22 +22,8 @@ class Cart extends Component {
     super(props)
   }
 
-  state = {
-  open: false,
-  };
-
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-    this.props.history.push('/cheeses')
-  };
-
   componentDidMount(){
-    this.props.loadCart(2)
-    //need a session id
+    this.props.loadCart((this.props.user.id) ? this.props.user.id: 'UNAUTH')
   }
 
   render(){
@@ -91,19 +77,11 @@ class Cart extends Component {
         <RaisedButton
         onClick={()=>{
           this.props.purchaseCart(this.props.unpurchasedOrders)
-          this.setState({open:true})
+          this.props.history.push('/checkout')
         }}
         label={(this.props.unpurchasedOrders.length<1)?`Your Cart is Empty`:`Purchase Cart $${cartTotal}`}
         fullWidth={true}
         disabled={this.props.unpurchasedOrders.length<1}/>
-        <Dialog
-          title="Thank you for shopping with us."
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-        >
-          Your order is processing and will be shipped soon.
-        </Dialog>
       </div>
     )
     else return (<div></div>)
@@ -115,14 +93,13 @@ class Cart extends Component {
 function mapStateToProps(storeState) {
   return {
     unpurchasedOrders: storeState.purchases,
-    // user: storeState.defaultUser // or session ID
+    user: storeState.user
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     loadCart: (userId)=>{
-      console.log('mounting')
       dispatch(GetUnorderedPurchasesUser(userId))
     },
     deltQuantity: (id,value)=>{

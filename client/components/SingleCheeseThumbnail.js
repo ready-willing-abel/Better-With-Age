@@ -12,7 +12,7 @@ class CheeseThumbnail extends Component {
     }
 
     componentDidMount(){
-        this.props.loadCart(2)
+        this.props.loadCart((this.props.user.id) ? this.props.user.id: 'UNAUTH')
     }
 
     render() {
@@ -23,7 +23,7 @@ class CheeseThumbnail extends Component {
                 <img style={{ width: 200, height: 150 }} src={this.props.indCheese && this.props.indCheese.imageUrl} />
                 <div><RaisedButton
                     label="Buy some"
-                    onClick={() => this.props.buySome(this.props.unpurchasedOrders, this.props.indCheese)}
+                    onClick={() => this.props.buySome((this.props.user.id) ? this.props.user.id:false,this.props.unpurchasedOrders, this.props.indCheese)}
                 />
                 </div>
             </div>
@@ -33,7 +33,8 @@ class CheeseThumbnail extends Component {
 
 function mapStateToProps(storeState) {
     return {
-        unpurchasedOrders: storeState.purchases
+        unpurchasedOrders: storeState.purchases,
+        user: storeState.user
     }
 }
 
@@ -42,14 +43,15 @@ function mapDispatchToProps(dispatch) {
         loadCart: (userId) => {
             dispatch(GetUnorderedPurchasesUser(userId))
         },
-        buySome: (cart,cheese) => {
+        buySome: (id,cart,cheese) => {
             let cheeseInCart = cart.filter(v => v.cheese.name === cheese.name)[0] || null
-            console.log('inside thunk dispatcher', cart, cheese, cheeseInCart)
+            console.log('inside thunk dispatcher', id)
             if (cheeseInCart){
                 dispatch(UpdatePurchase(cheeseInCart.id, { quantity: parseInt(cheeseInCart.quantity) + 1 }))
             }
             else{
-                dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: 2, price: cheese.price }))
+                if(id) dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: id, price: cheese.price }))
+                else dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, price: cheese.price }))
             }
         }
     }

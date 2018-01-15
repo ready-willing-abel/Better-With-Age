@@ -13,7 +13,7 @@ class AllCheese extends Component {
     }
 
     componentDidMount() {
-        this.props.loadCheeses()
+        this.props.loadCheeses(this.props.user.id)
     }
 
     render() {
@@ -41,14 +41,15 @@ class AllCheese extends Component {
 function mapStateToProps(storeState) {
     return {
         cheeses: storeState.cheeses,
+        user: storeState.user
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadCheeses: () => {
+        loadCheeses: (id) => {
             dispatch(GetCheeses())
-            dispatch(GetUnorderedPurchasesUser(2))
+            if(id) dispatch(GetUnorderedPurchasesUser(id))
         }
     }
 }

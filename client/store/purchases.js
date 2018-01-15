@@ -41,12 +41,11 @@ const defaultPurchases = []
    return dispatch =>
      axios.get(`/api/purchases/user/cart/${userId}`)
        .then(res => {
-         console.log('exiting thunk',res)
+         console.log('exiting thunk',res,userId)
          dispatch(getPurchases(res.data))
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
   }
-
 
  export const GetOldPurchasesUser = (userId) =>{
    return dispatch =>
@@ -60,7 +59,6 @@ export const UpdatePurchase = (id, changes) =>{
   return dispatch =>
     axios.put(`/api/purchases/${id}`, changes)
       .then(updated => {
-        console.log('about to dispatch changes to state',updated)
         dispatch(updateOrder(id,changes))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
