@@ -50,6 +50,9 @@ class Navbar extends Component {
                 <NavLink to='/cart'>
                   <RaisedButton label='cart' />
                 </NavLink>
+                <NavLink to='/cheeses'>
+                  <RaisedButton label='all cheeses' />
+                </NavLink>
               </div>
             }
           style={{background: '#206c99'}}

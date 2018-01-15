@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Route, Switch, Router} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Route, Switch, Router, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, FrontPage, Login, Signup, UserHome, AllCheese} from './components'
-import {me} from './store'
+import { Main, FrontPage, Login, Signup, UserHome, AllCheese, SingleCheese } from './components'
+import { me } from './store'
 import UserPage from './components/user-page/userPage'
 import Cart from './components/Cart'
 
@@ -16,16 +16,17 @@ class Routes extends Component {
     this.props.loadInitialData()
   }
 
-  render () {
-    const {isLoggedIn} = this.props
+  render() {
+    const { isLoggedIn } = this.props
 
     return (
       <Router history={history}>
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/cheeses" component={AllCheese} />
+            <Route exact path="/cheeses" component={AllCheese} />
             <Route path="/cart" component={Cart} />
+            <Route path="/cheeses/:id" component={SingleCheese} />
             {
               isLoggedIn ?
                 <Switch>

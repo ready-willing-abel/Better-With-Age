@@ -4,6 +4,7 @@ import { GetPurchasesAll, GetUnorderedPurchasesUser, GetOldPurchasesUser, Update
 import store from '../store'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import ContentRemove from 'material-ui/svg-icons/content/remove';
 import {
   Table,
   TableBody,
@@ -12,24 +13,8 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-
-let dispatch = store.dispatch
-const styleA = {
-  display: "flex"
-}
-const styleB = {
-  flex: 1
-}
-const styleC = {
-  transform: `translate(10px, 50px)`,
-  flex: .5,
-}
-const styleD = {
-  margin: 12
-}
-const styleE = {
-  transform: `translate(15px, 0px)`
-}
+import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
 
 
 class Cart extends Component {
@@ -37,55 +22,91 @@ class Cart extends Component {
     super(props)
   }
 
+  state = {
+  open: false,
+  };
+
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+    this.props.history.push('/cheeses')
+  };
+
   componentDidMount(){
     this.props.loadCart(2)
+    //need a session id
   }
 
   render(){
-    console.log(this.props)
+    const cartTotal = this.props.unpurchasedOrders.reduce((a,b)=>{
+      return a + (b.cheese.price * b.quantity)
+    },0)
     if(this.props.unpurchasedOrders) return (
-      <div className="cartTableContainer" style={styleA}>
-        <div className="tableContainer-cart" style={styleB}>
-          <Table>
-            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-              <TableRow>
-                <TableHeaderColumn>Cheese</TableHeaderColumn>
-                <TableHeaderColumn>Quantity</TableHeaderColumn>
-                <TableHeaderColumn>Price</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody displayRowCheckbox={false}>
-            {
-              this.props.unpurchasedOrders.map(cartItem=>{
-                return (
-                  <TableRow>
-                    <TableRowColumn>{cartItem.cheese.name}</TableRowColumn>
-                    <TableRowColumn>{cartItem.quantity}</TableRowColumn>
-                    <TableRowColumn>{'$'+cartItem.cheese.price}</TableRowColumn>
-                  </TableRow>
-                )
-              })
-            }
-            </TableBody>
-          </Table>
-        </div>
-        <div className="cartTableButtonsContainer" style={styleC}>
+      <div className="cartTableContainer">
+        <Table>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn>Cheese</TableHeaderColumn>
+              <TableHeaderColumn>Quantity</TableHeaderColumn>
+              <TableHeaderColumn>Price</TableHeaderColumn>
+              <TableHeaderColumn>Total</TableHeaderColumn>
+              <TableHeaderColumn>Add</TableHeaderColumn>
+              <TableHeaderColumn>Remove</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>
           {
-            this.props.unpurchasedOrders.map(cartItem => {
+            this.props.unpurchasedOrders.map(cartItem=>{
               return (
-                <div className="cartTableButtons" style={styleD}>
-                  <FloatingActionButton mini={true} onClick={() => this.props.deltQuantity(cartItem.id, cartItem.quantity + 1)}>
-                  </FloatingActionButton>
-                  <FloatingActionButton secondary={true} mini={true} onClick={() => this.props.deltQuantity(cartItem.id, cartItem.quantity - 1)} style={styleE}>
-                  </FloatingActionButton>
-                </div>
+                <TableRow>
+                  <TableRowColumn>{cartItem.cheese.name}</TableRowColumn>
+                  <TableRowColumn>{cartItem.quantity}</TableRowColumn>
+                  <TableRowColumn>{'$'+cartItem.cheese.price}</TableRowColumn>
+                  <TableRowColumn>{'$' + (cartItem.cheese.price * cartItem.quantity)}</TableRowColumn>
+                  <TableRowColumn>
+                    <FloatingActionButton
+                      backgroundColor={"#FDD835"}
+                      mini={true}
+                      onClick={() => this.props.deltQuantity(cartItem.id, cartItem.quantity + 1)}>
+                      <ContentAdd />
+                    </FloatingActionButton>
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    <FloatingActionButton
+                      backgroundColor={"#BF360C"}
+                      mini={true}
+                      onClick={() => this.props.deltQuantity(cartItem.id, cartItem.quantity - 1)}>
+                      <ContentRemove />
+                    </FloatingActionButton>
+                  </TableRowColumn>
+                </TableRow>
               )
             })
           }
-        </div>
+          </TableBody>
+        </Table>
+        <RaisedButton
+        onClick={()=>{
+          this.props.purchaseCart(this.props.unpurchasedOrders)
+          this.setState({open:true})
+        }}
+        label={(this.props.unpurchasedOrders.length<1)?`Your Cart is Empty`:`Purchase Cart $${cartTotal}`}
+        fullWidth={true}
+        disabled={this.props.unpurchasedOrders.length<1}/>
+        <Dialog
+          title="Thank you for shopping with us."
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+          Your order is processing and will be shipped soon.
+        </Dialog>
       </div>
     )
-    else return (<div>THIS IS ALSO A DIV</div>)
+    else return (<div></div>)
   }
 }
 
@@ -107,6 +128,18 @@ function mapDispatchToProps(dispatch) {
     deltQuantity: (id,value)=>{
       if(value<1) dispatch(DeletePurchase(id))
       else dispatch(UpdatePurchase(id,{quantity: value}))
+    },
+    purchaseCart:(items)=>{
+      items.forEach(item=>{
+        dispatch(UpdatePurchase(
+          item.id,
+          {
+            priceAtTimeOfSale: item.price,
+            ordered: true,
+            orderStatus: "processing"
+          }
+        ))
+      })
     }
   }
 }

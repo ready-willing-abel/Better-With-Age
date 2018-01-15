@@ -1,83 +1,56 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {Container, Row, Col} from 'react-grid-system'
+import { Container, Row, Col } from 'react-grid-system'
 import SingleCheese from './SingleCheeseThumbnail'
 import store, { GetCheeses } from '../store/cheeses.js'
+import { GetPurchasesAll, GetUnorderedPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
 
 
 class AllCheese extends Component {
 
     constructor(props) {
         super(props)
-      }
+    }
 
-    componentDidMount () {
+    componentDidMount() {
         this.props.loadCheeses()
-      }
+    }
 
-render () {
-    console.log(this.props)
+    render() {
         return (
-        <div className = "container">
-        <h1 className="cursive">Cheeses</h1>
-            <div className = "row"> 
-                {this.props.cheeses.map(cheese => {
-                    return (
-                        <div className=" col-sm-4 cursive" key={cheese.id}> 
-                        <h3>{cheese.name}</h3>
-                        <SingleCheese />
-                        </div>
-                    )
+            <div className="container">
+                <div className="title">Cheeses</div>
+
+                <div className="row">
+                    {this.props.cheeses.map(cheese => {
+                        return (
+                          <div className="col-sm-4" key= { cheese.id }>
+                            <SingleCheese indCheese={ cheese } />
+                          </div>
+                        )
                     })
-                }
-
-
-
-
-
-                <div className="col-sm-4">
-                    <SingleCheese /><br/>
-                </div>
-                <div className="col-sm-4">
-                        <SingleCheese /><br/>
-                </div>
-                <div className="col-sm-4">
-                    <SingleCheese />
-                </div>
-
-                <div className = "row">
-                    <div className="col-sm-4">
-                        <SingleCheese /><br/>
-                    </div>
-                    <div className="col-sm-4">
-                            <SingleCheese /><br/>
-                    </div>
-                    <div className="col-sm-4">
-                        <SingleCheese />
-                    </div>
+                    }
                 </div>
             </div>
-
-        </div>
         )
 
-    }   
+    }
 
 }
 
-function mapStateToProps(storeState){
+function mapStateToProps(storeState) {
     return {
-        cheeses: storeState.cheeses
+        cheeses: storeState.cheeses,
     }
 }
-  
-  function mapDispatchToProps(dispatch) {
+
+function mapDispatchToProps(dispatch) {
     return {
-      loadCheeses: ()=>{
-        console.log('mounting')
-        dispatch(GetCheeses())
-      }
+        loadCheeses: () => {
+            dispatch(GetCheeses())
+            dispatch(GetUnorderedPurchasesUser(2))
+        }
     }
-  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllCheese)

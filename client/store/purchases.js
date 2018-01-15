@@ -41,7 +41,6 @@ const defaultPurchases = []
    return dispatch =>
      axios.get(`/api/purchases/user/cart/${userId}`)
        .then(res => {
-         console.log('exiting thunk',res)
          dispatch(getPurchases(res.data))
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
@@ -60,16 +59,15 @@ export const UpdatePurchase = (id, changes) =>{
   return dispatch =>
     axios.put(`/api/purchases/${id}`, changes)
       .then(updated => {
-        console.log('about to dispatch changes to state',updated)
         dispatch(updateOrder(id,changes))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
-export const AddPurchase = (purchaseInfo) =>{
+export const AddPurchase = (purchaseInfo,price) =>{
   return dispatch =>
     axios.post(`/api/purchases/`, purchaseInfo)
       .then(res => {
-        dispatch(addPurchase(res.data))
+        dispatch(addOrder(res.data))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
@@ -93,7 +91,6 @@ export default function (state = defaultPurchases, action) {
       return state.filter(v => v.id !== action.id)
     case UPDATE_PURCHASE:
       return state.map(v => {
-        console.log('updating',v,action.id,action.changes)
         return (v.id === action.id) ? Object.assign({},v, action.changes) : v
       })
     case ADD_PURCHASE:

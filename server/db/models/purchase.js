@@ -8,7 +8,7 @@ const Purchase = db.define('purchase', {
   },
   priceAtTimeOfSale: {
     type: Sequelize.FLOAT,
-    allowNull: false
+    allowNull: true
   },
   ordered: {
     type: Sequelize.BOOLEAN,
