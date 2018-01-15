@@ -31,23 +31,25 @@ const groupPurchases = (purchases) => {
 
 const mapState = (state) => {
   return {
-    purchasesHistory: state.purchases
+    purchasesHistory: state.purchases,
+    user: state.user
   }
 }
 
 class UserPage extends Component {
   componentDidMount () {
-    const ordersThunk = GetOldPurchasesUser(1) //TODO: hook up to userId
+    const ordersThunk = GetOldPurchasesUser(this.props.user.id)
     store.dispatch(ordersThunk);
+    console.log('COOKIE', document.cookie)
   }
 
   render () {
     const orders = groupPurchases(this.props.purchasesHistory)
     return (
       <Paper zDepth={3} style={parentStyle}>
-        <h1> User Page </h1>
+        <h1> Welcome, {this.props.user.name} </h1>
         <Paper zDepth={1} style={personalStyle}>
-          <h4>Email: </h4>
+          <h4>Email: {this.props.user.email}</h4>
           <h4>Address: </h4>
           <RaisedButton label="Change Password" />
         </Paper>
