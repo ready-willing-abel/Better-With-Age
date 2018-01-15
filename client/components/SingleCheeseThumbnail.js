@@ -11,15 +11,19 @@ class CheeseThumbnail extends Component {
         super(props)
     }
 
+    componentDidMount(){
+        this.props.loadCart(2)
+    }
+
     render() {
         return (
             <div >
-                <h4><NavLink to={`/cheeses/${this.props.indCheese.cheese.id}`}>{this.props.indCheese && this.props.indCheese.cheese.name}</NavLink></h4>
-                <h4>${this.props.indCheese && this.props.indCheese.cheese.price}</h4>
-                <img style={{ width: 200, height: 150 }} src={this.props.indCheese && this.props.indCheese.cheese.imageUrl} />
+                <h4><NavLink to={`/cheeses/${this.props.indCheese.id}`}>{this.props.indCheese && this.props.indCheese.name}</NavLink></h4>
+                <h4>${this.props.indCheese && this.props.indCheese.price}</h4>
+                <img style={{ width: 200, height: 150 }} src={this.props.indCheese && this.props.indCheese.imageUrl} />
                 <div><RaisedButton
                     label="Buy some"
-                    onClick={() => this.props.deltQuantity(this.props.indCheese.cheese.id, 666)}
+                    onClick={() => this.props.buySome(this.props.unpurchasedOrders, this.props.indCheese)}
                 />
                 </div>
             </div>
@@ -38,9 +42,15 @@ function mapDispatchToProps(dispatch) {
         loadCart: (userId) => {
             dispatch(GetUnorderedPurchasesUser(userId))
         },
-        deltQuantity: (id, value) => {
-            console.log({ quantity: value })
-            dispatch(UpdatePurchase(id, { quantity: value }))
+        buySome: (cart,cheese) => {
+            let cheeseInCart = cart.filter(v => v.cheese.name === cheese.name)[0] || null
+            console.log('inside thunk dispatcher', cart, cheese, cheeseInCart)
+            if (cheeseInCart){
+                dispatch(UpdatePurchase(cheeseInCart.id, { quantity: parseInt(cheeseInCart.quantity) + 1 }))
+            }
+            else{
+                dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: 2, price: cheese.price }))
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ class AllCheese extends Component {
                         return (
                             <div className=" col-sm-4 cursive" key={cheese.id}>
                                 <SingleCheese
-                                   indCheese={{ cheese }} />
+                                    indCheese={ cheese } />
                             </div>
                         )
                     })
