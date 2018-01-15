@@ -20,49 +20,69 @@ const defaultUser = {}
  * ACTION CREATORS
  */
 
-const addUser = user => ({type:ADD_USER, user})
-const getUser = user => ({type: GET_USER, user})
-const removeUser = () => ({type: REMOVE_USER})
-const updateUser = changes => ({ type: UPDATE_USER, changes })
+const addUser = user => ({
+  type: ADD_USER,
+  user
+})
+const getUser = user => ({
+  type: GET_USER,
+  user
+})
+const removeUser = () => ({
+  type: REMOVE_USER
+})
+const updateUser = changes => ({
+  type: UPDATE_USER,
+  changes
+})
 
 /**
  * THUNK CREATORS
  */
-export const me = () =>{
+export const me = () => {
   dispatch =>
     axios.get('/auth/me')
-      .then(res =>
-        dispatch(getUser(res.data || defaultUser)))
-      .catch(err => console.log(err))}
+    .then(res =>
+      dispatch(getUser(res.data || defaultUser)))
+    .catch(err => console.log(err))
+}
 
-export const auth = (email, password, method) =>{
-  dispatch =>
-    axios.post(`/auth/${method}`, { email, password })
-      .then(res => {
-        dispatch(getUser(res.data))
-        history.push('/home')
-      }, authError => { // rare example: a good use case for parallel (non-catch) error handler
-        dispatch(getUser({error: authError}))
-      })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
+export const auth = (email, password, method) => {
+  return dispatch =>
+    axios.post(`/auth/${method}`, {
+      email,
+      password
+    })
+    .then(res => {
+      dispatch(getUser(res.data))
+      history.push('/home')
+    }, authError => { // rare example: a good use case for parallel (non-catch) error handler
+      dispatch(getUser({
+        error: authError
+      }))
+    })
+    .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+}
 
-export const logout = () =>{
+export const logout = () => {
   dispatch =>
     axios.post('/auth/logout')
-      .then(_ => {
-        dispatch(removeUser())
-        history.push('/login')
-      })
-      .catch(err => console.log(err))}
+    .then(_ => {
+      dispatch(removeUser())
+      history.push('/login')
+    })
+    .catch(err => console.log(err))
+}
 
-export const Update = (id, changes) =>{
+export const Update = (id, changes) => {
   dispatch =>
     axios.put(`/api/users/${id}`, changes)
-      .then(res => {
-        dispatch(updateUser(changes))
-        history.push(/*NEED A ROUTE FOR THIS*/)
-      })
-      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
+    .then(res => {
+      dispatch(updateUser(changes))
+      history.push( /*NEED A ROUTE FOR THIS*/ )
+    })
+    .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+}
 
 /**
  * REDUCER
@@ -74,7 +94,7 @@ export default function (state = defaultUser, action) {
     case ADD_USER:
       return defaultUser
     case UPDATE_USER:
-      return Object.assign({},defaultUser,action.changes)
+      return Object.assign({}, defaultUser, action.changes)
     case REMOVE_USER:
       return {}
     default:
