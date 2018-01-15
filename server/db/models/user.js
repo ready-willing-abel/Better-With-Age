@@ -3,12 +3,15 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  //CG: we can go nameless?
+  //notEmpty validation on string is helpful 
   name:{
     type: Sequelize.STRING
   },
   email: {
     type: Sequelize.STRING,
     unique: true
+    //may want isEmail validations.
   },
   password: {
     type: Sequelize.STRING
@@ -19,6 +22,7 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
+  //dont need this
   loggedIn:{
     type: Sequelize.BOOLEAN,
     defaultValue: false

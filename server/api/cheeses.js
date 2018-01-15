@@ -3,8 +3,17 @@ const { Cheese } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Cheese.findAll()
-    .then(cheeses => res.json(cheeses))
+  //ideaz from coreyz
+  const whereObj = {};
+  if(req.query.category){
+    whereObj.category = req.query.category;
+  }
+  Cheese.findAll({
+    where: whereObj
+  })
+    .then(cheeses => {
+      res.json(cheeses)
+    })
     .catch(next)
 })
 
