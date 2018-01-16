@@ -32,7 +32,7 @@ const defaultPurchases = []
   return dispatch =>
     axios.get(`/api/purchases/`)
       .then(res => {
-        dispatch(getPurchases(res))
+        dispatch(getPurchases(res.data))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
@@ -41,7 +41,6 @@ const defaultPurchases = []
    return dispatch =>
      axios.get(`/api/purchases/user/cart/${userId}`)
        .then(res => {
-         console.log('exiting thunk',res,userId)
          dispatch(getPurchases(res.data))
        })
        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
