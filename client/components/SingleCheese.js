@@ -16,11 +16,16 @@ class SingleCheese extends Component {
     componentWillMount(){
         this.props.loadCheeses();
         this.props.loadCart((this.props.user.id) ? this.props.user.id : 'UNAUTH')
+
     }
 
     render() {
 
         let currentCheese = this.props.cheeses.find(cheese => cheese.id == this.props.match.params.id)
+
+        console.log('THESE ARE PROPS', this.props)
+        console.log('THESE ARE the cheese id', cheeses.id)
+        console.log('THESE ARE PROPS', this.props)
 
         return (
             <div className="container singleCheese">
@@ -31,6 +36,7 @@ class SingleCheese extends Component {
                     <div className="title">{this.props.cheeses && currentCheese.name}</div>
                     <div className="title">${this.props.cheeses && currentCheese.price}</div>
                     <p> Description: {this.props.cheeses && currentCheese.description}</p>
+
 
 
                     <div>
@@ -44,6 +50,16 @@ class SingleCheese extends Component {
                             </button>
                         </NavLink>
                     </div>
+
+                    <div className="subtitle">
+                        Reviews:
+                        {this.props.cheese && currentCheese.reviews.forEach(review => <div> review </div> )}
+                    </div>
+
+                    <ul>
+                        <li> {this.props.cheese && currentCheese.reviews }</li>
+                    </ul>
+                    
 
 
             </div>
