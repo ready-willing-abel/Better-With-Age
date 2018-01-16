@@ -4,7 +4,7 @@ const db = require('../db')
 
 const User = db.define('user', {
   //CG: we can go nameless?
-  //notEmpty validation on string is helpful 
+  //notEmpty validation on string is helpful
   name:{
     type: Sequelize.STRING
   },
@@ -30,7 +30,7 @@ const User = db.define('user', {
   isAdmin:{
     type: Sequelize.BOOLEAN,
     defaultValue: false
-  }
+  },
 })
 
 module.exports = User
