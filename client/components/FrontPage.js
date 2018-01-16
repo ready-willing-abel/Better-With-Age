@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import ReactDOM, { NavLink } from 'react-dom';
 import CheeseCarousel from './Carousel'
-import AllCheese from './AllCheese'
+import CheeseThumbnail from './ThumbnailShell'
 export default class FrontPage extends Component {
 
     render() {
-        const style = { height: '50px' }
         return (
-            <div>
-                <h1 className='cursive'>Welcome to the Front Page</h1>
+            <div className= "container">
+                <div className='title'>Welcome to BWA</div>
                 <CheeseCarousel />
             </div>
         )
