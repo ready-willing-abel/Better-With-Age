@@ -3,7 +3,8 @@ const {
   User,
   Category,
   Cheese,
-  Purchase
+  Purchase, 
+  Review
 } = require('../server/db/models')
 // const chalk = require('chalk')
 // const chance = require('chance').Chance()
@@ -114,7 +115,8 @@ async function seed() {
       price: '50',
       quantity: 40,
       imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6vdx44qC8cQC5fhleMVvZNh8Qwyiji4AMzgI6UxnE1s1RZpm1",
-      description: "Gouda, or Howda as the locals say, is a Dutch cheese named after the city of Gouda in the Netherlands. If truth be told, it is one of the most popular cheeses in the world, accounting for 50 to 60 percent of the world's cheese consumption. It is a semi-hard cheese celebrated for its rich, unique flavour and smooth texture. The original cheese markets in Gouda is one of the last standing commercial cheese markets in the Netherlands. Since the name is not protected, it has become a generic classification for all cheeses produced and sold under the name Gouda. Gouda is typically made from pasteurised cow’s milk although some artisan varieties use sheep’s or goat’s milk to produce cheeses that are going to be aged for a long time. Boerenkaas is a typical variety of unpasteurised Gouda cheese produced by the farmers from milk of cow's grazing on the natural, low pastures of Netherlands. There are seven different types of Gouda cheese, categorized depending on age. Graskaas is young Gouda ready to be consumed within weeks of production. On the other hand, is the extra aged, Overjarig cheese which has a full-flavoured, hard, golden interior and salty flavour reminiscent of a toffee. Between the spectrums is a variety of Dutch Gouda’s classified as per the texture and age - Jong, Jong belegen, Belegen, Extra belegen, and Oud. Each cheese gets increasingly firmer in texture and richer in flavour than earlier classification. The waxed rind of the cheese also changes by the age as soft, younger Dutch Gouda cheese are identified by yellow, orange, or red wax rinds white mature cheese have black wax coverings."
+      description: "Gouda, or Howda as the locals say, is a Dutch cheese named after the city of Gouda in the Netherlands. If truth be told, it is one of the most popular cheeses in the world, accounting for 50 to 60 percent of the world's cheese consumption. It is a semi-hard cheese celebrated for its rich, unique flavour and smooth texture. The original cheese markets in Gouda is one of the last standing commercial cheese markets in the Netherlands. Since the name is not protected, it has become a generic classification for all cheeses produced and sold under the name Gouda. Gouda is typically made from pasteurised cow’s milk although some artisan varieties use sheep’s or goat’s milk to produce cheeses that are going to be aged for a long time. Boerenkaas is a typical variety of unpasteurised Gouda cheese produced by the farmers from milk of cow's grazing on the natural, low pastures of Netherlands. There are seven different types of Gouda cheese, categorized depending on age. Graskaas is young Gouda ready to be consumed within weeks of production. On the other hand, is the extra aged, Overjarig cheese which has a full-flavoured, hard, golden interior and salty flavour reminiscent of a toffee. Between the spectrums is a variety of Dutch Gouda’s classified as per the texture and age - Jong, Jong belegen, Belegen, Extra belegen, and Oud. Each cheese gets increasingly firmer in texture and richer in flavour than earlier classification. The waxed rind of the cheese also changes by the age as soft, younger Dutch Gouda cheese are identified by yellow, orange, or red wax rinds white mature cheese have black wax coverings.",
+      reviews: "Amazing, creamy cheese"
     }),
     Cheese.create({
       name: 'Cheddar',
@@ -122,7 +124,8 @@ async function seed() {
       price: '21',
       quantity: 20,
       imageUrl: "https://bigoven-res.cloudinary.com/image/upload/c_fill,h_300,w_300/cheddar-cheese.jpg",
-      description: "Cheddar cheese, the most widely purchased and eaten cheese in the world is always made from cow's milk. It is a hard and natural cheese that has a slightly crumbly texture if properly cured and if it is too young, the texture is smooth. It gets a sharper taste as it matures, over a period of time between 9 to 24 months. Shaped like a drum, 15 inches in diameter, Cheddar cheese is natural rind bound in cloth while its colour generally ranges from white to pale yellow. However, some Cheddars may have a manually added yellow-orange colour."
+      description: "Cheddar cheese, the most widely purchased and eaten cheese in the world is always made from cow's milk. It is a hard and natural cheese that has a slightly crumbly texture if properly cured and if it is too young, the texture is smooth. It gets a sharper taste as it matures, over a period of time between 9 to 24 months. Shaped like a drum, 15 inches in diameter, Cheddar cheese is natural rind bound in cloth while its colour generally ranges from white to pale yellow. However, some Cheddars may have a manually added yellow-orange colour.",
+      reviews: "T cheese"
     }),
     Cheese.create({
       name: 'Brie',
@@ -337,6 +340,41 @@ async function seed() {
       ordered: false,
       userId: 12,
       cheeseId: 8
+    })
+  ])
+
+
+  const reviews = await Promise.all([
+    Review.create({
+      review: "So soft and gooey",
+      cheeseId: 2,
+      userId:3
+    }),
+    Review.create({
+      review: "I just love cheese",
+      cheeseId: 7,
+      userId:4
+    }),
+    Review.create({
+      review: "It was ok",
+      cheeseId: 13,
+      userId:5
+
+    }),
+    Review.create({
+      review: "eh",
+      cheeseId: 11,
+      userId:6
+    }),
+    Review.create({
+      review: "Cheese is life",
+      cheeseId: 2,
+      userId:4
+    }),
+    Review.create({
+      review: "It was cheesy",
+      cheeseId: 7,
+      userId:3
     })
   ])
 

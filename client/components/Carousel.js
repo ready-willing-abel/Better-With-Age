@@ -14,20 +14,23 @@ export default class CheeseCarousel extends React.Component {
                 infiniteLoop={true}
                 stopOnHover={true}
                 showStatus={false}
-                width='500px'
+                width='750px'
             >
-                <div>
-                    <img src="http://www.eatwisconsincheese.com/images/cheese/Cheddar-h.jpg" />
-                    <p className="legend">Legend 1</p>
-                </div>
-                <div>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Pecorino_romano_on_board_cropped.PNG" />
-                    <p className="legend">Legend 2</p>
-                </div>
-                <div>
-                    <img src="http://origin-www.fritolay.com/images/default-source/blue-bag-image/cheetos-fantastix-chili-cheese.png" />
-                    <p className="legend">Legend 3</p>
-                </div>
+            <div>
+                <img src="http://www.eatwisconsincheese.com/EatWisconsinCheese/media/content/hero%20images/hero-cheese.png" />
+             </div>
+
+             <div>
+                <img src="http://www.eatwisconsincheese.com/EatWisconsinCheese/media/content/hero%20images/hero-cheese-5-2016.jpg" />
+              </div>
+        
+            <div>
+                <img src="https://www.greatlakescheese.com/Data/Sites/24/images/homepage/hp-hero-quality.jpg" /> 
+            </div>
+
+            <div>
+                <img src="https://discoversg.com/wp-content/uploads/sites/32/2016/10/cheese-truck-Singapore-1024x535.png" />
+            </div>
             </ Carousel>
         );
     }

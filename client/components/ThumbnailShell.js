@@ -1,25 +1,25 @@
 import React, { Component } from 'react'
 import { Container, Row, Col } from 'react-grid-system'
-import SingleCheese from './SingleCheeseThumbnail'
+import CheeseThumbnail from './SingleCheeseThumbnail'
 
 export default class Thumbnails extends Component {
     render() {
         
 
         return (
-            <Container fluid style={{ lineHeight: '200px' }}>
+            <div>
 
-                <Row align="center" style={{ height: '100px' }} debug>
-                    <Col debug><SingleCheese /></Col>
-                    <Col debug><SingleCheese /></Col>
-                    <Col debug><SingleCheese /></Col>
+                <div>
+                    <Col><CheeseThumbnail /></Col>
+                    <Col><CheeseThumbnail /></Col>
+                    <Col><CheeseThumbnail /></Col>
+                </div>
+                <Row align="center" style={{ height: '100px' }}>
+                    <Col><CheeseThumbnail /></Col>
+                    <Col><CheeseThumbnail /></Col>
+                    <Col><CheeseThumbnail /></Col>
                 </Row>
-                <Row align="center" style={{ height: '100px' }} debug>
-                    <Col debug><SingleCheese /></Col>
-                    <Col debug><SingleCheese /></Col>
-                    <Col debug><SingleCheese /></Col>
-                </Row>
-            </Container>
+            </div>
         )
     }
 }

@@ -24,6 +24,11 @@ const Cheese = db.define('cheese', {
     type: Sequelize.TEXT,
     defaultValue: "",
     allowNull: true
+  },
+  reviews: {
+    type: Sequelize.TEXT,
+    defaultValue: "",
+    allowNull: true
   }
   //need quantity of cheeses. 
 

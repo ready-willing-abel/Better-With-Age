@@ -33,6 +33,7 @@ class SingleCheese extends Component {
                     <p> Description: {this.props.cheeses && currentCheese.description}</p>
 
 
+
                     <div>
                         <NavLink to="/cart">
                             <button type="button" className="btn btn-default btn-lg"
@@ -44,6 +45,10 @@ class SingleCheese extends Component {
                             </button>
                         </NavLink>
                     </div>
+
+                    <ul>
+                        <li> {this.props.cheese && currentCheese.reviews }</li>
+                    </ul>
 
 
             </div>
