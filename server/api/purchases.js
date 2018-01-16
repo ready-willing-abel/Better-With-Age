@@ -35,9 +35,7 @@ router.get('/user/history/:id', (req, res, next) => {
 })
 
 router.get('/user/cart/:id', (req, res, next) => {
-
   if (req.params.id === 'UNAUTH'){
-    console.log('in the wrong if?', req.params)
     Purchase.findAll({
       where: {
         id: req.session.cart,
@@ -100,11 +98,22 @@ router.delete('/:id', (req, res, next) => {
     .catch(next)
 })
 
-
-// req.body in the following route must be very specifically formatted:
-// {ordered: true, priceAtTimeOfSale: '$$', cheeseId, userId...}
-
 router.put('/:id', (req, res, next) => {
+  if(req.body.ordered){
+    Cheese.findAll({
+      where:{
+        id: req.body.cheeseId
+      }
+    })
+    .then(cheese=>{
+      Cheese.update({quantity: Math.max(cheese[0].quantity-req.body.quantity,0)},{
+        where:{
+          id: cheese[0].id
+        }
+      })
+    })
+  }
+  if (req.body.quantity > req.body.cheeseQ) req.body.quantity = req.body.cheeseQ
   Purchase.update(req.body, {
     where: {
       id: req.params.id

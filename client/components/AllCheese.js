@@ -23,11 +23,13 @@ class AllCheese extends Component {
 
                 <div className="row">
                     {this.props.cheeses.map(cheese => {
-                        return (
-                          <div className="col-sm-4" key= { cheese.id }>
-                            <SingleCheese indCheese={ cheese } />
-                          </div>
-                        )
+                        if(cheese.quantity>0){
+                            return (
+                            <div className="col-sm-4" key= { cheese.id }>
+                                <SingleCheese indCheese={ cheese } />
+                            </div>
+                            )
+                        }
                     })
                     }
                 </div>

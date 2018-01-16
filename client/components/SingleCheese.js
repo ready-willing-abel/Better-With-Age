@@ -40,7 +40,7 @@ class SingleCheese extends Component {
                                 onClick={() => {
                                     this.props.buySome((this.props.user.id) ? this.props.user.id : 'UNAUTH',this.props.unpurchasedOrders, currentCheese)
                                     }}
-                            >
+                                >
                                 <span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart
                             </button>
                         </NavLink>
