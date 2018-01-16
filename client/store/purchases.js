@@ -32,7 +32,7 @@ const defaultPurchases = []
   return dispatch =>
     axios.get(`/api/purchases/`)
       .then(res => {
-        dispatch(getPurchases(res))
+        dispatch(getPurchases(res.data))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 

@@ -37,13 +37,14 @@ const mapState = (state) => {
 }
 
 class UserPage extends Component {
+
   componentDidMount () {
     const ordersThunk = GetOldPurchasesUser(this.props.user.id)
     store.dispatch(ordersThunk);
-    console.log('COOKIE', document.cookie)
   }
 
   render () {
+    if (this.props.user.isAdmin) this.props.history.push('/admin')
     const orders = groupPurchases(this.props.purchasesHistory)
     return (
       <Paper zDepth={3} style={parentStyle}>

@@ -7,10 +7,6 @@ const Cheese = db.define('cheese', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  category: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   price: {
     type: Sequelize.INTEGER
   },

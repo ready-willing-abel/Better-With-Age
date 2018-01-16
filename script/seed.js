@@ -175,7 +175,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Feta',
-      category: '',
       price: '4',
       quantity: 80,
       imageUrl: "http://www.cheesemaking.com/Shared/Images/Product/Feta-Cheese-Recipe/Feta_hero.jpg",
@@ -191,7 +190,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Burrata',
-      category: '',
       price: '8',
       quantity: 100,
       imageUrl: "https://images-na.ssl-images-amazon.com/images/I/51B1vs3%2BavL._SY355_.jpg",
@@ -199,7 +197,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Swiss',
-      category: '',
       price: '5',
       quantity: 90,
       imageUrl: "https://az616578.vo.msecnd.net/files/2017/01/15/636200553336849231725159057_Dollarphotoclub_53674521.jpg",
@@ -207,7 +204,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Comte',
-      category: '',
       price: '13',
       quantity: 70,
       imageUrl: "https://theflexitarian.co.uk/wp-content/uploads/2015/10/Comte-800.jpg",
@@ -232,6 +228,16 @@ async function seed() {
   ])
 
   console.log(`seeded ${cheeses.length} cheeses`)
+
+  const categories = await Promise.all([
+
+
+  ])
+
+
+
+
+
 
   const purchases = await Promise.all([
     Purchase.create({
