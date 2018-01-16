@@ -1,39 +1,130 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Container, Row, Col } from 'react-grid-system'
+import React, {
+  Component
+} from 'react'
+import {
+  connect
+} from 'react-redux'
+import {
+  Container,
+  Row,
+  Col
+} from 'react-grid-system'
 import SingleCheese from './SingleCheeseThumbnail'
-import store, { GetCheeses } from '../store/cheeses.js'
-import { GetPurchasesAll, GetUnorderedPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
-
+import store, {
+  GetCheeses
+} from '../store/cheeses.js'
+import {
+  GetPurchasesAll,
+  GetUnorderedPurchasesUser,
+  UpdatePurchase,
+  AddPurchase,
+  DeletePurchase
+} from '../store/purchases'
+import RaisedButton from 'material-ui/RaisedButton';
 
 class AllCheese extends Component {
 
-    constructor(props) {
-        super(props)
+  constructor(props) {
+
+    super(props)
+
+    this.state = {
+      price: false,
+      alphabetical: false,
+      rating: false,
     }
 
-    componentDidMount() {
-        this.props.loadCheeses(this.props.user.id)
+    this.handleAlphClick = this.handleAlphClick.bind(this);
+    this.handleRatingClick = this.handleRatingClick.bind(this);
+    this.handlePriceClick = this.handlePriceClick.bind(this);
+    this.cheeseFilter = this.cheeseFilter.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.loadCheeses(this.props.user.id)
+  }
+
+  cheeseFilter(cheeses) {
+    let sortedCheeses = cheeses;
+
+    /// sort alphabetically
+    if (this.state.alphabetical) {
+      sortedCheeses.sort(function (a, b) {
+        let cheeseA = a.name.toUpperCase();
+        let cheeseB = b.name.toUpperCase()
+        return (cheeseA < cheeseB) ? -1 : (cheeseA > cheeseB) ? 1 : 0;
+      })
     }
 
-    render() {
-        return (
-            <div className="container">
-                <div className="title">Cheeses</div>
+    // sort by price
+    if (this.state.price) {
+      sortedCheeses.sort(function (a, b) {
+        let cheeseA = a.price
+        let cheeseB = b.price
+        return (cheeseA < cheeseB) ? -1 : (cheeseA > cheeseB) ? 1 : 0;
+      })
+    }
 
-                <div className="row">
-                    {this.props.cheeses.map(cheese => {
-                        if(cheese.quantity>0){
-                            return (
-                            <div className="col-sm-4" key= { cheese.id }>
-                                <SingleCheese indCheese={ cheese } />
-                            </div>
-                            )
-                        }
-                    })
+    // // sort by rating
+    if (this.state.alphabetical) {
+      sortedCheeses.sort(function (a, b) {
+        let cheeseA = a.name.toUpperCase();
+        let cheeseB = b.name.toUpperCase()
+        return (cheeseA < cheeseB) ? -1 : (cheeseA > cheeseB) ? 1 : 0;
+      })
+    }
+    return sortedCheeses
+  }
+
+  handleAlphClick() {
+    this.setState({
+      price: false,
+      alphabetical: true,
+      rating: false,
+    });
+  }
+  handleRatingClick() {
+    this.setState({
+      price: false,
+      alphabetical: false,
+      rating: true,
+    });
+  }
+  handlePriceClick() {
+    this.setState({
+      price: true,
+      alphabetical: false,
+      rating: false,
+    });
+  }
+
+  render() {
+    let filteredCheeses = this.cheeseFilter(this.props.cheeses)
+
+    return (<
+            div className="container" >
+      <
+            div className="title" > Cheeses < /div> <
+            RaisedButton label='Filter alphabetically' onClick={this.handleAlphClick} > < /RaisedButton> <
+            RaisedButton label='Filter by rating' onClick={this.handleRatingClick}  > < /RaisedButton> <
+            RaisedButton label='Filter by price' onClick={this.handlePriceClick} > < /RaisedButton>  <
+            div className="row" > {
+
+                  filteredCheeses.map(cheese => {
+                    if (cheese.quantity > 0) {
+                      return (< div className="col-sm-4"
+                        key={
+                          cheese.id
+                        } >
+                        <
+                          SingleCheese indCheese={
+                            cheese
+                          }
+                        /> < /div >
+                        )
                     }
-                </div>
-            </div>
+                })
+            } < /div> < /div >
         )
 
     }
@@ -42,18 +133,18 @@ class AllCheese extends Component {
 
 function mapStateToProps(storeState) {
     return {
-        cheeses: storeState.cheeses,
-        user: storeState.user
+                          cheeses: storeState.cheeses,
+      user: storeState.user
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadCheeses: (id) => {
-            dispatch(GetCheeses())
-            if(id) dispatch(GetUnorderedPurchasesUser(id))
+                          loadCheeses: (id) => {
+                          dispatch(GetCheeses())
+      if (id) dispatch(GetUnorderedPurchasesUser(id))
         }
-    }
+    } 
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllCheese)
