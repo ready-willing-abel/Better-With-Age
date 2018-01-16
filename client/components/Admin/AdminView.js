@@ -82,7 +82,7 @@ class AdminPage extends Component {
         </Card>
       </Paper>
     )
-    else return (<div>YOu ShalL NOT PAsS!</div>)
+    else return (<img src="https://cdn.meme.am/cache/instances/folder419/500x/72679419/no-tp-access-denied-to-you.jpg" />)
   }
 }
 

@@ -19,47 +19,52 @@ class Navbar extends Component {
     return (
       <MuiThemeProvider>
       <div>
-        <div className='cursive nav-container'>
+       
           <AppBar
-
           title='Better With Age'
           showMenuIconButton={false}
+          style={{background: '#FFB74D'}}
+          titleStyle={{margin: 'auto', fontSize: '2em'}}
           iconElementRight=
             {
               <div>
                 {isLoggedIn ?
-                  <div className="authButtons">
+                  <span className="authButtons">
                     <NavLink to='/user'>
                       <RaisedButton label='user' />
                     </NavLink>
                       <RaisedButton label='log out' onClick={this.props.handleLogout} />
-                  </div>
+                  </span>
                   :
-                  <div className="unauthButtons">
+                  <span className="unauthButtons">
                     <NavLink to='/login'>
                       <RaisedButton label='login' />
                     </NavLink>
                     <NavLink to='/signup'>
                       <RaisedButton label='signup' />
                     </NavLink>
-                  </div>
+                  </span>
                 }
+                
+                
+
+
                 <NavLink to='/cart'>
                   <RaisedButton label='cart' />
                 </NavLink>
                 <NavLink to='/cheeses'>
                   <RaisedButton label='all cheeses' />
                 </NavLink>
-              </div>
-            }
-          style={{background: '#206c99'}}
-          titleStyle={{margin: 'auto', fontSize: '2em'}}
+                </div>
+            } 
           />
-        </div>
+  
       </div>
-    </MuiThemeProvider>)
+    </MuiThemeProvider>
+    )
   }
 }
+
 
 const mapState = (state) => {
   return {
