@@ -91,7 +91,6 @@ export default function (state = defaultPurchases, action) {
       return state.filter(v => v.id !== action.id)
     case UPDATE_PURCHASE:
       return state.map(v => {
-        console.log('updating',v,action.id,action.changes)
         return (v.id === action.id) ? Object.assign({},v, action.changes) : v
       })
     case ADD_PURCHASE:
