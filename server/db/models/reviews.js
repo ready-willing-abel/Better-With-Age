@@ -18,22 +18,23 @@ const Review = db.define('review', {
   }
 })
 
-// Review.afterCreate(function(review){
-//   let id = review.cheeseId
+Review.afterCreate(function(review){
+  return review.getCheese()
+  .then(cheese => {
+    return cheese.increment('totalRatings')
+  })
+  .then(cheese => {
+    return cheese.reload();
+  })
+})
 
-//   return review.getCheese({
-//     where:{
-//       id: id
-//     }
-//   })
-//   .then(review => {
-//     console.log(review)
+// Review.afterCreate(function(review){
+//   return review.getCheese()
+//   .then(cheese => {
+//       return cheese.increment('totalRatings')
 //   })
 //   .then(cheese => {
-//     // if(cheese.id === review.cheeseId){
-//       cheese.totalRatings++;
-//     // }
-//     // console.log(cheese.totalRatings);
+//     return cheese.reload();
 //   })
 // })
 

@@ -342,6 +342,9 @@ async function seed() {
   ])
 
 
+  console.log(`seeded ${purchases.length} purchases`)
+
+
   const reviews = await Promise.all([
     Review.create({
       review: "So soft and gooey",
@@ -536,7 +539,7 @@ async function seed() {
     })
   ])
 
-  console.log(`seeded ${purchases.length} purchases`)
+  console.log(`seeded ${reviews.length} reviews`)
 
   console.log(`seeded successfully`)
 

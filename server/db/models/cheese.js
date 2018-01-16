@@ -37,10 +37,6 @@ const Cheese = db.define('cheese', {
 
 })
 
-
-
-
-
 // Cheese.afterUpdate(function(Cheese){
 //   // return cheese.getReviews()
 //   return Cheese.countReviews()
