@@ -45,11 +45,16 @@ const createApp = () => {
   app.use(session({
     secret: process.env.SESSION_SECRET || 'my best friend is Cody',
     store: sessionStore,
-    // resave: false,
-    // saveUninitialized: false
+    resave: false,
+    saveUninitialized: false
   }))
   app.use(passport.initialize())
   app.use(passport.session())
+
+  app.use(function (req, res, next) {
+  console.log('session', req.session);
+  next();
+});
 
   // auth and api routes
   app.use('/auth', require('./auth'))

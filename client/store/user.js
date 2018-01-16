@@ -29,7 +29,7 @@ const updateUser = changes => ({ type: UPDATE_USER, changes })
  * THUNK CREATORS
  */
 export const me = () =>{
-  dispatch =>
+  return dispatch =>
     axios.get('/auth/me')
       .then(res =>
         dispatch(getUser(res.data || defaultUser)))
@@ -39,8 +39,9 @@ export const auth = (email, password, method) =>{
   return dispatch =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
+        console.log("SHOULD BE USER:", res.data)
         dispatch(getUser(res.data))
-        history.push('/home')
+        history.push('/')
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({error: authError}))
       })
