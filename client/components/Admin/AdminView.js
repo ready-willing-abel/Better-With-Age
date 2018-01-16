@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Paper from 'material-ui/Paper';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import { OrdersTable } from '../user-page/ordersTable'
+import { OrdersTable } from './orderTable'
 import UserTable from './UserTable'
 import { GetOldPurchasesUser, GetPurchasesAll } from '../../store/purchases'
 import store from '../../store'
