@@ -41,7 +41,7 @@ class AdminPage extends Component {
 
   render() {
     const orders = groupPurchases(this.props.purchasesHistory)
-    return (
+    if(this.props.user.isAdmin) return (
       <Paper zDepth={3} style={parentStyle}>
         <h1> Welcome, {this.props.user.name} </h1>
         <Paper zDepth={1} style={personalStyle}>
@@ -82,6 +82,7 @@ class AdminPage extends Component {
         </Card>
       </Paper>
     )
+    else return (<div>YOu ShalL NOT PAsS!</div>)
   }
 }
 
