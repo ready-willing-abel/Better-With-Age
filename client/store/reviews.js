@@ -34,7 +34,16 @@ export const fetchReviews = () => {
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
     }
+  }
 
+  export const postReview = () => {
+    return dispatch => {
+      axios.post('api/reviews/')
+        .then(res => {
+          dispatch(addReview(res.data))
+        })
+        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+    }
   }
 
 // export const UpdateCheese = (id, changes) =>{
@@ -69,6 +78,8 @@ export default function (state = defaultCheeses, action) {
       })
     case ADD_REVIEWS:
       return state.concat(action.review)
+    case DELETE_REVIEWS:
+      return state.filter(v => v.id !== action.id)
     default:
       return state
   }
