@@ -15,6 +15,7 @@ import {
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
+import { GetCheeses } from '../store/cheeses.js'
 
 
 class Cart extends Component {
@@ -24,6 +25,7 @@ class Cart extends Component {
 
   componentWillMount(){
     this.props.loadCart((this.props.user.id) ? this.props.user.id: 'UNAUTH')
+    this.props.loadCheeses();
   }
 
   render(){
@@ -37,6 +39,7 @@ class Cart extends Component {
             <TableRow>
               <TableHeaderColumn>Cheese</TableHeaderColumn>
               <TableHeaderColumn>Quantity</TableHeaderColumn>
+              <TableHeaderColumn>In Stock</TableHeaderColumn>
               <TableHeaderColumn>Price</TableHeaderColumn>
               <TableHeaderColumn>Total</TableHeaderColumn>
               <TableHeaderColumn>Add</TableHeaderColumn>
@@ -50,11 +53,13 @@ class Cart extends Component {
                 <TableRow>
                   <TableRowColumn>{cartItem.cheese.name}</TableRowColumn>
                   <TableRowColumn>{cartItem.quantity}</TableRowColumn>
+                  <TableRowColumn>{cartItem.cheese.quantity}</TableRowColumn>
                   <TableRowColumn>{'$'+cartItem.cheese.price}</TableRowColumn>
                   <TableRowColumn>{'$' + (cartItem.cheese.price * cartItem.quantity)}</TableRowColumn>
                   <TableRowColumn>
                     <FloatingActionButton
                       backgroundColor={"#FDD835"}
+                      disabled={cartItem.cheese.quantity<=cartItem.quantity}
                       mini={true}
                       onClick={() => this.props.deltQuantity(cartItem.id, cartItem.quantity + 1)}>
                       <ContentAdd />
@@ -99,6 +104,9 @@ function mapStateToProps(storeState) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    loadCheeses:()=>{
+      dispatch(GetCheeses())
+    },
     loadCart: (userId)=>{
       dispatch(GetUnorderedPurchasesUser(userId))
     },
@@ -111,9 +119,12 @@ function mapDispatchToProps(dispatch) {
         dispatch(UpdatePurchase(
           item.id,
           {
+            cheeseQ: item.cheese.quantity,
+            cheeseId: item.cheeseId,
             priceAtTimeOfSale: item.price,
             ordered: true,
-            orderStatus: "processing"
+            orderStatus: "processing",
+            quantity: item.quantity
           }
         ))
       })
