@@ -14,11 +14,11 @@ const DELETE_REVIEWS = 'DELETE_REVIEWS'
 /**
  * INITIAL STATE
  */
-const defaultReviews = []
+const defaultReviews = [];
 
 //ACTION CREATORS
  
-const getReviews = reviews => ({ type: GET_REVIEWS, review })
+const getReviews = reviews => ({ type: GET_REVIEWS, reviews })
 const addReview = review => ({type: ADD_REVIEWS, review })
 const updateReview = (id,changes) => ({ type: remove_Review, id, changes })
 const deleteReview = (id) => ({type: DELETE_REVIEWS, id})
@@ -46,37 +46,36 @@ export const fetchReviews = () => {
     }
   }
 
-  export const editReview = () =>
+  export const editReview = (id, changes) => {
+    return dispatch => {
+      axios.put(`/api/reviews/${id}`, changes)
+        .then(res => {
+          dispatch(updateReview(res.data))
+        })
+        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+    }
+  }
 
-// export const UpdateCheese = (id, changes) =>{
-//   return dispatch =>
-//     axios.put(`/api/cheeses/${id}`, changes)
-//       .then(res => {
-//         dispatch(updateCheese(changes))
-//       })
-//       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
-
-// export const AddCheese = (cheese) =>{
-//   return dispatch =>
-//     axios.post(`/api/cheeses/`, cheese)
-//       .then(res => {
-//         dispatch(addCheese(res.data))
-//       })
-//       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
-
-
-
+  export const removeReview = (id) => {
+    return dispatch => {
+      axios.delete(`/api/reviews/${id}`)
+        .then(res => {
+          dispatch(deleteReview(res.data))
+        })
+        .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+    }
+  }
 
 /**
  * REDUCER
  */
-export default function (state = defaultCheeses, action) {
+export default function (state = defaultReviews, action) {
   switch (action.type) {
     case GET_REVIEWS:
-      return action.reviews
+      return action.reviews;
     case UPDATE_REVIEWS:
-      return state.map(v=>{
-        return (v.id === action.id)? Object.assign({}, v, action.changes) : v
+      return state.map(review => {
+        return (review.id === action.id) ? Object.assign({}, review, action.changes) : review
       })
     case ADD_REVIEWS:
       return state.concat(action.review)

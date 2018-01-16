@@ -26,32 +26,15 @@ const Cheese = db.define('cheese', {
     defaultValue: "",
     allowNull: true
   },
-  totalRatings: {
+  totalReviews: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
-  avgRating: {
+  totalRatingSum: {
     type: Sequelize.FLOAT,
     defaultValue:0
   }
-
 })
 
-// Cheese.afterUpdate(function(Cheese){
-//   // return cheese.getReviews()
-//   return Cheese.countReviews()
-//   .then(review => {
-//     console.log(review)
-//   })
-// })
-
-// Cheese.prototype.findTotalRatings = function (){
-//   return this.findAndCountAll({
-//   where:{
-//     id: Review.cheeseId
-//   })
-//   .then( result => console.log(result.count))
-
-// })
 
 module.exports = Cheese

@@ -21,21 +21,21 @@ const Review = db.define('review', {
 Review.afterCreate(function(review){
   return review.getCheese()
   .then(cheese => {
-    return cheese.increment('totalRatings')
+    return cheese.increment('totalReviews')
   })
   .then(cheese => {
     return cheese.reload();
   })
 })
 
-// Review.afterCreate(function(review){
-//   return review.getCheese()
-//   .then(cheese => {
-//       return cheese.increment('totalRatings')
-//   })
-//   .then(cheese => {
-//     return cheese.reload();
-//   })
-// })
+Review.afterCreate(function(review){
+  return review.getCheese()
+  .then(cheese => {
+      return cheese.increment('totalRatingSum', {by:review.rating})
+  })
+  .then(cheese => {
+    return cheese.reload();
+  })
+})
 
 module.exports = Review
