@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { Cheese } = require('../db/models')
+
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -9,8 +10,8 @@ router.get('/', (req, res, next) => {
     whereObj.category = req.query.category;
   }
   Cheese.findAll({
-    where: whereObj
-  })
+    where: whereObj 
+    })
     .then(cheeses => {
       res.json(cheeses)
     })
