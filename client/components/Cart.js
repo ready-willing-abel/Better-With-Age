@@ -22,7 +22,7 @@ class Cart extends Component {
     super(props)
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.loadCart((this.props.user.id) ? this.props.user.id: 'UNAUTH')
   }
 

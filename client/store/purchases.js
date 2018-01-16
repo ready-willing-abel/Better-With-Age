@@ -94,7 +94,7 @@ export default function (state = defaultPurchases, action) {
         return (v.id === action.id) ? Object.assign({},v, action.changes) : v
       })
     case ADD_PURCHASE:
-      return state.concat(action.purchase)
+      return (state.map(v=>v.id).includes(action.purchase.id))? state.slice() : state.concat(action.purchase)
     default:
       return state
   }

@@ -35,7 +35,9 @@ router.get('/user/history/:id', (req, res, next) => {
 })
 
 router.get('/user/cart/:id', (req, res, next) => {
+
   if (req.params.id === 'UNAUTH'){
+    console.log('in the wrong if?', req.params)
     Purchase.findAll({
       where: {
         id: req.session.cart,
