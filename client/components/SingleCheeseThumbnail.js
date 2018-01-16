@@ -11,25 +11,27 @@ class CheeseThumbnail extends Component {
         super(props)
     }
 
-    // componentDidMount(){
-    //     this.props.loadCart(2)
-    // }
+    componentDidMount(){
+        this.props.loadCart((this.props.user.id) ? this.props.user.id: 'UNAUTH')
+    }
 
     render() {
         return (
             <div className="thumbnail">
 
                 <div className="title">
-                    <NavLink to={`/cheeses/${this.props.indCheese.id}`}>{this.props.indCheese && this.props.indCheese.name}</NavLink>
+                    <NavLink to={`/cheeses/${this.props.indCheese.id}`}>
+                        {this.props.indCheese && this.props.indCheese.name}
+                    </NavLink>
                 </div>
-                
-               
+
+
                 <img src={this.props.indCheese && this.props.indCheese.imageUrl} />
-                <div> 
+                <div>
                     <NavLink to="/cart"><RaisedButton
                         label="Buy some"
                         onClick={() => {
-                            this.props.buySome(this.props.unpurchasedOrders, this.props.indCheese)
+                            this.props.buySome((this.props.user.id) ? this.props.user.id :false,this.props.unpurchasedOrders, this.props.indCheese)
                             }
                         }
                     />
@@ -42,7 +44,8 @@ class CheeseThumbnail extends Component {
 
 function mapStateToProps(storeState) {
     return {
-        unpurchasedOrders: storeState.purchases
+        unpurchasedOrders: storeState.purchases,
+        user: storeState.user
     }
 }
 
@@ -51,14 +54,14 @@ function mapDispatchToProps(dispatch) {
         loadCart: (userId) => {
             dispatch(GetUnorderedPurchasesUser(userId))
         },
-        buySome: (cart,cheese) => {
+        buySome: (id,cart,cheese) => {
             let cheeseInCart = cart.filter(v => v.cheese.name === cheese.name)[0] || null
-
             if (cheeseInCart){
                 dispatch(UpdatePurchase(cheeseInCart.id, { quantity: parseInt(cheeseInCart.quantity) + 1 }))
             }
             else{
-                dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: 2, price: cheese.price }))
+                if(id) dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: id, price: cheese.price }))
+                else dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, price: cheese.price }))
             }
 
         }

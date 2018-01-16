@@ -13,7 +13,7 @@ class AllCheese extends Component {
     }
 
     componentDidMount() {
-        this.props.loadCheeses()
+        this.props.loadCheeses(this.props.user.id)
     }
 
     render() {
@@ -23,11 +23,13 @@ class AllCheese extends Component {
 
                 <div className="row">
                     {this.props.cheeses.map(cheese => {
-                        return (
-                          <div className="col-sm-4" key= { cheese.id }>
-                            <SingleCheese indCheese={ cheese } />
-                          </div>
-                        )
+                        if(cheese.quantity>0){
+                            return (
+                            <div className="col-sm-4" key= { cheese.id }>
+                                <SingleCheese indCheese={ cheese } />
+                            </div>
+                            )
+                        }
                     })
                     }
                 </div>
@@ -41,14 +43,15 @@ class AllCheese extends Component {
 function mapStateToProps(storeState) {
     return {
         cheeses: storeState.cheeses,
+        user: storeState.user
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadCheeses: () => {
+        loadCheeses: (id) => {
             dispatch(GetCheeses())
-            dispatch(GetUnorderedPurchasesUser(2))
+            if(id) dispatch(GetUnorderedPurchasesUser(id))
         }
     }
 }

@@ -10,13 +10,12 @@ class SingleCheese extends Component {
 
     constructor(props) {
         super(props)
-      
+
     }
 
     componentWillMount(){
         this.props.loadCheeses();
-        this.props.loadCart(2)
-      
+        this.props.loadCart((this.props.user.id) ? this.props.user.id : 'UNAUTH')
     }
 
     render() {
@@ -25,28 +24,28 @@ class SingleCheese extends Component {
 
         return (
             <div className="container singleCheese">
-        
+
                 <img src={this.props.cheeses && currentCheese.imageUrl} />
-                
-               
+
+
                     <div className="title">{this.props.cheeses && currentCheese.name}</div>
                     <div className="title">${this.props.cheeses && currentCheese.price}</div>
                     <p> Description: {this.props.cheeses && currentCheese.description}</p>
-                  
-                  
+
+
                     <div>
                         <NavLink to="/cart">
-                            <button type="button" className="btn btn-default btn-lg" 
+                            <button type="button" className="btn btn-default btn-lg"
                                 onClick={() => {
-                                    this.props.buySome(this.props.unpurchasedOrders, currentCheese)
+                                    this.props.buySome((this.props.user.id) ? this.props.user.id : 'UNAUTH',this.props.unpurchasedOrders, currentCheese)
                                     }}
-                            >
+                                >
                                 <span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart
                             </button>
-                        </NavLink> 
+                        </NavLink>
                     </div>
-                
-                    
+
+
             </div>
         )
     }
@@ -55,14 +54,15 @@ class SingleCheese extends Component {
 function mapStateToProps(storeState) {
     return {
         cheeses: storeState.cheeses,
-        unpurchasedOrders: storeState.purchases
+        unpurchasedOrders: storeState.purchases,
+        user:storeState.user
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadCart: () => {
-            dispatch(GetUnorderedPurchasesUser(2))
+        loadCart: (id) => {
+            dispatch(GetUnorderedPurchasesUser(id))
         },
         loadCheeses: () => {
             dispatch(GetCheeses())
@@ -70,14 +70,14 @@ function mapDispatchToProps(dispatch) {
         deltQuantity: (id, value) => {
             dispatch(UpdatePurchase(id, { quantity: value }))
         },
-        buySome: (cart,cheese) => {
+        buySome: (id,cart,cheese) => {
             let cheeseInCart = cart.filter(v => v.cheese.name === cheese.name)[0] || null
-            
             if (cheeseInCart){
                 dispatch(UpdatePurchase(cheeseInCart.id, { quantity: parseInt(cheeseInCart.quantity) + 1 }))
             }
             else{
-                dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: 2, price: cheese.price }))
+                if (id!=='UNAUTH') dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: id, price: cheese.price }))
+                else dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, price: cheese.price }))
             }
         }
     }

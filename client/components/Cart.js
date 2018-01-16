@@ -15,6 +15,7 @@ import {
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
+import { GetCheeses } from '../store/cheeses.js'
 
 
 class Cart extends Component {
@@ -22,22 +23,9 @@ class Cart extends Component {
     super(props)
   }
 
-  state = {
-  open: false,
-  };
-
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-    this.props.history.push('/cheeses')
-  };
-
-  componentDidMount(){
-    this.props.loadCart(2)
-    //need a session id
+  componentWillMount(){
+    this.props.loadCart((this.props.user.id) ? this.props.user.id: 'UNAUTH')
+    this.props.loadCheeses();
   }
 
   render(){
@@ -51,6 +39,7 @@ class Cart extends Component {
             <TableRow>
               <TableHeaderColumn>Cheese</TableHeaderColumn>
               <TableHeaderColumn>Quantity</TableHeaderColumn>
+              <TableHeaderColumn>In Stock</TableHeaderColumn>
               <TableHeaderColumn>Price</TableHeaderColumn>
               <TableHeaderColumn>Total</TableHeaderColumn>
               <TableHeaderColumn>Add</TableHeaderColumn>
@@ -64,11 +53,13 @@ class Cart extends Component {
                 <TableRow>
                   <TableRowColumn>{cartItem.cheese.name}</TableRowColumn>
                   <TableRowColumn>{cartItem.quantity}</TableRowColumn>
+                  <TableRowColumn>{cartItem.cheese.quantity}</TableRowColumn>
                   <TableRowColumn>{'$'+cartItem.cheese.price}</TableRowColumn>
                   <TableRowColumn>{'$' + (cartItem.cheese.price * cartItem.quantity)}</TableRowColumn>
                   <TableRowColumn>
                     <FloatingActionButton
                       backgroundColor={"#FDD835"}
+                      disabled={cartItem.cheese.quantity<=cartItem.quantity}
                       mini={true}
                       onClick={() => this.props.deltQuantity(cartItem.id, cartItem.quantity + 1)}>
                       <ContentAdd />
@@ -91,19 +82,11 @@ class Cart extends Component {
         <RaisedButton
         onClick={()=>{
           this.props.purchaseCart(this.props.unpurchasedOrders)
-          this.setState({open:true})
+          this.props.history.push('/checkout')
         }}
         label={(this.props.unpurchasedOrders.length<1)?`Your Cart is Empty`:`Purchase Cart $${cartTotal}`}
         fullWidth={true}
         disabled={this.props.unpurchasedOrders.length<1}/>
-        <Dialog
-          title="Thank you for shopping with us."
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-        >
-          Your order is processing and will be shipped soon.
-        </Dialog>
       </div>
     )
     else return (<div></div>)
@@ -115,14 +98,16 @@ class Cart extends Component {
 function mapStateToProps(storeState) {
   return {
     unpurchasedOrders: storeState.purchases,
-    // user: storeState.defaultUser // or session ID
+    user: storeState.user
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    loadCheeses:()=>{
+      dispatch(GetCheeses())
+    },
     loadCart: (userId)=>{
-      console.log('mounting')
       dispatch(GetUnorderedPurchasesUser(userId))
     },
     deltQuantity: (id,value)=>{
@@ -134,9 +119,12 @@ function mapDispatchToProps(dispatch) {
         dispatch(UpdatePurchase(
           item.id,
           {
+            cheeseQ: item.cheese.quantity,
+            cheeseId: item.cheeseId,
             priceAtTimeOfSale: item.price,
             ordered: true,
-            orderStatus: "processing"
+            orderStatus: "processing",
+            quantity: item.quantity
           }
         ))
       })

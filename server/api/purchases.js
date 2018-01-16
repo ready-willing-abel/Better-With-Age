@@ -5,57 +5,90 @@ const { Cheese } = require('../db/models')
 module.exports = router
 
 router.get('/user/history/:id', (req, res, next) => {
-  Purchase.findAll({
-    where:{
-      userId: req.params.id,
-      ordered: true
-    },
-    include: [
-      { model: User },
-      { model: Cheese }
-    ]
-  })
+  if (req.params.id === 'UNAUTH') {
+    Purchase.findAll({
+      where: {
+        id: req.session.cart,
+        ordered: true
+      },
+      include: [
+        { model: Cheese }
+      ]
+    })
     .then(purchases => res.json(purchases))
     .catch(next)
+  }
+  else{
+    Purchase.findAll({
+      where: {
+        userId: req.params.id,
+        ordered: true
+      },
+      include: [
+        { model: User },
+        { model: Cheese }
+      ]
+    })
+    .then(purchases => res.json(purchases))
+    .catch(next)
+  }
 })
 
 router.get('/user/cart/:id', (req, res, next) => {
-  console.log('entering route: ')
-  Purchase.findAll({
-    where: {
-      userId: req.params.id,
-      ordered: false
-    },
-    include: [
-      { model: User },
-      { model: Cheese }
-    ]
-  })
-    .then(purchases =>{
-      res.json(purchases)})
+  if (req.params.id === 'UNAUTH'){
+    Purchase.findAll({
+      where: {
+        id: req.session.cart,
+        ordered: false
+      },
+      include: [
+        { model: Cheese }
+      ]
+    })
+    .then(purchases => {
+      res.json(purchases)
+    })
     .catch(next)
+  }
+  else{
+    Purchase.findAll({
+      where: {
+        userId: req.params.id,
+        ordered: false
+      },
+      include: [
+        { model: User },
+        { model: Cheese }
+      ]
+    })
+    .then(purchases => {
+      res.json(purchases)
+    })
+    .catch(next)
+  }
 })
 
-// posting purchase doesnt delete cart automatically
-
 router.post('/', (req, res, next) => {
-  Purchase.create(req.body)
-    .then(purchase =>{
+    Purchase.create(req.body)
+    .then(purchase => {
+      if(!req.body.userId){
+        if (req.session.cart) req.session.cart.push(purchase.id)
+        else req.session.cart = [purchase.id]
+      }
       Purchase.findAll({
-        where:{
-          id:purchase.id
+        where: {
+          id: purchase.id
         },
         include: [
-          { model: User },
           { model: Cheese }
         ]
       })
-      .then(rows=>{
-        res.json(rows[0])
-      })
+        .then(rows => {
+          res.json(rows[0])
+        })
     })
     .catch(next)
-})
+  })
 
 router.delete('/:id', (req, res, next) => {
   Purchase.destroy({
@@ -65,12 +98,22 @@ router.delete('/:id', (req, res, next) => {
     .catch(next)
 })
 
-
-// req.body in the following route must be very specifically formatted:
-// {ordered: true, priceAtTimeOfSale: '$$', cheeseId, userId...}
-
 router.put('/:id', (req, res, next) => {
-  console.log('enetering route: ',req.body)
+  if(req.body.ordered){
+    Cheese.findAll({
+      where:{
+        id: req.body.cheeseId
+      }
+    })
+    .then(cheese=>{
+      Cheese.update({quantity: Math.max(cheese[0].quantity-req.body.quantity,0)},{
+        where:{
+          id: cheese[0].id
+        }
+      })
+    })
+  }
+  if (req.body.quantity > req.body.cheeseQ) req.body.quantity = req.body.cheeseQ
   Purchase.update(req.body, {
     where: {
       id: req.params.id
