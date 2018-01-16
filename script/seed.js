@@ -110,7 +110,6 @@ async function seed() {
   const cheeses = await Promise.all([
     Cheese.create({
       name: 'Gouda',
-      category: '',
       price: '50',
       quantity: 40,
       imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6vdx44qC8cQC5fhleMVvZNh8Qwyiji4AMzgI6UxnE1s1RZpm1",
@@ -118,7 +117,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Cheddar',
-      category: '',
       price: '21',
       quantity: 20,
       imageUrl: "https://bigoven-res.cloudinary.com/image/upload/c_fill,h_300,w_300/cheddar-cheese.jpg",
@@ -126,7 +124,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Brie',
-      category: '',
       price: '14',
       quantity: 15,
       imageUrl: "https://www.gourmetfoodstore.com/images/Product/large/mon-sire-brie-mon-sire-1S-2627.jpg",
@@ -134,7 +131,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Mozzarella',
-      category: '',
       price: '61',
       quantity: 30,
       imageUrl: "https://atmedia.imgix.net/d3b9fbfb7d8a295b7a4c405ac926347d8aad7bf1?auto=format&q=45&w=540.0&h=540.0&fit=max&cs=strip",
@@ -142,7 +138,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Gruyere',
-      category: '',
       price: '45',
       quantity: 50,
       imageUrl: "http://www.cheesesfromswitzerland.com/fileadmin/_processed_/csm_content_gruyere_70deb08889.jpg",
@@ -150,7 +145,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Manchego',
-      category: '',
       price: '50',
       quantity: 100,
       imageUrl: "http://mandalindeli.co.uk/wp-content/uploads/2016/12/manchego-cheese.jpg",
@@ -158,7 +152,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Camembert',
-      category: '',
       price: '21',
       quantity: 90,
       imageUrl: "https://www.andrewjamesworldwide.com/images/andrew-james-rustic-french-style-camembert-baker-p360-7813_image.jpg",
@@ -166,7 +159,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Cotija',
-      category: '',
       price: '14',
       quantity: 70,
       imageUrl: "http://files.wisconsincheesetalk.com/wp-content/uploads/2015/05/cotija-crumbles.jpg",
@@ -174,7 +166,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Feta',
-      category: '',
       price: '4',
       quantity: 80,
       imageUrl: "http://www.cheesemaking.com/Shared/Images/Product/Feta-Cheese-Recipe/Feta_hero.jpg",
@@ -182,7 +173,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Muenster',
-      category: '',
       price: '12',
       quantity: 75,
       imageUrl: "http://pixel.nymag.com/imgs/daily/grub/2013/04/01/01-muenster-cheese.w710.h473.2x.jpg",
@@ -190,7 +180,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Burrata',
-      category: '',
       price: '8',
       quantity: 100,
       imageUrl: "https://images-na.ssl-images-amazon.com/images/I/51B1vs3%2BavL._SY355_.jpg",
@@ -198,7 +187,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Swiss',
-      category: '',
       price: '5',
       quantity: 90,
       imageUrl: "https://az616578.vo.msecnd.net/files/2017/01/15/636200553336849231725159057_Dollarphotoclub_53674521.jpg",
@@ -206,7 +194,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Comte',
-      category: '',
       price: '13',
       quantity: 70,
       imageUrl: "https://theflexitarian.co.uk/wp-content/uploads/2015/10/Comte-800.jpg",
@@ -214,7 +201,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Butterkase',
-      category: '',
       price: '11',
       quantity: 80,
       imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/DeutschButterk%C3%A4se.jpg/1200px-DeutschButterk%C3%A4se.jpg",
@@ -222,7 +208,6 @@ async function seed() {
     }),
     Cheese.create({
       name: 'Oaxaca',
-      category: '',
       price: '7',
       quantity: 75,
       imageUrl: "https://sep.yimg.com/ca/I/mex-grocer_2268_135897090",
@@ -231,6 +216,16 @@ async function seed() {
   ])
 
   console.log(`seeded ${cheeses.length} cheeses`)
+
+  const categories = await Promise.all([
+
+
+  ])
+
+
+
+
+
 
   const purchases = await Promise.all([
     Purchase.create({

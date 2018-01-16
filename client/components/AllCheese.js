@@ -76,8 +76,6 @@ class AllCheese extends Component {
     return sortedCheeses
   }
 
-
-
   handleAlphClick() {
     this.setState({
       price: false,
@@ -146,7 +144,7 @@ function mapDispatchToProps(dispatch) {
                           dispatch(GetCheeses())
       if (id) dispatch(GetUnorderedPurchasesUser(id))
         }
-    }
+    } 
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllCheese)
