@@ -6,6 +6,7 @@ import history from './history'
 import { Main, FrontPage, Login, Signup, UserHome, AllCheese, SingleCheese } from './components'
 import { me } from './store'
 import UserPage from './components/user-page/userPage'
+import AdminPage from './components/Admin/AdminView'
 import Cart from './components/Cart'
 
 /**
@@ -32,6 +33,7 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/user" component={UserPage} />
+                  <Route path="/admin" component={AdminPage} />
                   <Route component={FrontPage} />
                 </Switch>
                 :

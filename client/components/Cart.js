@@ -15,7 +15,7 @@ import {
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
-import { GetCheeses } from '../store/cheeses.js'
+import { GetCheeses } from '../store/cheeses.js';
 
 
 class Cart extends Component {

@@ -4,7 +4,7 @@ const db = require('../db')
 
 const User = db.define('user', {
   //CG: we can go nameless?
-  //notEmpty validation on string is helpful 
+  //notEmpty validation on string is helpful
   name:{
     type: Sequelize.STRING
   },
@@ -21,11 +21,6 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
-  },
-  //dont need this
-  loggedIn:{
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
   },
   isAdmin:{
     type: Sequelize.BOOLEAN,

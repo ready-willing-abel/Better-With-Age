@@ -10,8 +10,15 @@ import {
 import { ProductsTable } from './productsTable'
 import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+
 
 export const OrdersTable = (props) => {
+
+  let sorted = Object.keys(props.orders).sort((a,b)=>a.createdAt>b.createdAt)
+  let hash = (str) => str.split('').reverse().map((v,i) => (i!==5)?String.fromCharCode( 66+ (v.charCodeAt(0)*37)%26 ):'-').join('').slice(1,10)
+
   return (
     <Table>
       <TableHeader displaySelectAll={false}>
@@ -24,11 +31,11 @@ export const OrdersTable = (props) => {
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
         {
-          Object.keys(props.orders).map((order, index) => {
+          sorted.map((order, index) => {
             return (
               <TableRow key={index}>
                 <TableRowColumn>
-                  1
+                  {hash(props.orders[order][0].createdAt)}
                 </TableRowColumn>
                 <TableRowColumn>
                   {
@@ -36,7 +43,7 @@ export const OrdersTable = (props) => {
                       return (
                         <div key={index} className="orderPurchase">
                           <h5>
-                            {purchase.cheese.name}
+                            {purchase.cheese.name + " x" + purchase.quantity}
                           </h5>
                         </div>
                       )
@@ -47,7 +54,9 @@ export const OrdersTable = (props) => {
                   {props.orders[order][0].createdAt}
                 </TableRowColumn>
                 <TableRowColumn>
-                  <RaisedButton label="Abel is a noob"/>
+                    <RaisedButton
+                    label="Abel is a noob"
+                    />
                 </TableRowColumn>
               </TableRow>
             )
