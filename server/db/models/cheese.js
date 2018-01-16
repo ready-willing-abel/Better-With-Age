@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Review = require('./reviews')
 
 const Cheese = db.define('cheese', {
   name: {
@@ -25,16 +26,36 @@ const Cheese = db.define('cheese', {
     defaultValue: "",
     allowNull: true
   },
-  reviews: {
-    type: Sequelize.TEXT,
-    defaultValue: "",
-    allowNull: true
+  totalRatings: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+  avgRating: {
+    type: Sequelize.FLOAT,
+    defaultValue:0
   }
-  //need quantity of cheeses. 
 
-  //can cheese cost $-5 
-  //maybe some more validations
-  //perhaps integer.
 })
+
+
+
+
+
+// Cheese.afterUpdate(function(Cheese){
+//   // return cheese.getReviews()
+//   return Cheese.countReviews()
+//   .then(review => {
+//     console.log(review)
+//   })
+// })
+
+// Cheese.prototype.findTotalRatings = function (){
+//   return this.findAndCountAll({
+//   where:{
+//     id: Review.cheeseId
+//   })
+//   .then( result => console.log(result.count))
+
+// })
 
 module.exports = Cheese

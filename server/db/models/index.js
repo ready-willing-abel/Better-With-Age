@@ -14,7 +14,10 @@ const Review = require('./reviews')
  Purchase.belongsTo(User)
  Purchase.belongsTo(Cheese)
  Cheese.belongsTo(Category)
+ 
  Review.belongsTo(Cheese)
+ Cheese.hasMany(Review)
+ 
  Review.belongsTo(User)
 
 

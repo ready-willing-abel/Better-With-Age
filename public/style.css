@@ -41,6 +41,11 @@ form div {
   font-family: 'Dancing Script', cursive;
 }
 
+.subtitle {
+  font-size: 200%;
+  font-family: 'Dancing Script', cursive;
+}
+
 .thumbnail .title {
   font-size: 200%;
   font-family: 'Dancing Script', cursive;

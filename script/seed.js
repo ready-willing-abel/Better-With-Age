@@ -112,25 +112,23 @@ async function seed() {
     Cheese.create({
       name: 'Gouda',
       category: '',
-      price: '50',
+      price: '5',
       quantity: 40,
       imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6vdx44qC8cQC5fhleMVvZNh8Qwyiji4AMzgI6UxnE1s1RZpm1",
-      description: "Gouda, or Howda as the locals say, is a Dutch cheese named after the city of Gouda in the Netherlands. If truth be told, it is one of the most popular cheeses in the world, accounting for 50 to 60 percent of the world's cheese consumption. It is a semi-hard cheese celebrated for its rich, unique flavour and smooth texture. The original cheese markets in Gouda is one of the last standing commercial cheese markets in the Netherlands. Since the name is not protected, it has become a generic classification for all cheeses produced and sold under the name Gouda. Gouda is typically made from pasteurised cow’s milk although some artisan varieties use sheep’s or goat’s milk to produce cheeses that are going to be aged for a long time. Boerenkaas is a typical variety of unpasteurised Gouda cheese produced by the farmers from milk of cow's grazing on the natural, low pastures of Netherlands. There are seven different types of Gouda cheese, categorized depending on age. Graskaas is young Gouda ready to be consumed within weeks of production. On the other hand, is the extra aged, Overjarig cheese which has a full-flavoured, hard, golden interior and salty flavour reminiscent of a toffee. Between the spectrums is a variety of Dutch Gouda’s classified as per the texture and age - Jong, Jong belegen, Belegen, Extra belegen, and Oud. Each cheese gets increasingly firmer in texture and richer in flavour than earlier classification. The waxed rind of the cheese also changes by the age as soft, younger Dutch Gouda cheese are identified by yellow, orange, or red wax rinds white mature cheese have black wax coverings.",
-      reviews: "Amazing, creamy cheese"
+      description: "Gouda, or Howda as the locals say, is a Dutch cheese named after the city of Gouda in the Netherlands. If truth be told, it is one of the most popular cheeses in the world, accounting for 50 to 60 percent of the world's cheese consumption. It is a semi-hard cheese celebrated for its rich, unique flavour and smooth texture. The original cheese markets in Gouda is one of the last standing commercial cheese markets in the Netherlands. Since the name is not protected, it has become a generic classification for all cheeses produced and sold under the name Gouda. Gouda is typically made from pasteurised cow’s milk although some artisan varieties use sheep’s or goat’s milk to produce cheeses that are going to be aged for a long time. Boerenkaas is a typical variety of unpasteurised Gouda cheese produced by the farmers from milk of cow's grazing on the natural, low pastures of Netherlands. There are seven different types of Gouda cheese, categorized depending on age. Graskaas is young Gouda ready to be consumed within weeks of production. On the other hand, is the extra aged, Overjarig cheese which has a full-flavoured, hard, golden interior and salty flavour reminiscent of a toffee. Between the spectrums is a variety of Dutch Gouda’s classified as per the texture and age - Jong, Jong belegen, Belegen, Extra belegen, and Oud. Each cheese gets increasingly firmer in texture and richer in flavour than earlier classification. The waxed rind of the cheese also changes by the age as soft, younger Dutch Gouda cheese are identified by yellow, orange, or red wax rinds white mature cheese have black wax coverings."
     }),
     Cheese.create({
       name: 'Cheddar',
       category: '',
-      price: '21',
+      price: '4',
       quantity: 20,
       imageUrl: "https://bigoven-res.cloudinary.com/image/upload/c_fill,h_300,w_300/cheddar-cheese.jpg",
-      description: "Cheddar cheese, the most widely purchased and eaten cheese in the world is always made from cow's milk. It is a hard and natural cheese that has a slightly crumbly texture if properly cured and if it is too young, the texture is smooth. It gets a sharper taste as it matures, over a period of time between 9 to 24 months. Shaped like a drum, 15 inches in diameter, Cheddar cheese is natural rind bound in cloth while its colour generally ranges from white to pale yellow. However, some Cheddars may have a manually added yellow-orange colour.",
-      reviews: "T cheese"
+      description: "Cheddar cheese, the most widely purchased and eaten cheese in the world is always made from cow's milk. It is a hard and natural cheese that has a slightly crumbly texture if properly cured and if it is too young, the texture is smooth. It gets a sharper taste as it matures, over a period of time between 9 to 24 months. Shaped like a drum, 15 inches in diameter, Cheddar cheese is natural rind bound in cloth while its colour generally ranges from white to pale yellow. However, some Cheddars may have a manually added yellow-orange colour."
     }),
     Cheese.create({
       name: 'Brie',
       category: '',
-      price: '14',
+      price: '7',
       quantity: 15,
       imageUrl: "https://www.gourmetfoodstore.com/images/Product/large/mon-sire-brie-mon-sire-1S-2627.jpg",
       description: "Brie is the best known French cheese and has a nickname The Queen of Cheeses. Brie is a soft cheese named after the French region Brie, where it was originally created. Several hundred years ago, Brie was one of the tributes which had to be paid to the French kings."
@@ -138,7 +136,7 @@ async function seed() {
     Cheese.create({
       name: 'Mozzarella',
       category: '',
-      price: '61',
+      price: '7',
       quantity: 30,
       imageUrl: "https://atmedia.imgix.net/d3b9fbfb7d8a295b7a4c405ac926347d8aad7bf1?auto=format&q=45&w=540.0&h=540.0&fit=max&cs=strip",
       description: "Mozzarella cheese is a sliceable curd cheese originating in Italy. Traditional Mozzarella cheese is made from milk of water buffalos herded in very few countries such as Italy and Bulgaria. As a result, most of the Mozzarella cheeses available now are made from cow's milk."
@@ -146,7 +144,7 @@ async function seed() {
     Cheese.create({
       name: 'Gruyere',
       category: '',
-      price: '45',
+      price: '5',
       quantity: 50,
       imageUrl: "http://www.cheesesfromswitzerland.com/fileadmin/_processed_/csm_content_gruyere_70deb08889.jpg",
       description: "Gruyere is named after a Swiss village. It is traditional, creamery, unpasteurised, semi-soft cheese. The natural, rusty brown rind is hard, dry and pitted with tiny holes. The cheese is darker yellow than Emmental but the texture is more dense and compact. Slightly grainy, the cheese has a wonderful complexity of flavours - at first fruity, later becomes more earthy and nutty. To make Gruyere, raw milk is heated to 93 degrees F and liquid rennet is added for curdling. The resulting curd is cut into small pieces which release whey while being stirred. Curd is cooked at 110 degrees F and raised quickly to 130 degrees F. The pieces become shriveled which is the cue to place the curd in molds for pressing. The cheese is salted in brine for 8 days and ripened for two months at room temperature or a quick method: 10 days at 50 degrees F. Curing lasts from 3 to 10 months (the longer the curing period the better the cheese)."
@@ -154,7 +152,7 @@ async function seed() {
     Cheese.create({
       name: 'Manchego',
       category: '',
-      price: '50',
+      price: '9',
       quantity: 100,
       imageUrl: "http://mandalindeli.co.uk/wp-content/uploads/2016/12/manchego-cheese.jpg",
       description: "The Manchego is produced in the La Mancha region of Spain, which is also home to Don Quixote. It is made from unpasteurised sheep's milk. It is one of the popular cheeses from Spain, made from sheep's milk. It also comes under the PDO guidelines.    "
@@ -162,7 +160,7 @@ async function seed() {
     Cheese.create({
       name: 'Camembert',
       category: '',
-      price: '21',
+      price: '8',
       quantity: 90,
       imageUrl: "https://www.andrewjamesworldwide.com/images/andrew-james-rustic-french-style-camembert-baker-p360-7813_image.jpg",
       description: "Marie Harel created the original Camembert cheese from raw milk in Normandy, France in 1791. Today, however, a very small percentage of producers make cheese from raw milk with the same process as Marie Harel would have used. Those who produce cheese using Marie Harel's method, can legally call their cheese Camembert Normandie under the AOC guidelines. However, the production of Camembert cheese has now transcended the AOC designation. Very good varieties of Camembert cheese made from pasteurised milk can be found in Normandy today. The best of them is the Camembert Le Châtelain."
@@ -170,7 +168,7 @@ async function seed() {
     Cheese.create({
       name: 'Cotija',
       category: '',
-      price: '14',
+      price: '4',
       quantity: 70,
       imageUrl: "http://files.wisconsincheesetalk.com/wp-content/uploads/2015/05/cotija-crumbles.jpg",
       description: "Cotija is a Hispanic-style cheese named after the town of Cotija in the Mexican state of Michoacán. This hard, crumbly Mexican cheese is made mainly from cow’s milk."
@@ -186,7 +184,7 @@ async function seed() {
     Cheese.create({
       name: 'Muenster',
       category: '',
-      price: '12',
+      price: '8',
       quantity: 75,
       imageUrl: "http://pixel.nymag.com/imgs/daily/grub/2013/04/01/01-muenster-cheese.w710.h473.2x.jpg",
       description: "Muenster is an American imitation of the French Munster cheese, named after an Alsatian abbey of Munster in the Vosgian Mountains of France. It is made from pasteurised whole cow's milk. Muenster is smooth, pale yellow in colour with an orange rind, a result of the vegetable colouring added during cheese making. The taste varies from mild & bland like a classic white American cheese to sharp like a Jack cheese. Smooth, moist and soft in texture, the cheese can develop a strong, pungent aroma if properly aged. Though, its mild flavour goes well with dishes where you do not want the cheese to overpower other ingredients. Compared to the European version, the taste and aroma of American Muenster is milder. Also, it is sold younger than its counterpart."
@@ -218,7 +216,7 @@ async function seed() {
     Cheese.create({
       name: 'Butterkase',
       category: '',
-      price: '11',
+      price: '14',
       quantity: 80,
       imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/DeutschButterk%C3%A4se.jpg/1200px-DeutschButterk%C3%A4se.jpg",
       description: "Butterkase is a semi-soft cheese with a golden natural rind, very popular in Germany and Austria for its creamy texture, buttery like taste. Its name, when literally translated means butter cheese, but the cheese is butter free. However, the appealing flavour and appearance makes it a great hit on a cheeseboard. Produced in Landhaus with original cultures and traditional German production methods, it is aged for a very brief period resulting in a mild taste and flavour."
@@ -226,7 +224,7 @@ async function seed() {
     Cheese.create({
       name: 'Oaxaca',
       category: '',
-      price: '7',
+      price: '6',
       quantity: 75,
       imageUrl: "https://sep.yimg.com/ca/I/mex-grocer_2268_135897090",
       description: "Oaxaca, also known as Queso Oaxaca, Asadero or Quesillo is a Mexican name for a semi-soft, white, string-type, Hispanic-style cheese made from cow's milk. Belonging to the pasta filata family, similar to a Mozzarella, Oaxaca is a stretched curd cheese, kneaded and sold in long ropes gently wound in balls."
@@ -347,34 +345,194 @@ async function seed() {
   const reviews = await Promise.all([
     Review.create({
       review: "So soft and gooey",
+      rating:5,
       cheeseId: 2,
       userId:3
     }),
     Review.create({
       review: "I just love cheese",
+      rating:3,
       cheeseId: 7,
       userId:4
     }),
     Review.create({
       review: "It was ok",
+      rating:3,
       cheeseId: 13,
       userId:5
 
     }),
     Review.create({
       review: "eh",
+      rating:2,
       cheeseId: 11,
       userId:6
     }),
     Review.create({
       review: "Cheese is life",
+      rating:5,
       cheeseId: 2,
       userId:4
     }),
     Review.create({
       review: "It was cheesy",
+      rating:4,
       cheeseId: 7,
       userId:3
+    }),
+    Review.create({
+      review: "Jarlsberg cream cheese cheesy grin.",
+      rating:5,
+      cheeseId: 2,
+      userId:3
+    }),
+    Review.create({
+      review: "Cheese triangles cream cheese caerphilly queso caerphilly red leicester caerphilly caerphilly.",
+      rating:3,
+      cheeseId: 7,
+      userId:4
+    }),
+    Review.create({
+      review: "Fromage frais queso chalk and cheese hard cheese bavarian bergkase goat jarlsberg caerphilly.",
+      rating:3,
+      cheeseId: 13,
+      userId:5
+
+    }),
+    Review.create({
+      review: "Cheese and biscuits cheeseburger cheeseburger cheese on toast cheesy grin cheese strings dolcelatte.",
+      rating:2,
+      cheeseId: 11,
+      userId:6
+    }),
+    Review.create({
+      review: "Jarlsberg caerphilly jarlsberg. Cheese slices gouda cheese and biscuits squirty cheese cheesy feet airedale roquefort boursin. ",
+      rating:5,
+      cheeseId: 2,
+      userId:4
+    }),
+    Review.create({
+      review: "Fromage melted cheese smelly cheese cow bocconcini smelly cheese pecorino red leicester.",
+      rating:5,
+      cheeseId: 2,
+      userId:3
+    }),
+    Review.create({
+      review: "The big cheese cheese slices caerphilly halloumi chalk and cheese.",
+      rating:3,
+      cheeseId: 7,
+      userId:4
+    }),
+    Review.create({
+      review: "The big cheese cheese slices caerphilly halloumi chalk and cheese.",
+      rating:3,
+      cheeseId: 13,
+      userId:5
+
+    }),
+    Review.create({
+      review: "The big cheese cheese slices caerphilly halloumi chalk and cheese.",
+      rating:2,
+      cheeseId: 11,
+      userId:6
+    }),
+    Review.create({
+      review: "Cheese on toast cauliflower cheese hard cheese.",
+      rating:5,
+      cheeseId: 2,
+      userId:4
+    }),
+    Review.create({
+      review: "Bavarian bergkase cut the cheese halloumi feta macaroni cheese pepper jack everyone loves cheesy grin. ",
+      rating:5,
+      cheeseId: 2,
+      userId:3
+    }),
+    Review.create({
+      review: "Cheese and biscuits cheese and biscuits boursin cow airedale everyone loves squirty cheese ricotta.",
+      rating:3,
+      cheeseId: 7,
+      userId:4
+    }),
+    Review.create({
+      review: "Stinking bishop bocconcini chalk and cheese cheeseburger.",
+      rating:3,
+      cheeseId: 13,
+      userId:5
+
+    }),
+    Review.create({
+      review: "Caerphilly cheese strings manchego.",
+      rating:2,
+      cheeseId: 11,
+      userId:6
+    }),
+    Review.create({
+      review: "Red leicester camembert de normandie cheese and wine monterey jack macaroni cheese ricotta jarlsberg goat.",
+      rating:5,
+      cheeseId: 2,
+      userId:4
+    }),
+    Review.create({
+      review: "Cheesy feet taleggio babybel danish fontina gouda squirty cheese lancashire cheese slices.",
+      rating:5,
+      cheeseId: 2,
+      userId:3
+    }),
+    Review.create({
+      review: "I just love cheese",
+      rating:3,
+      cheeseId: 7,
+      userId:8
+    }),
+    Review.create({
+      review: "It was ok",
+      rating:3,
+      cheeseId: 8,
+      userId:9
+    }),
+    Review.create({
+      review: "eh",
+      rating:2,
+      cheeseId: 9,
+      userId:10
+    }),
+    Review.create({
+      review: "Cheese is life",
+      rating:5,
+      cheeseId: 10,
+      userId: 11
+    }),
+    Review.create({
+      review: "Cheesy feet taleggio babybel danish fontina gouda squirty cheese lancashire cheese slices.",
+      rating:5,
+      cheeseId: 11,
+      userId:12
+    }),
+    Review.create({
+      review: "Red leicester camembert de normandie cheese and wine monterey jack macaroni cheese ricotta jarlsberg goat. ",
+      rating:3,
+      cheeseId: 12,
+      userId:13
+    }),
+    Review.create({
+      review: "It was ok",
+      rating:3,
+      cheeseId: 13,
+      userId:14
+
+    }),
+    Review.create({
+      review: "Caerphilly cheese strings manchego.",
+      rating:2,
+      cheeseId: 14,
+      userId:15
+    }),
+    Review.create({
+      review: "Stinking bishop bocconcini chalk and cheese cheeseburger.",
+      rating:5,
+      cheeseId: 15,
+      userId:16
     })
   ])
 
