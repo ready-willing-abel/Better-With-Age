@@ -7,17 +7,28 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import { ProductsTable } from './productsTable'
-import {List, ListItem} from 'material-ui/List';
-import RaisedButton from 'material-ui/RaisedButton';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
 
+const _formatDate = (date) => {
+  return date.slice(5, 7) + "/" + date.slice(8, 10) + "/" + date.slice(0, 4)
+}
+
+const _formatTime = (date) => {
+  let half = " am"
+  let hour = date.slice(11, 13)
+  console.log(date)
+  if (hour > 12) {
+    half = " pm"
+    console.log(hour)
+    hour = hour % 12
+  }
+  if (hour === "00") hour = 12
+  return hour + ":" + date.slice(14, 16) + half
+}
+
+const hash = (str) => str.split('').reverse().map((v,i) => (i!==5)?String.fromCharCode( 66+ (v.charCodeAt(0)*37)%26 ):'-').join('').slice(1,10)
 
 export const OrdersTable = (props) => {
-
-  let sorted = Object.keys(props.orders).sort((a,b)=>a.createdAt>b.createdAt)
-  let hash = (str) => str.split('').reverse().map((v,i) => (i!==5)?String.fromCharCode( 66+ (v.charCodeAt(0)*37)%26 ):'-').join('').slice(1,10)
 
   return (
     <Table>
@@ -26,16 +37,27 @@ export const OrdersTable = (props) => {
           <TableHeaderColumn>ID</TableHeaderColumn>
           <TableHeaderColumn>Products</TableHeaderColumn>
           <TableHeaderColumn>Date</TableHeaderColumn>
+          <TableHeaderColumn>Price</TableHeaderColumn>
           <TableHeaderColumn>Status</TableHeaderColumn>
         </TableRow>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
         {
-          sorted.map((order, index) => {
+          Object.keys(props.orders).map((order, index) => {
+            let totalPrice = props.orders[order].reduce((sum, purchase) => {
+              return sum + purchase.priceAtTimeOfSale * purchase.quantity
+            }, 0)
+            let time = props.orders[order][0].createdAt
+            console.log(time)
+
+            let formattedDate = _formatDate(time)
+            let formattedTime = _formatTime(time)
+            let orderId = hash(time)
+
             return (
               <TableRow key={index}>
                 <TableRowColumn>
-                  {hash(props.orders[order][0].createdAt)}
+                  {orderId}
                 </TableRowColumn>
                 <TableRowColumn>
                   {
@@ -43,20 +65,30 @@ export const OrdersTable = (props) => {
                       return (
                         <div key={index} className="orderPurchase">
                           <h5>
-                            {purchase.cheese.name + " x" + purchase.quantity}
+                            {`${purchase.cheese.name} (${purchase.quantity})`}
                           </h5>
+                          <h6>
+                            {`$${purchase.priceAtTimeOfSale}`}
+                          </h6>
+                          {index < props.orders[order].length - 1 && <Divider />}
                         </div>
                       )
                     })
                   }
                 </TableRowColumn>
                 <TableRowColumn>
-                  {props.orders[order][0].createdAt}
+                  <div>
+                    {formattedDate}
+                  </div>
+                  <div>
+                    {formattedTime}
+                  </div>
                 </TableRowColumn>
                 <TableRowColumn>
-                    <RaisedButton
-                    label="Abel is a noob"
-                    />
+                  {`$${totalPrice}`}
+                </TableRowColumn>
+                <TableRowColumn>
+                  <h4>Completed</h4>
                 </TableRowColumn>
               </TableRow>
             )
