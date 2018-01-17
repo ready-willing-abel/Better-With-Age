@@ -17,6 +17,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Slider from 'material-ui/Slider';
 
 
 class ManageCheeses extends Component {
@@ -25,20 +26,21 @@ class ManageCheeses extends Component {
     super(props)
     this.state = {
       open: false,
+      open2: false,
       selectedCheese: {},
-      changes:{}
+      changes:{},
     };
     this.handleClose = this.handleClose.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleClose() {
-    this.setState({ open: false, selectedCheese: {}, changes: Object.assign({},this.state.changes,{description:this.state.selectedCheese.description})});
+    this.setState({ open2: false,open: false, selectedCheese: {}, changes: {} })
   };
 
   handleSubmit(id,changes) {
     this.props.changeCheese(id,changes)
-    this.setState({ open: false, selectedCheese: {}, changes: Object.assign({}, this.state.changes, { description: this.state.selectedCheese.description }) });
+    this.setState({ open2: false,open: false, selectedCheese: {}, changes: {} })
   };
 
   componentWillMount() {
@@ -66,9 +68,9 @@ class ManageCheeses extends Component {
         <Table>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
-              <TableHeaderColumn>Name</TableHeaderColumn>
-              <TableHeaderColumn style={{ width: '5%' }}>Price</TableHeaderColumn>
-              <TableHeaderColumn>Quantity</TableHeaderColumn>
+              <TableHeaderColumn style={{ width: '19%' }}>Name</TableHeaderColumn>
+              <TableHeaderColumn style={{ width: '12%' }}>Price</TableHeaderColumn>
+              <TableHeaderColumn style={{ width: '12%' }}>Quantity</TableHeaderColumn>
               <TableHeaderColumn>Picture</TableHeaderColumn>
               <TableHeaderColumn>Description</TableHeaderColumn>
             </TableRow>
@@ -77,10 +79,10 @@ class ManageCheeses extends Component {
           {
             this.props.cheeses.map(cheese=>{
               let items = []
-              for (var i=0;i<501;i++) items.push(<MenuItem value={i} key={i} primaryText={`${i}`} />)
+              for (var i=0;i<401;i++) items.push(<MenuItem value={i} key={i} primaryText={`${i}`} />)
               return(
                 <TableRow>
-                  <TableRowColumn>
+                  <TableRowColumn style={{ width: '19%' }}>
                   <TextField
                       defaultValue={cheese.name}
                       onChange={(e,newName)=>{
@@ -88,10 +90,20 @@ class ManageCheeses extends Component {
                       }}
                   />
                   </TableRowColumn>
-                  <TableRowColumn style={{ width: '5%' }}>{cheese.price}</TableRowColumn>
-                  <TableRowColumn>
+                  <TableRowColumn style={{ width: '12%' }}>
+                    <FlatButton
+                      label={`$${cheese.price}`}
+                      primary={true}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        this.setState({ open2: true, selectedCheese:cheese})
+                      }}
+                    />
+
+                  </TableRowColumn>
+                  <TableRowColumn style={{ width: '12%' }}>
                     <DropDownMenu
-                      maxHeight={500}
+                      maxHeight={400}
                       value={cheese.quantity}
                       onChange={(e,i,newQuantity)=>{
                         this.props.changeCheese(cheese.id, { quantity: newQuantity })
@@ -139,6 +151,28 @@ class ManageCheeses extends Component {
               this.setState({changes:Object.assign({},this.state.changes,{description:val})})
             }}
           />
+        </Dialog>
+        <Dialog
+          style={{ height: 70 }}
+          title="Price"
+          actions={actions}
+          modal={false}
+          open={this.state.open2}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}
+        >
+          <Slider
+            min={0}
+            max={7}
+            defaultValue={Math.round(Math.log(3, this.state.selectedCheese.price), 2)}
+            value={Math.round(Math.log(3, this.state.selectedCheese.price),2)}
+            onChange={(e, val) => {
+              this.setState({ changes: Object.assign({}, this.state.changes, {price: Math.round(Math.pow(3,val),2)}) })
+            }}
+          />
+          <p>
+            <span>{(this.state.changes.price) ? `$${this.state.changes.price}` : `$${this.state.selectedCheese.price}`}</span>
+          </p>
         </Dialog>
       </div>
     );
