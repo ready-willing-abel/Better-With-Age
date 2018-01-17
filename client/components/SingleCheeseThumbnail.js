@@ -19,6 +19,7 @@ import {
 import {
     NavLink
 } from 'react-router-dom'
+import Rating from 'react-rating'
 
 class CheeseThumbnail extends Component {
 
@@ -64,9 +65,16 @@ class CheeseThumbnail extends Component {
             div > $ {
                 this.props.indCheese.price
             } < /div> <
-            div > {
+            div >
+            <
+            Rating initialRating = {
                 (this.props.indCheese.totalReviews) ? this.props.indCheese.totalRatingSum / this.props.indCheese.totalReviews : 0
-            } < /div> < /
+            }
+
+            readonly /
+            >
+            <
+            /div> < /
             div > <
             /div>
         )
