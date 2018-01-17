@@ -16,54 +16,52 @@ class Navbar extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-
     return (
       <MuiThemeProvider>
       <div>
-        <div className='cursive nav-container'>
+       
           <AppBar
-
+          className="header"
           title='Better With Age'
           showMenuIconButton={false}
+          style={{background: '#FFB74D'}}
+          titleStyle={{margin: 'auto', fontSize: '2em'}}
           iconElementRight=
             {
               <div>
                 {isLoggedIn ?
-                  <div className="authButtons">
+                  <span className="authButtons">
                     <NavLink to='/user'>
-                      <CustomButton label='User' />
+                      <CustomButton className='cursiveFont' label='User' />
                     </NavLink>
                       <CustomButton label='Log out' onClick={this.props.handleLogout} />
-                  </div>
+                  </span>
                   :
-                  <div className="unauthButtons">
+                  <span className="unauthButtons">
                     <NavLink to='/login'>
                       <CustomButton label='Login' />
                     </NavLink>
                     <NavLink to='/signup'>
                       <CustomButton label='Signup' />
                     </NavLink>
-                  </div>
+                  </span>
                 }
-                <NavLink to='/checkout'>
-                  <CustomButton label='Checkout' />
-                </NavLink>
                 <NavLink to='/cart'>
                   <CustomButton label='Cart' />
                 </NavLink>
                 <NavLink to='/cheeses'>
-                  <CustomButton label='All cheeses' />
+                  <CustomButton label='All Cheeses' />
                 </NavLink>
-              </div>
-            }
-          style={{background: '#206c99'}}
-          titleStyle={{margin: 'auto', fontSize: '2em'}}
+                </div>
+            } 
           />
-        </div>
+  
       </div>
-    </MuiThemeProvider>)
+    </MuiThemeProvider>
+    )
   }
 }
+
 
 const mapState = (state) => {
   return {
