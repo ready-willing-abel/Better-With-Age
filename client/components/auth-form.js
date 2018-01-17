@@ -2,31 +2,47 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import Paper from 'material-ui/Paper';
+import FontIcon from 'material-ui/FontIcon';
+import RaisedButton from 'material-ui/RaisedButton';
 
-/**
- * COMPONENT
- */
+const paperStyle = {
+  maxWidth: 310,
+  height: 420,
+  margin: 'auto',
+  padding: 20
+}
+
+const googleStyle = {
+  margin: 'auto',
+  width: "100%"
+}
+
 const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <Paper zDepth={2} style={paperStyle}>
+      <div>
+        <form onSubmit={handleSubmit} name={name}>
+          <div className="inputContainer">
+            <label htmlFor="email"><small>Email</small></label>
+            <input name="email" type="text" className="authInputs" />
+          </div>
+          <div className="inputContainer">
+            <label htmlFor="password"><small>Password</small></label>
+            <input name="password" type="password" className="authInputs" />
+          </div>
+          <div>
+            <button type="submit">{displayName}</button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
         <div>
-          <label htmlFor="email"><small>Email</small></label>
-          <input name="email" type="text" />
+          <a href="/auth/google"><img src="google_signin.png" className="googleButton"/></a>
         </div>
-        <div>
-          <label htmlFor="password"><small>Password</small></label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-    </div>
+      </div>
+    </Paper>
   )
 }
 

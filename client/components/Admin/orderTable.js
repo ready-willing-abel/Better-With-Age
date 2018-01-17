@@ -7,7 +7,6 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import { ProductsTable } from '../user-page/productsTable'
 import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import DropDownMenu from 'material-ui/DropDownMenu';

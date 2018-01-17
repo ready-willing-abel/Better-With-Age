@@ -54,3 +54,26 @@ form div {
 .name {
   font-weight: bold;
 }
+.authInputs {
+  width: 100%;
+}
+
+.inputContainer {
+  width: 80%;
+}
+
+.googleButton {
+  margin-left: 14%;
+}
+
+.authButtons {
+  display: inline;
+}
+
+.unauthButtons {
+  display: inline;
+}
+
+.navButton {
+  background-color: rgb(32, 108, 153);
+}
