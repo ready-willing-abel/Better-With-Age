@@ -1,27 +1,11 @@
-import React, {
-    Component
-} from 'react'
-import RaisedButton from 'material-ui/RaisedButton';
-import {
-    connect
-} from 'react-redux'
-import store, {
-    GetCheeses
-} from '../store/cheeses.js'
-import {
-    GetPurchasesAll,
-    GetUnorderedPurchasesUser,
-    GetOldPurchasesUser,
-    UpdatePurchase,
-    AddPurchase,
-    DeletePurchase
-} from '../store/purchases'
-import {
-    NavLink
-} from 'react-router-dom'
-import {
-    fetchReviews
-} from '../store/reviews';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import store, { GetCheeses } from '../store/cheeses.js'
+import { GetPurchasesAll, GetUnorderedPurchasesUser, GetOldPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
+import { NavLink } from 'react-router-dom'
+import { fetchReviews } from '../store/reviews'
+import { GetUsers } from '../store/users'
+import Rating from 'react-rating'
 
 
 class SingleCheese extends Component {
@@ -34,6 +18,7 @@ class SingleCheese extends Component {
         this.props.loadCheeses();
         this.props.loadCart((this.props.user.id) ? this.props.user.id : 'UNAUTH')
         this.props.loadReviews();
+        this.props.loadUsers();
     }
 
     render() {
@@ -41,65 +26,58 @@ class SingleCheese extends Component {
 
         let foundReviews = this.props.reviews.filter(review => review.cheeseId === currentCheese.id)
 
+    
+        return (
+            <div className="container singleCheese">
+                <center>
+                <img src={this.props.cheeses && currentCheese.imageUrl} />
 
-        return ( <
-            div className = "container singleCheese" >
+                    <div className="title">{this.props.cheeses && currentCheese.name}</div>
+                    <div className="title">${this.props.cheeses && currentCheese.price}</div>
+                    
 
-            <
-            img src = {
-                this.props.cheeses && currentCheese.imageUrl
-            }
-            />
+                    <div>
+                        <NavLink to="/cart">
+                            <button type="button" className="btn btn-default btn-lg"
+                                onClick={() => {
+                                    this.props.buySome((this.props.user.id) ? this.props.user.id : 'UNAUTH',this.props.unpurchasedOrders, currentCheese)
+                                    }}
+                                >
+                                <span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart
+                            </button>
+                        </NavLink>
+                    </div>
+                    </center>
 
-            <
-            div className = "title" > {
-                this.props.cheeses && currentCheese.name
-            } < /div> <
-            div className = "title" > $ {
-                this.props.cheeses && currentCheese.price
-            } < /div> <
-            p > Description: {
-                this.props.cheeses && currentCheese.description
-            } < /p>
+                    <br></br>
 
-            <
-            div >
-            <
-            NavLink to = "/cart" >
-            <
-            button type = "button"
-            className = "btn btn-default btn-lg"
-            onClick = {
-                () => {
-                    this.props.buySome((this.props.user.id) ? this.props.user.id : 'UNAUTH', this.props.unpurchasedOrders, currentCheese)
-                }
-            } >
-            <
-            span className = "glyphicon glyphicon-shopping-cart" > < /span> Add to Cart <
-            /button> <
-            /NavLink> <
-            /div>
+                    <header className = "subtitle">Description</header> 
+                    <p>{this.props.cheeses && currentCheese.description}</p>
 
-            { /*Creating the Reviews section*/ } <
-            div className = "subtitle" >
-            Reviews:
-            <
-            /div>
+                    {/*Creating the Reviews section*/}
+                    <div className="subtitle">
+                       Customer Reviews 
+                    </div>
+                    <br></br>
+                    {foundReviews.map(review => 
+                        <div className="reviews" key={review.id}>
+                            <div className="name reviews">
+                                <i className="material-icons md-36">account_circle</i>
+                                {review.user.name}
+                            </div>
+                            <div>
+                                {review.review}
+                            </div>
+                            <div>
+                            <
+                            Rating initialRating = {review.rating}
+                            readonly /
+                            >
+                            </div>
+                        </div>
+                    )}
 
-            {
-                foundReviews.map(review =>
-                    <
-                    li key = {
-                        review.id
-                    } > {
-                        review.review
-                    } <
-                    /li>
-                )
-            }
-
-            <
-            /div>
+            </div>
         )
     }
 }
@@ -145,6 +123,9 @@ function mapDispatchToProps(dispatch) {
                     price: cheese.price
                 }))
             }
+        },
+        loadUsers: () => {
+            dispatch(GetUsers())
         },
         loadReviews: () => {
             dispatch(fetchReviews())

@@ -72,7 +72,6 @@ class AllCheese extends Component {
           else {
             cheese.average = cheese.totalRatingSum / cheese.totalReviews
           }
-          console.log(cheese)
           return cheese
         })
         .sort(function (a, b) {
@@ -110,11 +109,10 @@ class AllCheese extends Component {
   render() {
     let filteredCheeses = this.cheeseFilter(this.props.cheeses)
 
-    return ( <
-      div className = "container" >
-      <
-      div className = "title" > Cheeses < /div> <
-      RaisedButton label = 'Filter alphabetically'
+    return ( 
+      <div className = "container" >
+      <div className = "title"> Cheeses </div> 
+      <RaisedButton label = 'Filter alphabetically'
       onClick = {
         this.handleAlphClick
       } > < /RaisedButton> <
