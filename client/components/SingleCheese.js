@@ -49,8 +49,8 @@ class SingleCheese extends Component {
                     <div className="subtitle">
                         Reviews:
                     </div>
-                    
-                    {foundReviews.map(review => 
+
+                    {foundReviews.map(review =>
                         <li key={review.id}>
                             {review.review}
                         </li>
