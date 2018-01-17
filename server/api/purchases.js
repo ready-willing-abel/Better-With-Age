@@ -51,6 +51,7 @@ router.get('/user/cart/:id', (req, res, next) => {
     .catch(next)
   }
   else{
+    let AllPurchases = []
     Purchase.findAll({
       where: {
         userId: req.params.id,
@@ -62,7 +63,21 @@ router.get('/user/cart/:id', (req, res, next) => {
       ]
     })
     .then(purchases => {
-      res.json(purchases)
+      AllPurchases = AllPurchases.concat(purchases)
+      Purchase.findAll({
+        where: {
+          id: req.session.cart,
+          ordered: false
+        },
+        include: [
+          { model: Cheese }
+        ]
+      })
+        .then(morePurchases => {
+          morePurchases.filter(v=>!AllPurchases.map(w=>w.id).includes(v.id))
+          res.json(AllPurchases.concat(morePurchases))
+        })
+        .catch(next)
     })
     .catch(next)
   }
