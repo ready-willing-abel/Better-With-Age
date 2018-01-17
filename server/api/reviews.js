@@ -25,6 +25,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/',(req, res, next) => {
+  console.log("this is the req", req.body)
   Review.create(req.body)
     .then(review => res.json(review))
     .catch(next)
