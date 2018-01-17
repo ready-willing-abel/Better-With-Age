@@ -23,7 +23,7 @@ form div {
 }
 
 .cursiveFont {
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Dancing Script', cursive !important;
 }
 
 .thumbnail img {
@@ -36,14 +36,19 @@ form div {
   width: auto;
 }
 
+.header {
+  font-size: 175%;
+  font-family: 'Dancing Script', cursive !important;
+}
+
 .title {
   font-size: 300%;
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Dancing Script', cursive !important;
 }
 
 .subtitle {
   font-size: 200%;
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Dancing Script', cursive !important;
 }
 
 .thumbnail .title {
@@ -53,6 +58,7 @@ form div {
 
 .name {
   font-weight: bold;
+  font-size: 100%
 }
 .authInputs {
   width: 100%;
@@ -68,6 +74,7 @@ form div {
 
 .authButtons {
   display: inline;
+  font-family: 'Dancing Script', cursive !important;
 }
 
 .unauthButtons {
@@ -76,4 +83,9 @@ form div {
 
 .navButton {
   background-color: rgb(32, 108, 153);
+}
+
+.reviews{
+  display: table;
+  vertical-align: middle;
 }

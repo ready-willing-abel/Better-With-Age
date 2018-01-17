@@ -16,12 +16,12 @@ class Navbar extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-
     return (
       <MuiThemeProvider>
       <div>
        
           <AppBar
+          className="header"
           title='Better With Age'
           showMenuIconButton={false}
           style={{background: '#FFB74D'}}
@@ -32,10 +32,10 @@ class Navbar extends Component {
                 {isLoggedIn ?
                   <span className="authButtons">
                     <NavLink to='/user'>
-                      <CustomButton label='User' />
+                      <CustomButton className='cursiveFont' label='User' />
                     </NavLink>
                       <CustomButton label='Log out' onClick={this.props.handleLogout} />
-                  </div>
+                  </span>
                   :
                   <span className="unauthButtons">
                     <NavLink to='/login'>
@@ -46,14 +46,11 @@ class Navbar extends Component {
                     </NavLink>
                   </span>
                 }
-                <NavLink to='/checkout'>
-                  <CustomButton label='Checkout' />
-                </NavLink>
                 <NavLink to='/cart'>
                   <CustomButton label='Cart' />
                 </NavLink>
                 <NavLink to='/cheeses'>
-                  <CustomButton label='All cheeses' />
+                  <CustomButton label='All Cheeses' />
                 </NavLink>
                 </div>
             } 

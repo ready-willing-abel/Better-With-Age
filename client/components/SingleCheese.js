@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
 import store, { GetCheeses } from '../store/cheeses.js'
 import { GetPurchasesAll, GetUnorderedPurchasesUser, GetOldPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
 import { NavLink } from 'react-router-dom'
 import { fetchReviews } from '../store/reviews'
 import { GetUsers } from '../store/users'
+import Rating from 'react-rating'
 
 
 class SingleCheese extends Component {
@@ -25,18 +25,11 @@ class SingleCheese extends Component {
         let currentCheese = this.props.cheeses.find(cheese => cheese.id == this.props.match.params.id)
 
         let foundReviews = this.props.reviews.filter(review => review.cheeseId === currentCheese.id)
-        // console.log("These are the reviews", foundReviews)
 
-        // let foundMembers= foundReviews.map(review => review.userId === member.id)
-        // console.log("These are the members", foundMembers)
-
-        // console.log("THESE ARE MEMBERS", foundMembers)
-
-        
-
+    
         return (
             <div className="container singleCheese">
-
+                <center>
                 <img src={this.props.cheeses && currentCheese.imageUrl} />
 
                     <div className="title">{this.props.cheeses && currentCheese.name}</div>
@@ -54,23 +47,32 @@ class SingleCheese extends Component {
                             </button>
                         </NavLink>
                     </div>
+                    </center>
+
+                    <br></br>
 
                     <header className = "subtitle">Description</header> 
                     <p>{this.props.cheeses && currentCheese.description}</p>
 
                     {/*Creating the Reviews section*/}
                     <div className="subtitle">
-                       Customer Reviews
+                       Customer Reviews 
                     </div>
-                    
+                    <br></br>
                     {foundReviews.map(review => 
-                        <div key={review.id}>
-                            <div className="name">
-                                <i className="material-icons">account_circle</i>
+                        <div className="reviews" key={review.id}>
+                            <div className="name reviews">
+                                <i className="material-icons md-36">account_circle</i>
                                 {review.user.name}
                             </div>
                             <div>
                                 {review.review}
+                            </div>
+                            <div>
+                            <
+                            Rating initialRating = {review.rating}
+                            readonly /
+                            >
                             </div>
                         </div>
                     )}

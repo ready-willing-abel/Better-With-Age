@@ -472,8 +472,8 @@ async function seed() {
     }),
     Review.create({
       review: "Caerphilly cheese strings manchego.",
-      rating:2,
-      cheeseId: 11,
+      rating:4,
+      cheeseId: 6,
       userId:6
     }),
     Review.create({
@@ -501,15 +501,15 @@ async function seed() {
       userId:9
     }),
     Review.create({
-      review: "eh",
-      rating:2,
-      cheeseId: 9,
+      review: "CHHHEEEEESSSSEEEE",
+      rating:5,
+      cheeseId: 1,
       userId:10
     }),
     Review.create({
       review: "Cheese is life",
       rating:5,
-      cheeseId: 10,
+      cheeseId: 3,
       userId: 11
     }),
     Review.create({
