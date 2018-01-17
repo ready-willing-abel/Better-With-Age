@@ -29,6 +29,7 @@ const _formatTime = (date) => {
 const hash = (str) => str.split('').reverse().map((v,i) => (i!==5)?String.fromCharCode( 66+ (v.charCodeAt(0)*37)%26 ):'-').join('').slice(1,10)
 
 export const OrdersTable = (props) => {
+  let sorted = Object.keys(props.orders).sort((a, b) => a.updatedAt > b.updatedAt)
 
   return (
     <Table>
@@ -43,13 +44,11 @@ export const OrdersTable = (props) => {
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
         {
-          Object.keys(props.orders).map((order, index) => {
+          sorted.map((order, index) => {
             let totalPrice = props.orders[order].reduce((sum, purchase) => {
               return sum + purchase.priceAtTimeOfSale * purchase.quantity
             }, 0)
-            let time = props.orders[order][0].createdAt
-            console.log(time)
-
+            let time = props.orders[order][0].updatedAt
             let formattedDate = _formatDate(time)
             let formattedTime = _formatTime(time)
             let orderId = hash(time)

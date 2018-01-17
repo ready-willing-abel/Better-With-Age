@@ -64,6 +64,14 @@ router.get('/user/cart/:id', (req, res, next) => {
     })
     .then(purchases => {
       AllPurchases = AllPurchases.concat(purchases)
+      Purchase.update({userId:req.params.id},{
+        where:{
+          id: req.session.cart,
+          ordered: false
+        }
+      }).then((vals)=>{
+        console.log(vals)
+      })
       Purchase.findAll({
         where: {
           id: req.session.cart,
@@ -73,12 +81,12 @@ router.get('/user/cart/:id', (req, res, next) => {
           { model: Cheese }
         ]
       })
-        .then(morePurchases => {
-          morePurchases.filter(v=>!AllPurchases.map(w=>w.id).includes(v.id))
-          req.session.cart = []
-          res.json(AllPurchases.concat(morePurchases))
-        })
-        .catch(next)
+      .then(morePurchases => {
+        morePurchases.filter(v=>!AllPurchases.map(w=>w.id).includes(v.id))
+        req.session.cart = []
+        res.json(AllPurchases.concat(morePurchases))
+      })
+      .catch(next)
     })
     .catch(next)
   }
