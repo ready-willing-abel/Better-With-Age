@@ -60,8 +60,8 @@ class UserPage extends Component {
           showExpandableButton={true}
         />
           <CardText expandable={true} >
-            <h3>Placeholder</h3>
-            <OrdersTable orders={orders} /> {/* groupPurchases(this.props.purchasesHistory) */}
+            <h3>Orders</h3>
+            <OrdersTable orders={orders} />
           </CardText>
         </Card>
       </Paper>
