@@ -22,12 +22,14 @@ const _formatTime = (date) => {
     console.log(hour)
     hour = hour % 12
   }
+  if (hour === "00") hour = 12
   return hour + ":" + date.slice(14, 16) + half
 }
 
 const hash = (str) => str.split('').reverse().map((v,i) => (i!==5)?String.fromCharCode( 66+ (v.charCodeAt(0)*37)%26 ):'-').join('').slice(1,10)
 
 export const OrdersTable = (props) => {
+
   return (
     <Table>
       <TableHeader displaySelectAll={false}>

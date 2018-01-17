@@ -2,10 +2,39 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 import { Carousel } from 'react-responsive-carousel';
 import styles from 'react-responsive-carousel/lib/styles/carousel.min.css'
+import {
+    connect
+} from 'react-redux'
+import store, {
+    GetCheeses
+} from '../store/cheeses.js'
 
-export default class CheeseCarousel extends React.Component {
+class CheeseCarousel extends React.Component {
+
+    constructor(props) {
+        super(props)
+        // this.threeRandos = this.threeRandos.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.loadCheeses();
+    }
 
     render() {
+
+        const randoids = (n, lim) => {
+            let randos = []
+            let rand = 0
+            for (var i = 0; randos.length < n && rand < 100; rand++) {
+                i += (Math.random() * lim - i) | 0
+                if (!randos.includes(i)) randos.push(i)
+            }
+            return randos
+        }
+
+        let rand = randoids(3, this.props.cheeses.length - 1)
+
+
         return (
             <Carousel
                 autoPlay={true}
@@ -14,21 +43,36 @@ export default class CheeseCarousel extends React.Component {
                 infiniteLoop={true}
                 stopOnHover={true}
                 showStatus={false}
-                width='500px'
+                width='750px'
             >
-                <div>
-                    <img src="http://www.eatwisconsincheese.com/images/cheese/Cheddar-h.jpg" />
-                    <p className="legend">Legend 1</p>
-                </div>
-                <div>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Pecorino_romano_on_board_cropped.PNG" />
-                    <p className="legend">Legend 2</p>
-                </div>
-                <div>
-                    <img src="http://origin-www.fritolay.com/images/default-source/blue-bag-image/cheetos-fantastix-chili-cheese.png" />
-                    <p className="legend">Legend 3</p>
-                </div>
+                {
+                    this.props.cheeses.filter((v, i) => rand.includes(i)).map(function (cheese) {
+                        return (<div>
+                            <img src={cheese.imageUrl} />
+                            <p className="legend">{cheese.name}</p>
+                        </div>
+                        )
+                    })
+                }
             </ Carousel>
         );
     }
 };
+
+
+
+function mapStateToProps(storeState) {
+    return {
+        cheeses: storeState.cheeses
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        loadCheeses: (id) => {
+            dispatch(GetCheeses())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheeseCarousel)

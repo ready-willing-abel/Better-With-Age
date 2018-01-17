@@ -15,12 +15,18 @@ import {
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
-import { GetCheeses } from '../store/cheeses.js'
+import { GetCheeses } from '../store/cheeses.js';
+import FlatButton from 'material-ui/FlatButton';
 
 
 class Cart extends Component {
   constructor(props) {
     super(props)
+    this.state={
+      open:false
+    }
+    this.handleClose = this.handleClose.bind(this)
+    this.handlePurchase = this.handlePurchase.bind(this)
   }
 
   componentWillMount(){
@@ -28,7 +34,30 @@ class Cart extends Component {
     this.props.loadCheeses();
   }
 
+  handleClose(){
+    this.setState({ open: false })
+  }
+
+  handlePurchase(){
+    this.props.purchaseCart(this.props.unpurchasedOrders)
+    this.props.history.push(`/user/`)
+    this.setState({ open: false })
+  }
+
   render(){
+
+    let actions = [
+      <FlatButton
+        label="Purchase"
+        primary={true}
+        onClick={this.handlePurchase}
+      />,
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />]
+
     const cartTotal = this.props.unpurchasedOrders.reduce((a,b)=>{
       return a + (b.cheese.price * b.quantity)
     },0)
@@ -81,18 +110,23 @@ class Cart extends Component {
         </Table>
         <RaisedButton
         onClick={()=>{
-          this.props.purchaseCart(this.props.unpurchasedOrders)
-          this.props.history.push('/checkout')
+          this.setState({open:true})
         }}
         label={(this.props.unpurchasedOrders.length<1)?`Your Cart is Empty`:`Purchase Cart $${cartTotal}`}
         fullWidth={true}
         disabled={this.props.unpurchasedOrders.length<1}/>
+        <Dialog
+          title="Thank you for shopping!"
+          actions={actions}
+          modal={true}
+          open={this.state.open}>
+          If you are not sure you are happy with your cart, hit cancel to continue reviewing
+        </Dialog>
       </div>
     )
     else return (<div></div>)
   }
 }
-
 
 
 function mapStateToProps(storeState) {

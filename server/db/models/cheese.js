@@ -1,12 +1,9 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Review = require('./reviews')
 
 const Cheese = db.define('cheese', {
   name: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  category: {
     type: Sequelize.STRING,
     allowNull: false
   },
@@ -24,12 +21,16 @@ const Cheese = db.define('cheese', {
     type: Sequelize.TEXT,
     defaultValue: "",
     allowNull: true
+  },
+  totalReviews: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+  totalRatingSum: {
+    type: Sequelize.FLOAT,
+    defaultValue:0
   }
-  //need quantity of cheeses. 
-
-  //can cheese cost $-5 
-  //maybe some more validations
-  //perhaps integer.
 })
+
 
 module.exports = Cheese
