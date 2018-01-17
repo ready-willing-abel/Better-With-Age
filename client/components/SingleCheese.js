@@ -1,10 +1,27 @@
-import React, { Component } from 'react'
+import React, {
+    Component
+} from 'react'
 import RaisedButton from 'material-ui/RaisedButton';
-import { connect } from 'react-redux'
-import store, { GetCheeses } from '../store/cheeses.js'
-import { GetPurchasesAll, GetUnorderedPurchasesUser, GetOldPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
-import { NavLink } from 'react-router-dom'
-import { fetchReviews } from '../store/reviews';
+import {
+    connect
+} from 'react-redux'
+import store, {
+    GetCheeses
+} from '../store/cheeses.js'
+import {
+    GetPurchasesAll,
+    GetUnorderedPurchasesUser,
+    GetOldPurchasesUser,
+    UpdatePurchase,
+    AddPurchase,
+    DeletePurchase
+} from '../store/purchases'
+import {
+    NavLink
+} from 'react-router-dom'
+import {
+    fetchReviews
+} from '../store/reviews';
 
 
 class SingleCheese extends Component {
@@ -13,7 +30,7 @@ class SingleCheese extends Component {
         super(props)
     }
 
-    componentWillMount(){
+    componentWillMount() {
         this.props.loadCheeses();
         this.props.loadCart((this.props.user.id) ? this.props.user.id : 'UNAUTH')
         this.props.loadReviews();
@@ -24,39 +41,65 @@ class SingleCheese extends Component {
 
         let foundReviews = this.props.reviews.filter(review => review.cheeseId === currentCheese.id)
 
-        return (
-            <div className="container singleCheese">
 
-                <img src={this.props.cheeses && currentCheese.imageUrl} />
+        return ( <
+            div className = "container singleCheese" >
 
-                    <div className="title">{this.props.cheeses && currentCheese.name}</div>
-                    <div className="title">${this.props.cheeses && currentCheese.price}</div>
-                    <p> Description: {this.props.cheeses && currentCheese.description}</p>
+            <
+            img src = {
+                this.props.cheeses && currentCheese.imageUrl
+            }
+            />
 
-                    <div>
-                        <NavLink to="/cart">
-                            <button type="button" className="btn btn-default btn-lg"
-                                onClick={() => {
-                                    this.props.buySome((this.props.user.id) ? this.props.user.id : 'UNAUTH',this.props.unpurchasedOrders, currentCheese)
-                                    }}
-                                >
-                                <span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart
-                            </button>
-                        </NavLink>
-                    </div>
+            <
+            div className = "title" > {
+                this.props.cheeses && currentCheese.name
+            } < /div> <
+            div className = "title" > $ {
+                this.props.cheeses && currentCheese.price
+            } < /div> <
+            p > Description: {
+                this.props.cheeses && currentCheese.description
+            } < /p>
 
-                    {/*Creating the Reviews section*/}
-                    <div className="subtitle">
-                        Reviews:
-                    </div>
-                    
-                    {foundReviews.map(review => 
-                        <li key={review.id}>
-                            {review.review}
-                        </li>
-                    )}
+            <
+            div >
+            <
+            NavLink to = "/cart" >
+            <
+            button type = "button"
+            className = "btn btn-default btn-lg"
+            onClick = {
+                () => {
+                    this.props.buySome((this.props.user.id) ? this.props.user.id : 'UNAUTH', this.props.unpurchasedOrders, currentCheese)
+                }
+            } >
+            <
+            span className = "glyphicon glyphicon-shopping-cart" > < /span> Add to Cart <
+            /button> <
+            /NavLink> <
+            /div>
 
-            </div>
+            { /*Creating the Reviews section*/ } <
+            div className = "subtitle" >
+            Reviews:
+            <
+            /div>
+
+            {
+                foundReviews.map(review =>
+                    <
+                    li key = {
+                        review.id
+                    } > {
+                        review.review
+                    } <
+                    /li>
+                )
+            }
+
+            <
+            /div>
         )
     }
 }
@@ -79,16 +122,28 @@ function mapDispatchToProps(dispatch) {
             dispatch(GetCheeses())
         },
         deltQuantity: (id, value) => {
-            dispatch(UpdatePurchase(id, { quantity: value }))
+            dispatch(UpdatePurchase(id, {
+                quantity: value
+            }))
         },
-        buySome: (id,cart,cheese) => {
+        buySome: (id, cart, cheese) => {
             let cheeseInCart = cart.filter(v => v.cheese.name === cheese.name)[0] || null
-            if (cheeseInCart){
-                dispatch(UpdatePurchase(cheeseInCart.id, { quantity: parseInt(cheeseInCart.quantity) + 1 }))
-            }
-            else {
-                if (id!=='UNAUTH') dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: id, price: cheese.price }))
-                else dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, price: cheese.price }))
+            if (cheeseInCart) {
+                dispatch(UpdatePurchase(cheeseInCart.id, {
+                    quantity: parseInt(cheeseInCart.quantity) + 1
+                }))
+            } else {
+                if (id !== 'UNAUTH') dispatch(AddPurchase({
+                    quantity: 1,
+                    cheeseId: cheese.id,
+                    userId: id,
+                    price: cheese.price
+                }))
+                else dispatch(AddPurchase({
+                    quantity: 1,
+                    cheeseId: cheese.id,
+                    price: cheese.price
+                }))
             }
         },
         loadReviews: () => {

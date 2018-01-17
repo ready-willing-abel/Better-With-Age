@@ -43,7 +43,7 @@ class CheeseThumbnail extends Component {
             } > {
                 this.props.indCheese && this.props.indCheese.name
             } <
-            /NavLink> < /
+            /NavLink>< br / > < /
             div >
 
 
@@ -51,17 +51,25 @@ class CheeseThumbnail extends Component {
             img src = {
                 this.props.indCheese && this.props.indCheese.imageUrl
             }
-            /> <
+            /> < br / > <
             div >
             <
-            NavLink to = "/cart" > < RaisedButton label = "Buy some"
+            NavLink to = "/cart" >
+            <
+            button type = "button"
+            className = "btn btn-default btn-lg"
             onClick = {
                 () => {
                     this.props.buySome((this.props.user.id) ? this.props.user.id : false, this.props.unpurchasedOrders, this.props.indCheese)
                 }
-            }
-            /> < /
-            NavLink > <
+            } >
+
+            <
+            span className = "glyphicon glyphicon-shopping-cart" > < /span> Add to Cart < /
+            button >
+            <
+            /
+            NavLink > < br / > <
             div > $ {
                 this.props.indCheese.price
             } < /div> <

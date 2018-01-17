@@ -10,8 +10,6 @@ label {
   display: block;
 }
 
-
-
 nav a {
   display: inline-block;
   margin: 1em;
@@ -29,6 +27,11 @@ form div {
 .thumbnail img {
   height: 150px;
   width: auto;
+}
+
+.thumbnail {
+  width: 80%;
+  margin-left: 10%;
 }
 
 .singleCheese img {
