@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 
 import RaisedButton from 'material-ui/RaisedButton';
+import {CustomButton} from './customButton';
 
 import store, {logout} from '../store';
 
@@ -30,25 +31,28 @@ class Navbar extends Component {
                 {isLoggedIn ?
                   <div className="authButtons">
                     <NavLink to='/user'>
-                      <RaisedButton label='user' />
+                      <CustomButton label='User' />
                     </NavLink>
-                      <RaisedButton label='log out' onClick={this.props.handleLogout} />
+                      <CustomButton label='Log out' onClick={this.props.handleLogout} />
                   </div>
                   :
                   <div className="unauthButtons">
                     <NavLink to='/login'>
-                      <RaisedButton label='login' />
+                      <CustomButton label='Login' />
                     </NavLink>
                     <NavLink to='/signup'>
-                      <RaisedButton label='signup' />
+                      <CustomButton label='Signup' />
                     </NavLink>
                   </div>
                 }
+                <NavLink to='/checkout'>
+                  <CustomButton label='Checkout' />
+                </NavLink>
                 <NavLink to='/cart'>
-                  <RaisedButton label='cart' />
+                  <CustomButton label='Cart' />
                 </NavLink>
                 <NavLink to='/cheeses'>
-                  <RaisedButton label='all cheeses' />
+                  <CustomButton label='All cheeses' />
                 </NavLink>
               </div>
             }

@@ -25,17 +25,21 @@ class ManageCheeses extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      newopen: false,
+      newopen2: false,
       open: false,
       open2: false,
       selectedCheese: {},
       changes:{},
+      newCheese:{}
     };
     this.handleClose = this.handleClose.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmitNew = this.handleSubmitNew.bind(this)
   }
 
   handleClose() {
-    this.setState({ open2: false,open: false, selectedCheese: {}, changes: {} })
+    this.setState({ newopen2: false, newopen: false, open2: false, open: false, selectedCheese: {}, changes: {} })
   };
 
   handleSubmit(id,changes) {
@@ -43,11 +47,19 @@ class ManageCheeses extends Component {
     this.setState({ open2: false,open: false, selectedCheese: {}, changes: {} })
   };
 
+  handleSubmitNew() {
+    this.props.createCheese(this.state.newCheese)
+    this.setState({ newopen2: false, newopen: false, newCheese: {},})
+  };
+
   componentWillMount() {
     this.props.loadCheeses();
   }
 
   render() {
+
+    let itemsfornewcheese = []
+    for (var i = 0; i < 401; i++) itemsfornewcheese.push(<MenuItem value={i} key={i} primaryText={`${i}`} />)
 
     const actions = [
       <FlatButton
@@ -61,6 +73,14 @@ class ManageCheeses extends Component {
         keyboardFocused={true}
         onClick={()=>this.handleSubmit(this.state.selectedCheese.id,this.state.changes)}
       />,
+    ]
+
+    const newactions = [
+      <FlatButton
+        label="Update"
+        primary={true}
+        onClick={this.handleClose}
+      />
     ]
 
     return (
@@ -131,9 +151,118 @@ class ManageCheeses extends Component {
               )
             })
           }
+
+            <TableRow>
+              <TableRowColumn style={{ width: '19%' }}>
+                <TextField
+                  hintText={'New Cheese'}
+                  onChange={(e, name) => {
+                    this.setState({newCheese:Object.assign({},this.state.newCheese,{name})})
+                  }}
+                />
+              </TableRowColumn>
+              <TableRowColumn style={{ width: '12%' }}>
+                <FlatButton
+                  label={(this.state.newCheese.price) ? `$${this.state.newCheese.price}`:`$`}
+                  primary={true}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    this.setState({ newopen2: true})
+                  }}
+                />
+
+              </TableRowColumn>
+              <TableRowColumn style={{ width: '12%' }}>
+                <DropDownMenu
+                  maxHeight={400}
+                  value={(this.state.newCheese.quantity) ? this.state.newCheese.quantity:'stock'}
+                  onChange={(e, i, newQuantity) => {
+                    this.setState({ newCheese: Object.assign({}, this.state.newCheese, { quantity: newQuantity }) })
+                  }}>
+                  {itemsfornewcheese}
+                </DropDownMenu>
+              </TableRowColumn>
+              <TableRowColumn>
+                <TextField
+                  hintText={'newcheese.img.url'}
+                  onChange={(e, newImageUrl) => {
+                    this.setState({ newCheese: Object.assign({}, this.state.newCheese, { imageUrl: newImageUrl }) })
+                  }}
+                />
+              </TableRowColumn>
+              <TableRowColumn>
+                <RaisedButton
+                  label={(this.state.newCheese.description) ? "Edit Decription" : "Add Description"}
+                  onClick={() => {
+                    this.setState({newopen: true })
+                  }}
+                />
+              </TableRowColumn>
+            </TableRow>
+
           </TableBody>
 
         </Table>
+        <RaisedButton
+          label={
+            !(this.state.newCheese.name &&
+              this.state.newCheese.price &&
+              this.state.newCheese.quantity &&
+              this.state.newCheese.imageUrl &&
+              this.state.newCheese.description) ? "New Cheese Needs More Info" : "Submit New Cheese"
+          }
+          disabled={
+            !(this.state.newCheese.name &&
+            this.state.newCheese.price &&
+            this.state.newCheese.quantity &&
+            this.state.newCheese.imageUrl &&
+            this.state.newCheese.description)
+            }
+          onClick={this.handleSubmitNew}
+        />
+        <Dialog
+          style={{ height: 400 }}
+          title="Description"
+          actions={newactions}
+          modal={false}
+          open={this.state.newopen}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}
+        >
+          <TextField
+            fullWidth={true}
+            multiLine={true}
+            hintText={'Describe this glorious dairy'}
+            value={(this.state.newCheese.description) ? this.state.newCheese.description:''}
+            onChange={(e, val) => {
+              this.setState({ newCheese: Object.assign({}, this.state.newCheese, { description: val }) })
+            }}
+          />
+        </Dialog>
+        <Dialog
+          style={{ height: 70 }}
+          title="Price"
+          actions={newactions}
+          modal={false}
+          open={this.state.newopen2}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}
+        >
+          <Slider
+            min={0}
+            max={7}
+            defaultValue={(this.state.newCheese.price) ? Math.round(Math.log(3, this.state.newCheese.price), 2):3}
+            value={Math.round(Math.log(3, this.state.newCheese.price), 2)}
+            onChange={(e, val) => {
+              this.setState({ newCheese: Object.assign({}, this.state.newCheese, { price: Math.round(Math.pow(3, val), 2) }) })
+            }}
+          />
+          <p>
+            <span>{(this.state.newCheese.price) ? `$${this.state.newCheese.price}` : `set a price`}</span>
+          </p>
+        </Dialog>
+
+
         <Dialog
           style={{height:400}}
           title="Description"
@@ -194,6 +323,9 @@ function mapDispatchToProps(dispatch) {
     },
     changeCheese: (id, change) => {
       dispatch(UpdateCheese(id, change))
+    },
+    createCheese: (cheese) => {
+      dispatch(AddCheese(cheese))
     }
   }
 }
