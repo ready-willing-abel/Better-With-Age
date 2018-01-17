@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import RaisedButton from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
 import store, { GetCheeses } from '../store/cheeses.js'
 import { GetPurchasesAll, GetUnorderedPurchasesUser, GetOldPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
 import { NavLink } from 'react-router-dom'
-import { fetchReviews } from '../store/reviews';
+import { fetchReviews } from '../store/reviews'
+import { GetUsers } from '../store/users'
 
 
 class SingleCheese extends Component {
@@ -17,12 +18,21 @@ class SingleCheese extends Component {
         this.props.loadCheeses();
         this.props.loadCart((this.props.user.id) ? this.props.user.id : 'UNAUTH')
         this.props.loadReviews();
+        this.props.loadUsers();
     }
 
     render() {
         let currentCheese = this.props.cheeses.find(cheese => cheese.id == this.props.match.params.id)
 
         let foundReviews = this.props.reviews.filter(review => review.cheeseId === currentCheese.id)
+        // console.log("These are the reviews", foundReviews)
+
+        // let foundMembers= foundReviews.map(review => review.userId === member.id)
+        // console.log("These are the members", foundMembers)
+
+        // console.log("THESE ARE MEMBERS", foundMembers)
+
+        
 
         return (
             <div className="container singleCheese">
@@ -31,7 +41,7 @@ class SingleCheese extends Component {
 
                     <div className="title">{this.props.cheeses && currentCheese.name}</div>
                     <div className="title">${this.props.cheeses && currentCheese.price}</div>
-                    <p> Description: {this.props.cheeses && currentCheese.description}</p>
+                    
 
                     <div>
                         <NavLink to="/cart">
@@ -45,15 +55,24 @@ class SingleCheese extends Component {
                         </NavLink>
                     </div>
 
+                    <header className = "subtitle">Description</header> 
+                    <p>{this.props.cheeses && currentCheese.description}</p>
+
                     {/*Creating the Reviews section*/}
                     <div className="subtitle">
-                        Reviews:
+                       Customer Reviews
                     </div>
                     
                     {foundReviews.map(review => 
-                        <li key={review.id}>
-                            {review.review}
-                        </li>
+                        <div key={review.id}>
+                            <div className="name">
+                                <i className="material-icons">account_circle</i>
+                                {review.user.name}
+                            </div>
+                            <div>
+                                {review.review}
+                            </div>
+                        </div>
                     )}
 
             </div>
@@ -90,6 +109,9 @@ function mapDispatchToProps(dispatch) {
                 if (id!=='UNAUTH') dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: id, price: cheese.price }))
                 else dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, price: cheese.price }))
             }
+        },
+        loadUsers: () => {
+            dispatch(GetUsers())
         },
         loadReviews: () => {
             dispatch(fetchReviews())

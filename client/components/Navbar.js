@@ -45,9 +45,6 @@ class Navbar extends Component {
                     </NavLink>
                   </span>
                 }
-                
-                
-
 
                 <NavLink to='/cart'>
                   <RaisedButton label='cart' />

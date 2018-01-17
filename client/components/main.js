@@ -20,21 +20,6 @@ const Main = (props) => {
     <MuiThemeProvider>
       <div>
         <Navbar />
-        {/*<nav>
-          {
-            isLoggedIn
-              ? <div>
-
-                <Link to="/home">Home</Link>
-                <a href="#" onClick={handleClick}>Logout</a>
-              </div>
-              : <div>
-
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Sign Up</Link>
-              </div>
-          }
-        </nav>*/}
         <hr />
         {children}
       </div>

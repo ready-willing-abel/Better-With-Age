@@ -1,19 +1,13 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
 import { Carousel } from 'react-responsive-carousel';
 import styles from 'react-responsive-carousel/lib/styles/carousel.min.css'
-import {
-    connect
-} from 'react-redux'
-import store, {
-    GetCheeses
-} from '../store/cheeses.js'
+import { connect } from 'react-redux'
+import store, { GetCheeses } from '../store/cheeses.js'
 
 class CheeseCarousel extends React.Component {
 
     constructor(props) {
         super(props)
-        // this.threeRandos = this.threeRandos.bind(this);
     }
 
     componentDidMount() {
@@ -43,12 +37,12 @@ class CheeseCarousel extends React.Component {
                 infiniteLoop={true}
                 stopOnHover={true}
                 showStatus={false}
-                width='550px'
+                width='500px'
 
             >
                 {
                     this.props.cheeses.filter((v, i) => rand.includes(i)).map(function (cheese) {
-                        return (<div>
+                        return (<div key={cheese.id}>
                             <img src={cheese.imageUrl} />
                             <p className="legend">{cheese.name}</p>
                         </div>

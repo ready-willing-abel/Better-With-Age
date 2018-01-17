@@ -6,10 +6,10 @@ export default class FrontPage extends Component {
 
     render() {
         return (
-            <div className= "container">
+            <center className= "container">
                 <div className='title'>Welcome to BWA</div>
                 <CheeseCarousel />
-            </div>
+            </center>
         )
     }
 }
