@@ -19,7 +19,7 @@ const defaultCheeses = []
  */
 
 const getCheeses = cheeses => ({ type: GET_CHEESES, cheeses })
-const updateCheese = (id,changes) => ({ type: REMOVE_CHEESE, id, changes })
+const updateCheese = (id, changes) => ({ type: UPDATE_CHEESE, id, changes })
 const addCheese = cheese => ({type: ADD_CHEESE, cheese})
 
 /**
@@ -30,7 +30,7 @@ export const UpdateCheese = (id, changes) =>{
   return dispatch =>
     axios.put(`/api/cheeses/${id}`, changes)
       .then(res => {
-        dispatch(updateCheese(changes))
+        dispatch(updateCheese(id,changes))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))}
 
@@ -59,6 +59,7 @@ export default function (state = defaultCheeses, action) {
     case GET_CHEESES:
       return action.cheeses
     case UPDATE_CHEESE:
+      console.log(action)
       return state.map(v=>{
         return (v.id === action.id)? Object.assign({}, v, action.changes) : v
       })
