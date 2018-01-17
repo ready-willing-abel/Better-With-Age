@@ -1,6 +1,7 @@
 const router = require('express').Router()
-const {Review} = require('../db/models')
+const {Review, User} = require('../db/models')
 module.exports = router
+
 
 
 router.get('/:id', (req, res, next) => {
@@ -16,7 +17,9 @@ router.get('/:id', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
   //only let a user look up his/herself
-  Review.findAll()
+  Review.findAll({
+    include:[{model:User}]
+  })
     .then(review => res.json(review))
     .catch(next)
 })
