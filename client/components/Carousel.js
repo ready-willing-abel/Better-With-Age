@@ -44,6 +44,7 @@ class CheeseCarousel extends React.Component {
                 stopOnHover={true}
                 showStatus={false}
                 width='750px'
+                /* dynamicHeight={true} */
             >
                 {
                     this.props.cheeses.filter((v, i) => rand.includes(i)).map(function (cheese) {

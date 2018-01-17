@@ -7,6 +7,6 @@ const textStyle = {
 
 export const CustomButton = (props) => {
   return (
-   <RaisedButton label={props.label} className="navButton" labelStyle={textStyle} />
+   <RaisedButton onClick={props.onClick} label={props.label} className="navButton" labelStyle={textStyle} />
   )
 }
