@@ -131,7 +131,10 @@ class Cart extends Component {
 
 function mapStateToProps(storeState) {
   return {
-    unpurchasedOrders: storeState.purchases,
+    unpurchasedOrders: storeState.purchases.reduce((a,b)=>{
+      if(!a.map(v=>v.id).includes(b.id)) a.push(b)
+      return a
+    },[]),
     user: storeState.user
   }
 }

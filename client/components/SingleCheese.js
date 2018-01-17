@@ -14,7 +14,7 @@ class SingleCheese extends Component {
         super(props)
     }
 
-    componentWillMount(){
+    componentWillMount() {
         this.props.loadCheeses();
         this.props.loadCart((this.props.user.id) ? this.props.user.id : 'UNAUTH')
         this.props.loadReviews();
@@ -100,16 +100,28 @@ function mapDispatchToProps(dispatch) {
             dispatch(GetCheeses())
         },
         deltQuantity: (id, value) => {
-            dispatch(UpdatePurchase(id, { quantity: value }))
+            dispatch(UpdatePurchase(id, {
+                quantity: value
+            }))
         },
-        buySome: (id,cart,cheese) => {
+        buySome: (id, cart, cheese) => {
             let cheeseInCart = cart.filter(v => v.cheese.name === cheese.name)[0] || null
-            if (cheeseInCart){
-                dispatch(UpdatePurchase(cheeseInCart.id, { quantity: parseInt(cheeseInCart.quantity) + 1 }))
-            }
-            else {
-                if (id!=='UNAUTH') dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, userId: id, price: cheese.price }))
-                else dispatch(AddPurchase({ quantity: 1, cheeseId: cheese.id, price: cheese.price }))
+            if (cheeseInCart) {
+                dispatch(UpdatePurchase(cheeseInCart.id, {
+                    quantity: parseInt(cheeseInCart.quantity) + 1
+                }))
+            } else {
+                if (id !== 'UNAUTH') dispatch(AddPurchase({
+                    quantity: 1,
+                    cheeseId: cheese.id,
+                    userId: id,
+                    price: cheese.price
+                }))
+                else dispatch(AddPurchase({
+                    quantity: 1,
+                    cheeseId: cheese.id,
+                    price: cheese.price
+                }))
             }
         },
         loadUsers: () => {
