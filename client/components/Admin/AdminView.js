@@ -5,6 +5,7 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import { OrdersTable } from './orderTable'
 import UserTable from './UserTable'
+import ManageCheeses from './manageCheeses'
 import { GetOldPurchasesUser, GetPurchasesAll } from '../../store/purchases'
 import store from '../../store'
 
@@ -78,6 +79,16 @@ class AdminPage extends Component {
           <CardText expandable={true} >
             <h3>Users</h3>
             <UserTable/>
+          </CardText>
+        </Card>
+        <Card>
+          <CardHeader
+            title="Manage Cheeses"
+            showExpandableButton={true}
+          />
+          <CardText expandable={true} >
+            <h3>Cheeses</h3>
+            <ManageCheeses />
           </CardText>
         </Card>
       </Paper>

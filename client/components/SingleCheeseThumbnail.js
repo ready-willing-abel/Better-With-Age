@@ -1,13 +1,7 @@
-import React, {
-    Component
-} from 'react'
+import React, {Component} from 'react'
 import RaisedButton from 'material-ui/RaisedButton';
-import {
-    connect
-} from 'react-redux'
-import store, {
-    GetCheeses
-} from '../store/cheeses.js'
+import {connect} from 'react-redux'
+import store, {GetCheeses} from '../store/cheeses.js'
 import {
     GetPurchasesAll,
     GetUnorderedPurchasesUser,
@@ -16,9 +10,7 @@ import {
     AddPurchase,
     DeletePurchase
 } from '../store/purchases'
-import {
-    NavLink
-} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import Rating from 'react-rating'
 
 class CheeseThumbnail extends Component {
@@ -32,31 +24,20 @@ class CheeseThumbnail extends Component {
     }
 
     render() {
-        return ( <
-            div className = "thumbnail" >
-
-            <
-            div className = "title" >
-            <
-            NavLink to = {
-                `/cheeses/${this.props.indCheese.id}`
-            } > {
-                this.props.indCheese && this.props.indCheese.name
-            } <
-            /NavLink>< br / > < /
-            div >
-
-
-            <
-            img src = {
+        return (
+            <div className = "thumbnail" >
+            <div className = "title" >
+            <NavLink to = {`/cheeses/${this.props.indCheese.id}`}>
+                {this.props.indCheese && this.props.indCheese.name}
+            </NavLink>
+            <br/>
+            </div>
+            <img src = {
                 this.props.indCheese && this.props.indCheese.imageUrl
-            }
-            /> < br / > <
-            div >
-            <
-            NavLink to = "/cart" >
-            <
-            button type = "button"
+            }/><br/>
+            <div>
+            <NavLink to = "/cart" >
+            <button type = "button"
             className = "btn btn-default btn-lg"
             onClick = {
                 () => {
@@ -64,27 +45,18 @@ class CheeseThumbnail extends Component {
                 }
             } >
 
-            <
-            span className = "glyphicon glyphicon-shopping-cart" > < /span> Add to Cart < /
-            button >
-            <
-            /
-            NavLink > < br / > <
-            div > $ {
+            <span className = "glyphicon glyphicon-shopping-cart" >
+            </span> Add to Cart </button >
+            </NavLink > < br/>
+            <div> $ {
                 this.props.indCheese.price
-            } < /div> <
-            div >
-            <
-            Rating initialRating = {
+            } </div> <div>
+            <Rating initialRating = {
                 (this.props.indCheese.totalReviews) ? this.props.indCheese.totalRatingSum / this.props.indCheese.totalReviews : 0
             }
 
-            readonly /
-            >
-            <
-            /div> < /
-            div > <
-            /div>
+            readonly/>
+            </div> </div> </div>
         )
     }
 }

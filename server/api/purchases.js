@@ -75,6 +75,7 @@ router.get('/user/cart/:id', (req, res, next) => {
       })
         .then(morePurchases => {
           morePurchases.filter(v=>!AllPurchases.map(w=>w.id).includes(v.id))
+          req.session.cart = []
           res.json(AllPurchases.concat(morePurchases))
         })
         .catch(next)
