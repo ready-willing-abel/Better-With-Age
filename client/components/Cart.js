@@ -30,8 +30,11 @@ class Cart extends Component {
   }
 
   componentWillMount(){
-    this.props.loadCart((this.props.user.id) ? this.props.user.id: 'UNAUTH')
-    this.props.loadCheeses();
+    let self = this
+    setTimeout(function() {
+      self.props.loadCart((self.props.user.id) ? self.props.user.id : 'UNAUTH')
+      self.props.loadCheeses();
+    }, 50);
   }
 
   handleClose(){
@@ -45,7 +48,6 @@ class Cart extends Component {
   }
 
   render(){
-
     let actions = [
       <FlatButton
         label="Purchase"
@@ -158,7 +160,7 @@ function mapDispatchToProps(dispatch) {
           {
             cheeseQ: item.cheese.quantity,
             cheeseId: item.cheeseId,
-            priceAtTimeOfSale: item.price,
+            priceAtTimeOfSale: item.cheese.price,
             ordered: true,
             orderStatus: "processing",
             quantity: item.quantity

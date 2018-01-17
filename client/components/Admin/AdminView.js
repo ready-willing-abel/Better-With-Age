@@ -23,7 +23,7 @@ const groupPurchases = (purchases) => {
   let orders = {}
   if (purchases) {
     purchases.forEach(purchase => {
-      let timestamp = purchase.createdAt.slice(0, 16);
+      let timestamp = purchase.updatedAt.slice(0, 16);
       if (orders[timestamp]) { orders[timestamp].push(purchase) }
       else { orders[timestamp] = [purchase] }
     })

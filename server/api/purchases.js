@@ -69,6 +69,8 @@ router.get('/user/cart/:id', (req, res, next) => {
           id: req.session.cart,
           ordered: false
         }
+      }).then((vals)=>{
+        console.log(vals)
       })
       Purchase.findAll({
         where: {
