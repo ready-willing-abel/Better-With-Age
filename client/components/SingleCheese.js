@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import store, { GetCheeses } from '../store/cheeses.js'
 import { GetPurchasesAll, GetUnorderedPurchasesUser, GetOldPurchasesUser, UpdatePurchase, AddPurchase, DeletePurchase } from '../store/purchases'
 import { NavLink } from 'react-router-dom'
-import { fetchReviews } from '../store/reviews'
+import { fetchReviews, postReview } from '../store/reviews'
 import { GetUsers } from '../store/users'
 import Rating from 'react-rating'
 
@@ -54,9 +54,22 @@ class SingleCheese extends Component {
                     <header className = "subtitle">Description</header> 
                     <p>{this.props.cheeses && currentCheese.description}</p>
 
+
+    
+                    <div className="subtitle">
+                        Leave A Review: 
+                    </div>
+                    
+                    <form onSubmit={this.props.handleSubmit}>
+                        <label>
+                            <textarea name="newReview" value={this.value} rows="4" cols="50"/>
+                        </label>
+                        <button type="submit" className="btn btn-default btn-sm">Submit</button>
+                    </form>
+
                     {/*Creating the Reviews section*/}
                     <div className="subtitle">
-                       Customer Reviews 
+                       Customer Reviews
                     </div>
                     <br></br>
                     {foundReviews.map(review => 
@@ -87,11 +100,12 @@ function mapStateToProps(storeState) {
         cheeses: storeState.cheeses,
         unpurchasedOrders: storeState.purchases,
         user: storeState.user,
-        reviews: storeState.reviews
+        reviews: storeState.reviews,
+        userName: storeState.user.name
     }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
     return {
         loadCart: (id) => {
             dispatch(GetUnorderedPurchasesUser(id))
@@ -130,6 +144,13 @@ function mapDispatchToProps(dispatch) {
         loadReviews: () => {
             dispatch(fetchReviews())
         }
+        // handleSubmit (e) {
+		// 	e.preventDefault();
+        //     const newReview = e.target.newReview.value;
+        //     console.log("these are ownprops", ownProps)
+        //     dispatch(postReview({review:newReview, cheeseId:ownProps.match.params.id,
+        //     userId:ownProps.user.id}));
+        // }
     }
 }
 

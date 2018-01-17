@@ -1,18 +1,17 @@
 import React, {Component} from 'react'
 import {NavLink, Route, Switch, Redirect} from 'react-router-dom'
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-
 import RaisedButton from 'material-ui/RaisedButton';
 import {CustomButton} from './customButton';
-
 import store, {logout} from '../store';
-
 import {connect} from 'react-redux'
-
+import history from '../history'
 
 class Navbar extends Component {
+  onTitle() {
+    history.push('/')
+  }
 
   render() {
     const {isLoggedIn} = this.props
@@ -23,6 +22,7 @@ class Navbar extends Component {
           <AppBar
           className="header"
           title='Better With Age'
+          onTitleClick = {this.onTitle}
           showMenuIconButton={false}
           style={{background: '#FFB74D'}}
           titleStyle={{margin: 'auto', fontSize: '2em'}}

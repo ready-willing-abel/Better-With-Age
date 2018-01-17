@@ -36,10 +36,12 @@ export const fetchReviews = () => {
     }
   }
 
-  export const postReview = () => {
+  export const postReview = (review) => {
+    console.log("THIS IS WHAT IS PASSED", review)
     return dispatch => {
-      axios.post('api/reviews/')
+      axios.post('/api/reviews/', review)
         .then(res => {
+          console.log('THIS IS THE REVIEW', review);
           dispatch(addReview(res.data))
         })
         .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
